@@ -5,7 +5,10 @@ import MainPage from './pages/main/MainPage';
 import LoginPage from './pages/login/login-page';
 import NotFoundPage from './pages/not-found-page/NotFoundPage';
 import ProfilePage from './pages/profile/ProfilePage';
-
+import ThingCell from './components/thing-cell/ThingCell';
+import { profile } from './mock-data/data';
+import { things } from './mock-data/data';
+import ThingCellList from './components/thing-cell-list/ThingCellList';
 
 interface AppProps {
 }
@@ -18,7 +21,7 @@ const App: FC<AppProps> = () => {
                 <Route path={ '/register/:invCode?' } element={ <LoginPage/> }/>
 
                 <Route path={ '/profile/:profileId?' } element={ <ProfilePage/> }>
-                    <Route path={ 'things' } element={ <p>things panel</p> }/>
+                    <Route path={ 'things' } element={ <ThingCellList items={profile.profileTasks}/> }/>
                     <Route path={ 'collections' } element={ <p>collections panel</p> }/>
                     <Route path={ 'archive' } element={ <p>archive panel</p> }/>
                 </Route>

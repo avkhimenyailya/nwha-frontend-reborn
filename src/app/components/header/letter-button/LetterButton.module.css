@@ -1,5 +1,5 @@
 .letterButton {
-    width: 26px;
+    width: 177px;
     height: 26px;
     display: flex;
     flex-direction: row;
@@ -7,4 +7,6 @@
     align-items: center;
     color: var(--bg-color);
     background-color: var(--main-color);
+
+    cursor: pointer;
 }

@@ -1,3 +1,14 @@
 .smallButton {
+    width: 177px;
+    height: 40px;
 
+    background: #F8F8F8;
+    border: 1px solid var(--sub-color2);
+
+    cursor: pointer;
+}
+
+.smallButton:hover {
+    color: var(--bg-color);
+    background: var(--main-color);
 }

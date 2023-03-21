@@ -1,21 +1,50 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import classes from './ThingCell.module.css';
 import { Thing } from '../../models/Thing';
 import { ProfileTask } from '../../models/ProfileTask';
+import ContextMenu from '../contex-menu/ContextMenu';
+import SmallButton from '../primitives/buttons/small-button/SmallButton';
+
+const iconPlus = require('./plus.svg').default;
 
 interface ThingCellProps {
-    item: Thing | ProfileTask;
+    thing?: Thing;
+    profileTask?: ProfileTask;
 }
 
-const ThingCell: FC<ThingCellProps> = ({ item }: ThingCellProps) => {
+const ThingCell: FC<ThingCellProps> = ({ thing, profileTask }: ThingCellProps) => {
+    const [ hover, setHover ] = useState(false);
 
-    function isThing(obj: Thing | ProfileTask): obj is Thing {
-        return (obj as Thing).id !== undefined;
-    }
+    const handleHover = (flag: boolean) => {
+        setHover(flag);
+    };
+
+    const thingCellClasses: string[] = [
+        classes.container,
+        hover && classes.cellHover,
+        thing && classes.thingContainer,
+        profileTask && classes.profileTaskContainer
+    ];
 
     return (
-        <div className={ classes.container }>
-            <p>This ThingCell component</p>
+        <div
+            onMouseEnter={ () => handleHover(true) }
+            onMouseLeave={ () => handleHover(false) }
+            className={ thingCellClasses.join(' ') }>
+            { (hover && profileTask) && <img style={{border: '1px solid red'}} alt={ '?' } src={ iconPlus }/> }
+            { thing &&
+                <>
+                    <img style={ { objectFit: 'contain' } } alt={ '?' } src={ thing?.fileUrl }/>
+                    { hover &&
+                        <div style={ { position: 'absolute', bottom: -1 } }>
+                            <ContextMenu buttons={ [
+                                <SmallButton value={ 'edit' } onClick={ () => console.log() }/>,
+                                <SmallButton value={ 'edit' } onClick={ () => console.log() }/>
+                            ] }/>
+                        </div>
+                    }
+                </>
+            }
         </div>
     );
 };

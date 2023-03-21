@@ -36,7 +36,7 @@
 }
 
 .labelContainer p {
-    color: var(--disable-color);
+    color: var(--sub-color2);
 }
 
 @media screen and (max-width: 390px) {

@@ -1,6 +1,7 @@
 import { Profile } from '../models/Profile';
 import { Trait } from '../models/Trait';
 import { Task } from '../models/Task';
+import { Thing } from '../models/Thing';
 
 export const tasks: Task[] = [
     {
@@ -31,6 +32,17 @@ export const traits: Trait[] = [
     { id: 10, name: 'Feeling' }
 ];
 
+export const things: Thing[] = [
+    {
+        id: 1,
+        fileUrl: 'https://upload.wikimedia.org/wikipedia/ru/4/4c/Neo2.jpg',
+        description: '',
+        archived: false,
+        createdAt: '',
+        updatedAt: ''
+    }
+];
+
 export const profile: Profile = {
     id: 1,
     username: 'ilya',
@@ -41,6 +53,24 @@ export const profile: Profile = {
         { id: 3, taskId: 1, answers: [ { id: 3245, optionId: 2, profileTaskId: 2 } ] },
         { id: 4, taskId: 1, answers: [ { id: 2342, optionId: 1, profileTaskId: 3 } ] },
         { id: 5, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
+        { id: 6, taskId: 1, answers: [] },
         { id: 6, taskId: 1, answers: [] }
     ],
     profilePairsTraits: [

@@ -3,7 +3,7 @@ import classes from './Header.module.css';
 import Logo from '../primitives/logo/Logo';
 import LetterButton from './letter-button/LetterButton';
 import { Profile } from '../../models/Profile';
-import SmallMenu from '../small-menu/SmallMenu';
+import ContextMenu from '../contex-menu/ContextMenu';
 import SmallButton from '../primitives/buttons/small-button/SmallButton';
 
 interface HeaderProps {
@@ -13,8 +13,8 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ authProfile }: HeaderProps) => {
     const [ showMenu, setShowMenu ] = useState(false);
 
-    const clickByLetterButton = () => {
-        setShowMenu(prevState => !prevState);
+    const handleHover = (flag: boolean): void => {
+        setShowMenu(flag);
     };
 
     const profile = () => {
@@ -32,15 +32,38 @@ const Header: FC<HeaderProps> = ({ authProfile }: HeaderProps) => {
     return (
         <div className={ classes.container }>
             <Logo/>
-            <LetterButton
-                profileName={ authProfile.username }
-                onClick={ clickByLetterButton }
-            />
-            { showMenu && <SmallMenu smallButtons={
-                [ <SmallButton onClick={ profile }/>,
-                    <SmallButton onClick={ settings }/>,
-                    <SmallButton onClick={ logout }/> ]
-            }/> }
+            <div style={ {
+                display: 'inline-flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end'
+            } }>
+                <div style={ { marginLeft: 'auto' } }>
+                    <LetterButton
+                        profileName={ authProfile.username }
+                        handleHover={ handleHover }
+                    />
+                </div>
+                { showMenu &&
+                    <div
+                        onMouseEnter={ () => setShowMenu(true) }
+                        onMouseLeave={ () => setShowMenu(false) }
+                        style={ {
+                            position: 'absolute',
+                            right: 0,
+                            top: 26 + 'px',
+                            paddingTop: 8 + 'px',
+                            cursor: 'pointer'
+                        } }>
+                        <ContextMenu
+                            buttons={ [
+                                <SmallButton value={ 'profile' } onClick={ profile }/>,
+                                <SmallButton value={ 'setting' } onClick={ settings }/>,
+                                <SmallButton value={ 'log out' } onClick={ logout }/>
+                            ] }
+                        />
+                    </div>
+                }
+            </div>
         </div>
     );
 };
