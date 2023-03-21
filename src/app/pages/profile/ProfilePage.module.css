@@ -1,0 +1,54 @@
+.profileHeader {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 88px;
+    margin-bottom: 71px;
+}
+
+.usernameContainer {
+    width: 264px;
+    min-height: 167px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profileInfoContainer {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 968px;
+    justify-content: space-between;
+    gap: 40px 88px;
+}
+
+.profileDescriptionContainer {
+    width: 440px;
+    min-height: 167px;
+}
+
+.profileTraitsContainer {
+    width: 440px;
+    min-height: 167px;
+}
+
+.labelContainer {
+    margin-bottom: 24px;
+}
+
+.labelContainer p {
+    color: var(--disable-color);
+}
+
+@media screen and (max-width: 390px) {
+    .usernameContainer {
+        width: 358px;
+    }
+
+    .profileDescriptionContainer {
+        width: 358px;
+    }
+
+    .profileTraitsContainer {
+        width: 358px;
+    }
+}

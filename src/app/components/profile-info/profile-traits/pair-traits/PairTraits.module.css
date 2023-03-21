@@ -1,0 +1,12 @@
+.pair {
+    display: flex;
+}
+
+.traitName {
+    width: 80px;
+}
+
+.symbolChart {
+    margin-left: 5px;
+    margin-right: 5px;
+}

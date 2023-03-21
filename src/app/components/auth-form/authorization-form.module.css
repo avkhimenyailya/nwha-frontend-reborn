@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formContainer {
+    width: 300px;
+}
+
+.logoContainer {
+    margin-bottom: 23px;
+}
+
+.usernameContainer {
+    margin-bottom: 8px;
+}
+
+.passwordContainer {
+    margin-bottom: 20px;
+}
+
+.buttonContainer {
+
+}

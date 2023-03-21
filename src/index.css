@@ -1,0 +1,28 @@
+@import "/src/reset.css";
+@import "/src/themes/_index.css";
+
+input, p {
+    font-family: 'Times New Roman', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.03em;
+    color: var(--main-color);
+
+    overflow-wrap: break-word;
+    font-feature-settings: "liga" 0, "rlig" 0, "dlig" 0, "hlig" 0, "smcp" 0;
+    -webkit-line-break: after-white-space;
+    white-space: pre-wrap;
+    text-rendering: optimizelegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+*::selection {
+    background-color: var(--bg-color-select);
+    color: var(--color-select);
+}

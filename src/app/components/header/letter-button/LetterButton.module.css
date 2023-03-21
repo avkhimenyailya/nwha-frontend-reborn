@@ -1,0 +1,10 @@
+.letterButton {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: var(--bg-color);
+    background-color: var(--main-color);
+}
