@@ -1,13 +1,11 @@
-.container {
+.navigator {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-.navItem {
-
-}
-
-.navItem p {
-    background-color: var(--bg-color-text)
+.item {
+    width: min-content;
+    background-color: var(--bg-text);
+    cursor: pointer;
 }

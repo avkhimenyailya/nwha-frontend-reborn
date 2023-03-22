@@ -49,9 +49,8 @@ const Header: FC<HeaderProps> = ({ authProfile }: HeaderProps) => {
                         onMouseLeave={ () => setShowMenu(false) }
                         style={ {
                             position: 'absolute',
-                            right: 0,
-                            top: 26 + 'px',
-                            paddingTop: 8 + 'px',
+                            right: 12 + 'px',
+                            top: 12 + 'px',
                             cursor: 'pointer'
                         } }>
                         <ContextMenu

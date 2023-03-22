@@ -2,8 +2,8 @@
     width: 177px;
     height: 40px;
 
-    background: #F8F8F8;
-    border: 1px solid var(--sub-color2);
+    background: var(--bg-color);
+    border: 1px solid var(--main-color);
 
     cursor: pointer;
 }
@@ -11,4 +11,8 @@
 .smallButton:hover {
     color: var(--bg-color);
     background: var(--main-color);
+}
+
+.smallButton:active {
+    padding-top: 3px;
 }

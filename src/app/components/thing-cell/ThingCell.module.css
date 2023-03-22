@@ -1,3 +1,10 @@
+.thingCellContainer {
+    display: flex;
+    flex-direction: column;
+
+    cursor: pointer;
+}
+
 .container {
     width: 177px;
     height: 177px;
@@ -5,7 +12,6 @@
     background: var(--bg-color);
     border: 1px solid var(--sub-color1);
 
-    cursor: pointer;
     margin-bottom: 10px;
 }
 
@@ -21,7 +27,6 @@
 }
 
 .thingContainer {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,5 +35,5 @@
 
 .cellHover {
     position: relative;
-    border: 1px solid var(--sub-color2);
+    border: 1px solid var(--main-color);
 }

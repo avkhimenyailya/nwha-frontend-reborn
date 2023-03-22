@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 
 interface ProfileDescriptionProps {
-    description?: string;
+    text?: string;
 }
 
-const ProfileDescription: FC<ProfileDescriptionProps> = ({ description }: ProfileDescriptionProps) => {
+const ProfileDescription: FC<ProfileDescriptionProps> = ({ text }: ProfileDescriptionProps) => {
     return (
-        <p style={ { maxWidth: '372px', wordWrap: 'break-word' } }>
-            { description }
+        <p style={ { maxWidth: '372px' } }>
+            { text }
         </p>
     );
 };

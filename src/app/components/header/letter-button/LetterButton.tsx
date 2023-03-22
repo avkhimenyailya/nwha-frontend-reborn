@@ -24,7 +24,7 @@ const LetterButton: FC<LetterButtonProps> = ({ handleHover, profileName, onClick
                 handleHover(false);
             } }
             className={ classes.letterButton }
-            value={ '@' + profileName }
+            value={ profileName.charAt(0).toUpperCase() }
             onClick={ onClick }
         />
     );

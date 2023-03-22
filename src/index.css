@@ -22,6 +22,10 @@ body {
     background-color: var(--bg-color);
 }
 
+* {
+
+}
+
 *::selection {
     background-color: var(--bg-select-color);
     color: var(--color-select);

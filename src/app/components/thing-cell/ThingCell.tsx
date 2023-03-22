@@ -19,6 +19,8 @@ const ThingCell: FC<ThingCellProps> = ({ thing, profileTask }: ThingCellProps) =
         setHover(flag);
     };
 
+
+
     const thingCellClasses: string[] = [
         classes.container,
         hover && classes.cellHover,
@@ -27,24 +29,54 @@ const ThingCell: FC<ThingCellProps> = ({ thing, profileTask }: ThingCellProps) =
     ];
 
     return (
-        <div
-            onMouseEnter={ () => handleHover(true) }
-            onMouseLeave={ () => handleHover(false) }
-            className={ thingCellClasses.join(' ') }>
-            { (hover && profileTask) && <img style={{border: '1px solid red'}} alt={ '?' } src={ iconPlus }/> }
-            { thing &&
-                <>
-                    <img style={ { objectFit: 'contain' } } alt={ '?' } src={ thing?.fileUrl }/>
-                    { hover &&
-                        <div style={ { position: 'absolute', bottom: -1 } }>
-                            <ContextMenu buttons={ [
-                                <SmallButton value={ 'edit' } onClick={ () => console.log() }/>,
-                                <SmallButton value={ 'edit' } onClick={ () => console.log() }/>
-                            ] }/>
-                        </div>
-                    }
-                </>
-            }
+        <div className={ classes.thingCellContainer }>
+            <div
+                onMouseEnter={ () => handleHover(true) }
+                onMouseLeave={ () => handleHover(false) }
+                className={ thingCellClasses.join(' ') }>
+
+                {/* todo вынести в другие компоненты */ }
+                {
+                    profileTask &&
+                    <>
+                        {
+                            hover
+                                ? <>
+                                    <img
+                                        alt={ '?' }
+                                        src={ iconPlus }
+                                        draggable={ false }
+                                        style={ { userSelect: 'none' } }
+                                    />
+                                </>
+                                : <>
+                                    {/* todo profileTask на чужом профиле */ }
+                                </>
+                        }
+                    </>
+                }
+
+                {
+                    thing &&
+                    <>
+                        <img
+                            alt={ '?' }
+                            draggable={ false }
+                            style={ { objectFit: 'contain' } }
+                            src={ thing.fileUrl }
+                        />
+                        {
+                            hover &&
+                            <div style={ { position: 'absolute', left: 0, bottom: -1 } }>
+                                <ContextMenu buttons={ [
+                                    <SmallButton value={ 'edit' } onClick={ () => console.log() }/>
+                                ] }/>
+                            </div>
+                        }
+                    </>
+                }
+            </div>
+            <p>Info</p>
         </div>
     );
 };

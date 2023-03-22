@@ -35,7 +35,7 @@ export const traits: Trait[] = [
 export const things: Thing[] = [
     {
         id: 1,
-        fileUrl: 'https://upload.wikimedia.org/wikipedia/ru/4/4c/Neo2.jpg',
+        fileUrl: 'https://www.looper.com/img/gallery/the-history-of-neo-from-the-matrix-explained/intro-1636395579.webp',
         description: '',
         archived: false,
         createdAt: '',
@@ -48,14 +48,14 @@ export const profile: Profile = {
     username: 'ilya',
     description: 'A change strategy is characterised by a willingness to take risks, a need to show mastery, a need for recognition and to achieve results. Ambitious ambitions and a thirst for influence sometimes lead to revolutionary developments.',
     profileTasks: [
-        { id: 1, taskId: 1, answers: [ { id: 5774, optionId: 1, profileTaskId: 1 } ] },
+        { id: 1, thingId: 1, taskId: 1, answers: [ { id: 5774, optionId: 1, profileTaskId: 1 } ] },
         { id: 2, taskId: 1, answers: [] },
         { id: 3, taskId: 1, answers: [ { id: 3245, optionId: 2, profileTaskId: 2 } ] },
         { id: 4, taskId: 1, answers: [ { id: 2342, optionId: 1, profileTaskId: 3 } ] },
-        { id: 5, taskId: 1, answers: [] },
-        { id: 6, taskId: 1, answers: [] },
-        { id: 6, taskId: 1, answers: [] },
-        { id: 6, taskId: 1, answers: [] },
+        { id: 5, thingId: 1, taskId: 1, answers: [] },
+        { id: 6, thingId: 1, taskId: 1, answers: [] },
+        { id: 6, thingId: 1, taskId: 1, answers: [] },
+        { id: 6, thingId: 1, taskId: 1, answers: [] },
         { id: 6, taskId: 1, answers: [] },
         { id: 6, taskId: 1, answers: [] },
         { id: 6, taskId: 1, answers: [] },
