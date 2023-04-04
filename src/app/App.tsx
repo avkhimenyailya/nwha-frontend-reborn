@@ -1,41 +1,55 @@
-import React, { FC, useState } from 'react';
-import classes from './App.module.css';
 import { Route, Routes } from 'react-router-dom';
-import MainPage from './pages/main-page/MainPage';
-import LoginPage from './pages/login-page/login-page';
-import NotFoundPage from './pages/error-page/NotFoundPage';
-import ProfilePage from './pages/profile-page/ProfilePage';
-import { profile, things } from './mock-data/data';
-import ThingCellList from './components/thing-cell-list/ThingCellList';
-import Loading from './components/loading/Loading';
+import MainPage from './pages/private/main/MainPage';
+import LoginPage from './pages/auth/login/LoginPage';
+import Missing from './pages/missing/Missing';
+import ProfilePage from './pages/private/profile/ProfilePage';
+import Private from './pages/private/Private';
+import SettingPage from './pages/private/setting/SettingPage';
+import ThingsPanel from './pages/private/profile/panels/things/ThingsPanel';
+import CollectionsPanel from './pages/private/profile/panels/collections/CollectionsPanel';
+import ArchivePanel from './pages/private/profile/panels/archive/ArchivePanel';
 
-interface AppProps {
-}
+import classes from './App.module.css';
+import RegisterPage from './pages/auth/register/RegisterPage';
+import ZeroTask from './pages/private/zero-task/ZeroTask';
 
-const App: FC<AppProps> = () => {
-    const [ loading, setLoading ] = useState(false);
+function App() {
+    const main: string =                        '/';
+    const missing: string =                     '*';
+    const login: string =                       'login';
+    const register: string =                    'register/:invCode';
+    const zeroTask: string =                    'start'
+    const profile: string =                     'profile/:profileId?';
+    const profileThings: string =               'things';
+    const profileCollections: string =          'collections';
+    const profileArchive: string =              'archive';
+    const thing: string =                       'thing/:id';
+    const collection: string =                  'collection/:id';
+    const setting: string =                     'setting';
 
     return (
-        loading
-            ?
-            <Loading/>
-            :
-            <div className={ classes.container }>
-                <Routes>
-                    <Route path={ '/login' } element={ <LoginPage/> }/>
-                    <Route path={ '/register/:invCode?' } element={ <LoginPage/> }/>
+        <div className={ classes.App }>
+            <Routes>
+                <Route path={ missing } element={ <Missing/> }/>
+                <Route path={ login } element={ <LoginPage/> }/>
+                <Route path={ register } element={ <RegisterPage/> }/>
 
-                    <Route path={ '/profile/:profileId?' } element={ <ProfilePage/> }>
-                        <Route path={ 'things' } element={ <ThingCellList items={ profile.profileTasks }/> }/>
-                        <Route path={ 'collections' } element={ <p>collections panel</p> }/>
-                        <Route path={ 'archive' } element={ <p>archive panel</p> }/>
+                {/* must be no public */ }
+                <Route element={ <Private/> }>
+                    <Route path={ zeroTask } element={ <ZeroTask /> } />
+                    <Route path={ main } element={ <MainPage/> }/>
+                    <Route path={ profile } element={ <ProfilePage/> }>
+                        <Route path={ profileThings } element={ <ThingsPanel/> }/>
+                        <Route path={ profileCollections } element={ <CollectionsPanel/> }/>
+                        <Route path={ profileArchive } element={ <ArchivePanel/> }/>
                     </Route>
-
-                    <Route path={ '/' } element={ <MainPage/> }/>
-                    <Route path={ '*' } element={ <NotFoundPage/> }/>
-                </Routes>
-            </div>
+                    <Route path={ thing } element={ <SettingPage/> }/>
+                    <Route path={ collection } element={ <SettingPage/> }/>
+                    <Route path={ setting } element={ <SettingPage/> }/>
+                </Route>
+            </Routes>
+        </div>
     );
-};
+}
 
 export default App;

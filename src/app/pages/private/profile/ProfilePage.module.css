@@ -28,6 +28,11 @@
     min-width: max-content;
 }
 
+.chart {
+    grid-area: G;
+    max-width: max-content;
+}
+
 .label {
     color: var(--sub-color2);
     margin-bottom: 24px;
@@ -38,6 +43,7 @@
         gap: 50px 0;
         display: flex;
         flex-direction: column;
+        margin-bottom: 10px;
     }
 
     .info > * {

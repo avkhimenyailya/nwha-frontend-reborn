@@ -1,6 +1,17 @@
-.container {
-    position: relative;
+.Header {
+    position: sticky;
+    top: 0;
+
+    height: 58px;
+    margin-bottom: 6px;
+
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    margin-bottom: 24px;
+
+    background-color: var(--bg-color);
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }

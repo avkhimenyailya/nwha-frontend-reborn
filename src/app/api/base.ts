@@ -1,0 +1,1 @@
+export const baseURL: string = 'https://api.nwha.grayproject.io';

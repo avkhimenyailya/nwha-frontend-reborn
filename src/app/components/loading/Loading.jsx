@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './Loading.module.css';
 
 function Loading() {
@@ -6,6 +6,7 @@ function Loading() {
     const [loadingString, setLoadingString] = useState('');
     const [counter, setCounter] = useState(0);
 
+    // effect
     useEffect(() => {
         const parts = ['(ﾉ◕ヮ◕)ﾉ', '*:･', 'ﾟ✧', '✿*:', '･ﾟ✧', '✿'];
         setTimeout(() => {
@@ -20,10 +21,8 @@ function Loading() {
     }, [counter]);
 
     return (
-        <div className={ classes.container }>
-            <div className={ classes.loading_string_container }>
-                <span>{ loadingString }</span>
-            </div>
+        <div className={classes.loadingPage}>
+            <span>{loadingString}</span>
         </div>
     );
 }

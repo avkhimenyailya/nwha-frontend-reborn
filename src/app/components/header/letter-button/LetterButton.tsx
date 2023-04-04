@@ -2,7 +2,7 @@ import React, { FC, MouseEventHandler, useEffect } from 'react';
 import classes from './LetterButton.module.css';
 
 interface LetterButtonProps {
-    profileName: string;
+    profileName?: string;
     onClick?: MouseEventHandler<HTMLInputElement>;
     handleHover: (flag: boolean) => void;
 }
@@ -24,7 +24,7 @@ const LetterButton: FC<LetterButtonProps> = ({ handleHover, profileName, onClick
                 handleHover(false);
             } }
             className={ classes.letterButton }
-            value={ profileName.charAt(0).toUpperCase() }
+            value={ '?' }
             onClick={ onClick }
         />
     );

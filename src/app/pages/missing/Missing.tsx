@@ -1,13 +1,16 @@
 import React from 'react';
-import classes from './NotFoundPage.module.css';
 import ErrorMessage from '../../components/error-message/ErrorMessage';
 
-const NotFoundPage = () => {
+interface NotFoundPageProps {
+
+}
+
+function Missing(props: NotFoundPageProps) {
     return (
-        <div className={ classes.container }>
+        <div>
             <ErrorMessage message={ 'Not found page' }/>
         </div>
     );
-};
+}
 
-export default NotFoundPage;
+export default Missing;

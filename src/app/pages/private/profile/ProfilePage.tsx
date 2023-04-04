@@ -1,23 +1,21 @@
 import React from 'react';
 import classes from './ProfilePage.module.css';
 import { Outlet } from 'react-router-dom';
-import Header from '../../components/header/Header';
-import { profile } from '../../mock-data/data';
-import ProfileDescription from '../../components/profile-info/profile-description/ProfileDescription';
-import ProfileTraits from '../../components/profile-info/profile-traits/ProfileTraits';
-import Navigator from '../../components/navigator/Navigator';
+import { profile } from '../../../mock-data/data';
+import ProfileDescription from '../../../components/profile-info/profile-description/ProfileDescription';
+import ProfileTraits from '../../../components/profile-info/profile-traits/ProfileTraits';
+import Navigator from '../../../components/navigator/Navigator';
 
 const ProfilePage = () => {
 
     return (
         <>
-            <Header authProfile={ profile }/>
             <div className={ classes.info }>
                 <div className={ classes.username }>
                     <p>@{ profile.username }</p>
                 </div>
                 <div className={ classes.navigator }>
-                    <Navigator />
+                    <Navigator/>
                 </div>
                 <div className={ classes.description }>
                     <p className={ classes.label }>/description</p>
