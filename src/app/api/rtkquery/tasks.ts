@@ -2,8 +2,13 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { baseURL } from '../base';
 import { Task } from '../../models/Task';
 
-const tasksApi = createApi({
-    baseQuery: fetchBaseQuery({ baseUrl: baseURL }),
+export const tasksApi = createApi({
+    baseQuery: fetchBaseQuery({
+        baseUrl: baseURL,
+        headers: {
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpbHlhIiwiaWF0IjoxNjgwNTk5Mzg1LCJleHAiOjE2ODEyMDQxODV9.FWj3IbPA-6anHTI6KCTV6WdwyFBGs17YQQtwxNPv4_U'
+        }
+    }),
     endpoints: (builder) => ({
         getAllTasks: builder.query<Task, number>({
             query: () => '/task'
@@ -14,5 +19,7 @@ const tasksApi = createApi({
     })
 });
 
-export const { useGetAllTasksQuery, useGetTaskByIdQuery } = tasksApi;
-export default tasksApi.reducer;
+export const {
+    useGetAllTasksQuery,
+    useGetTaskByIdQuery
+} = tasksApi;

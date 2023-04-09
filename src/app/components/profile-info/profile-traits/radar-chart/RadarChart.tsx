@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from 'react';
 import classes from './RadarChart.module.css';
 import { Chart as ChartJS, Filler, LineElement, PointElement, RadialLinearScale } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
-import defaultCallbacks from 'chart.js/dist/plugins/plugin.tooltip';
 
 ChartJS.register(
     LineElement,

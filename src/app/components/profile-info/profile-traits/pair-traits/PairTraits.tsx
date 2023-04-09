@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 import classes from './PairTraits.module.css';
 import { ProfilePairTraits } from '../../../../models/ProfileTraits';
-import profileTraits from '../ProfileTraits';
-import { traits } from '../../../../mock-data/data';
 
 
 interface PairTraitsProps {
@@ -10,10 +8,6 @@ interface PairTraitsProps {
 }
 
 const PairTraits: FC<PairTraitsProps> = ({ pair }: PairTraitsProps) => {
-
-    const getTraitNameByTraitId = (traitId: number) => {
-        return traits.find(t => t.id === traitId)?.name;
-    };
 
     const getSymbolChart = (value: number) => {
         let result: string = '';
@@ -31,9 +25,7 @@ const PairTraits: FC<PairTraitsProps> = ({ pair }: PairTraitsProps) => {
 
     return (
         <div className={ classes.pair }>
-            <p className={ classes.traitName }>{ getTraitNameByTraitId(pair.profileTraitFirst.traitId) }</p>
-            <p className={ classes.symbolChart }> влада еще думает </p>
-            <p className={ classes.traitName }>{ getTraitNameByTraitId(pair.profileTraitSecond.traitId) }</p>
+            <p className={ classes.symbolChart }> {getSymbolChart(pair.profileTraitFirst.value)} </p>
         </div>
     );
 };

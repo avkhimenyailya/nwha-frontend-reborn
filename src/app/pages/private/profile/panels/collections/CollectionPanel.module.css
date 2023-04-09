@@ -1,0 +1,101 @@
+.CollectionsPanel {
+    display: grid;
+    grid-template-areas:
+    "I I I I"
+    "L L L L";
+    justify-content: center;
+    margin-bottom: 200px;
+}
+
+.CollectionsPanelInterface {
+    grid-area: I;
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.CreateNewCollectionBtn {
+    margin-right: 1px;
+    color: var(--sub-color2);
+    cursor: pointer;
+    user-select: none;
+}
+
+.CreateNewCollectionBtn:hover {
+    color: var(--main-color);
+}
+
+.CollectionCellList {
+    grid-area: L;
+    display: grid;
+    justify-content: start;
+    grid-template-areas:
+    "Y   Y   Y   Y";
+    row-gap: 44px;
+}
+
+.CollectionCellList > {
+    grid-area: Y;
+}
+
+.CollectionCellList >:empty .CollectionsPanel {
+    justify-content: initial;
+}
+
+.CollectionCellList > :not(:nth-child(4n + 1)) {
+    margin-left: -1px;
+}
+
+@media screen and (max-width: 1439px) {
+    .CollectionsPanelInterface {
+        /*justify-content: center;*/
+    }
+
+    .CollectionCellList {
+        grid-template-areas:
+        "Y Y Y";
+        justify-content: center;
+    }
+
+    .CollectionCellList > :not(:nth-child(4n + 1)) {
+        border: none;
+        margin-left: initial;
+    }
+
+    .CollectionCellList > :not(:nth-child(3n + 1)) {
+        margin-left: -1px;
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    .CollectionsPanelInterface {
+        /*justify-content: center;*/
+    }
+
+    .CollectionCellList {
+        grid-template-areas:
+        "Y Y";
+        justify-content: center;
+    }
+
+    .CollectionCellList > :not(:nth-child(3n + 1)) {
+        border: none;
+        margin-left: initial;
+    }
+
+    .CollectionCellList > :not(:nth-child(2n + 1)) {
+        margin-left: -1px;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .CollectionsPanelInterface {
+        /*justify-content: center;*/
+    }
+    .CollectionCellList {
+        grid-template-areas:
+        "Y";
+        justify-content: center;
+    }
+}

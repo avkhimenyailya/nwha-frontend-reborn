@@ -1,34 +1,23 @@
 import React from 'react';
 import classes from './ProfilePage.module.css';
-import { Outlet } from 'react-router-dom';
-import { profile } from '../../../mock-data/data';
-import ProfileDescription from '../../../components/profile-info/profile-description/ProfileDescription';
-import ProfileTraits from '../../../components/profile-info/profile-traits/ProfileTraits';
-import Navigator from '../../../components/navigator/Navigator';
+import ProfilePanels from './panels/ProfilePanels';
+import { useParams } from 'react-router-dom';
+import { profileApi } from '../../../store/api/profileApi';
 
-const ProfilePage = () => {
+function ProfilePage() {
+    const { id } = useParams();
+
+    const { data: profile } = profileApi.useFetchProfileByIdQuery(Number(id));
+    const { data: collections } = profileApi.useFetchProfileCollectionsThingsByProfileIdQuery(Number(id));
+
+    console.log('ProfilePage: ', profile?.profileTasks);
 
     return (
-        <>
-            <div className={ classes.info }>
-                <div className={ classes.username }>
-                    <p>@{ profile.username }</p>
-                </div>
-                <div className={ classes.navigator }>
-                    <Navigator/>
-                </div>
-                <div className={ classes.description }>
-                    <p className={ classes.label }>/description</p>
-                    <ProfileDescription text={ profile.description }/>
-                </div>
-                <div className={ classes.traits }>
-                    <p className={ classes.label }>/attributes</p>
-                    <ProfileTraits pairsTraits={ profile.profilePairsTraits }/>
-                </div>
-            </div>
-            <Outlet/>
-        </>
+        <div className={ classes.ProfilePage }>
+            { profile ? <p>@{ profile?.username }</p> : <p>@not found user</p> }
+            { (profile && collections) && <ProfilePanels data={ { profile, collections } }/> }
+        </div>
     );
-};
+}
 
 export default ProfilePage;

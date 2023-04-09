@@ -1,0 +1,11 @@
+.SmallThingCell {
+    border: 1px solid var(--sub-color1);
+    width: 89px;
+    height: 89px;
+    display: flex;
+}
+
+.SmallThingCellHover {
+    position: relative;
+    border: 1px solid var(--main-color);
+}

@@ -1,8 +1,41 @@
-.container {
-    display: flex;
-    flex-wrap: wrap;
+.ThingCellList {
+    display: grid;
+    grid-template-areas:
+    "T T T T T T T T";
+    justify-content: center;
+    row-gap: 40px;
 }
 
-.container div {
-    margin-left: -0.5px;
+.ThingCellList > :not(:nth-child(8n + 1)) {
+    margin-left: -1px;
+}
+
+@media screen and (max-width: 1439px) {
+    .ThingCellList {
+        grid-template-areas:
+        "T T T T";
+    }
+
+    .ThingCellList > :not(:nth-child(8n + 1)) {
+        margin-left: initial;
+    }
+
+    .ThingCellList > :not(:nth-child(4n + 1)) {
+        margin-left: -1px;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .ThingCellList {
+        grid-template-areas:
+        "T T";
+    }
+
+    .ThingCellList > :not(:nth-child(4n + 1)) {
+        margin-left: initial;
+    }
+
+    .ThingCellList > :not(:nth-child(2n + 1)) {
+        margin-left: -1px;
+    }
 }

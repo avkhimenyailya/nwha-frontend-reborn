@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './Loading.module.css';
 
 function Loading() {
@@ -21,8 +21,8 @@ function Loading() {
     }, [counter]);
 
     return (
-        <div className={classes.loadingPage}>
-            <span>{loadingString}</span>
+        <div className={ classes.loadingPage }>
+            <span className={ classes.Bar }>{ loadingString }</span>
         </div>
     );
 }

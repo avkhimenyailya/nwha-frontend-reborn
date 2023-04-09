@@ -5,6 +5,7 @@
     "B B B B   C C C C   C C D D   D D D D";
 
     margin-bottom: 72px;
+    column-gap: 44px;
 }
 
 .username {
@@ -53,4 +54,10 @@
     .navigator {
         order: 1;
     }
+}
+
+.ProfilePage {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }

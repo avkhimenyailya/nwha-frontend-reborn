@@ -1,0 +1,43 @@
+.CollectionCell {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.Label {
+    border: 1px solid var(--sub-color1);
+    width: 353px;
+    height: 353px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.LabelHover {
+    position: relative;
+    border: 1px solid var(--main-color);
+}
+
+.Title {
+
+}
+
+.ThingsAmount {
+    color: var(--sub-color2);
+}
+
+.ThingsAmountHover {
+    color: var(--main-color);
+}
+
+.ThingCellList {
+    margin-top: -1px;
+    display: flex;
+}
+
+.ThingCellList *:not(:first-child) {
+    margin-left: -1px;
+}

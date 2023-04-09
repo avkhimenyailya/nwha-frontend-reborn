@@ -4,5 +4,5 @@ import { RefreshTokenRequest } from './RefreshTokenRequest';
 
 export interface AuthRequest {
     endpoint: string;
-    request: LoginRequest | RefreshTokenRequest| RegisterRequest;
+    data: LoginRequest | RefreshTokenRequest| RegisterRequest;
 }

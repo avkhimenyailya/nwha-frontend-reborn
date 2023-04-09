@@ -1,0 +1,24 @@
+.ThingSkeleton {
+
+}
+
+.ThingTitle {
+    background: var(--color-select);
+    color: var(--main-color);
+    width: fit-content;
+    height: 24px;
+    max-width: 177px;
+    margin-bottom: 6px;
+}
+
+.ThingDescription {
+    width: 176px;
+    height: 69px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 116%;
+
+    letter-spacing: -0.03em;
+}

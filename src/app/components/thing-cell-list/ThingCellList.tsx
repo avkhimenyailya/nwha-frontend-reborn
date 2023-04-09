@@ -1,38 +1,23 @@
-import React, { FC } from 'react';
-import { Thing } from '../../models/Thing';
-import { ProfileTask } from '../../models/ProfileTask';
+import React from 'react';
 import classes from './ThingCellList.module.css';
-import ThingCell from '../thing-cell/ThingCell';
-import { things } from '../../mock-data/data';
+import ThingSkeleton from '../thing-skeleton/ThingSkeleton';
+import { Profile } from '../../models/Profile';
 
-interface ThingCellsListProps {
-    items: Thing[] | ProfileTask[];
+interface ThingCellListProps {
+    profile: Profile;
 }
 
-const ThingCellList: FC<ThingCellsListProps> = ({ items }: ThingCellsListProps) => {
-    const isThing = (item: Thing | ProfileTask): item is Thing => {
-        return (item as Thing).description !== undefined;
-    };
+function ThingCellList(props: ThingCellListProps) {
+    console.log('ThingCellList: ', props.profile.profileTasks);
 
     return (
-        <div className={ classes.container }>
+        <div className={ classes.ThingCellList }>
             {
-                items.map(item => {
-                    if (isThing(item)) {
-                        return <ThingCell thing={ item }/>;
-                    } else {
-                        const pt: ProfileTask = item as ProfileTask;
-                        if (pt.thingId) {
-                            let thing = things.find(thing => thing.id === pt.thingId);
-                            return <ThingCell thing={ thing }/>;
-                        } else {
-                            return <ThingCell profileTask={ item }/>;
-                        }
-                    }
-                })
+                props.profile.profileTasks.filter(p => p.task.id !== 1).map(p =>
+                    <ThingSkeleton key={ p.id } profileTask={ p }/>)
             }
         </div>
     );
-};
+}
 
 export default ThingCellList;

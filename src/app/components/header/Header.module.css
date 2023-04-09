@@ -1,4 +1,5 @@
 .Header {
+    z-index: 999;
     position: sticky;
     top: 0;
 
@@ -14,4 +15,12 @@
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
+}
+
+.ChangeThemeBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    cursor: pointer;
 }

@@ -1,0 +1,51 @@
+.ModalArea {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(217, 217, 217, 0.8);
+    backdrop-filter: blur(1px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Modal {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    margin-right: 65px;
+}
+
+.EscBtn {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.ModalContent {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.SubmitBtn {
+    width: 100%;
+    bottom: 0;
+}
+
+@media screen and (max-width: 798px) {
+    .Modal {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        margin-right: initial;
+    }
+
+    .EscBtn {
+        margin-right: initial;
+        margin-bottom: 15px;
+    }
+}

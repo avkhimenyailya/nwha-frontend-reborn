@@ -1,25 +1,24 @@
 import React from 'react';
-import AuthPage from '../AuthPage';
-import { useAppDispatch } from '../../../store/storeHooks';
+import AuthPageComponent from '../AuthPage.component';
 import { AuthRequest } from '../../../models/auth/request/AuthRequest';
-import { doAuth } from '../../../store/reducers/authSlice';
 import { useParams } from 'react-router-dom';
-import { RegisterRequest } from '../../../models/auth/request/RegisterRequest';
+import { useAppDispatch } from '../../../store/store';
+import { getAccessToken } from '../../../store/reducers/authSlice';
 
 function RegisterPage() {
     const { invCode } = useParams();
     const dispatch = useAppDispatch();
 
     function attemptAuthorization(username: string, password: string) {
-        const authRequest: AuthRequest = {
+        const request: AuthRequest = {
             endpoint: 'register',
-            request: { username, password, invitationCode: invCode } as RegisterRequest
+            data: { username, password, invitationCode: invCode }
         };
-        dispatch(doAuth(authRequest));
+        dispatch(getAccessToken(request));
     }
 
     return (
-        <AuthPage
+        <AuthPageComponent
             usernamePlaceholder={ 'new nickname' }
             passwordPlaceholder={ 'new password' }
             attemptAuthorization={ attemptAuthorization }

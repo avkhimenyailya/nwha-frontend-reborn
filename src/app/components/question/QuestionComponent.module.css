@@ -1,0 +1,59 @@
+.Question {
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Question input[type="radio"] {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+}
+
+.Options {
+    display: flex;
+    gap: 12px;
+}
+
+.Option {
+    position: relative;
+    display: flex;
+    max-width: 256px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--sub-color1);
+    padding: 16px 19px;
+    min-height: 88px;
+}
+
+.QuestionTitle {
+    margin-bottom: 4px;
+}
+
+.Option p {
+    text-align: center;
+}
+
+.Option:has(input[type="radio"]:checked) {
+    border: 1px solid var(--main-color);
+}
+
+.Option:has(input[type="radio"]:hover) {
+    border: 1px solid var(--main-color);
+}
+
+@container (max-width: 384px) {
+    .Options {
+        flex-direction: column;
+    }
+
+    .Option {
+        max-width: none;
+    }
+}

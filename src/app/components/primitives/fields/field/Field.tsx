@@ -1,4 +1,4 @@
-import React, { FC, LegacyRef, useEffect } from 'react';
+import React, { FC, LegacyRef } from 'react';
 import classes from './Field.module.css';
 
 interface FieldProps {

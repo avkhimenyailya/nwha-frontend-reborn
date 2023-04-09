@@ -1,59 +1,87 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AuthResponse } from '../../models/auth/AuthResponse';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthRequest } from '../../models/auth/request/AuthRequest';
-import { baseURL } from '../../api/base';
+import { AuthResponse } from '../../models/auth/AuthResponse';
+import axios from 'axios';
 
-export const doAuth = createAsyncThunk<AuthResponse, AuthRequest>('auth/doAuth',
+export const baseUrl: string = 'https://api.nwha.grayproject.io';
+export const getAccessToken = createAsyncThunk<AuthResponse, AuthRequest>('strongAuth/getAccessToken',
     async (request, { rejectWithValue }) => {
-        const response = await fetch(`${ baseURL }/auth/${ request.endpoint }`, {
-            body: JSON.stringify(request.request),
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json; charset=utf-8' }
-        });
-        return (await response.json()) as AuthResponse;
+        return axios.post(`${ baseUrl }/auth/${ request.endpoint }`, request.data,
+            { headers: { 'Content-Type': 'application/json' } })
+            .then(r => {
+                return r.data as AuthResponse;
+            })
+            .catch(err => {
+                return rejectWithValue(err.response.data);
+            });
     });
 
-export interface AuthState {
-    data?: AuthResponse;
-    errorMsg?: string;
-    status?: string;
+export interface StrongAuthState {
+    data?: {
+        username?: string,
+        accessToken?: string,
+        refreshToken?: string
+    },
+    status?: string,
+    errorMessage?: string
 }
 
-function initAuthFromLS(): AuthResponse | undefined {
-    try {
-        return JSON.parse(localStorage.getItem('nwha-data') || '') as AuthResponse;
-    } catch (ignore) {
-        return undefined;
+const initialState: StrongAuthState = {
+    data: {
+        username: localStorage.getItem('nwha-usr') || undefined,
+        accessToken: localStorage.getItem('nwha-access-token') || undefined,
+        refreshToken: localStorage.getItem('nwha-refresh-token') || undefined
     }
-}
-
-const initialState: AuthState = {
-    data: initAuthFromLS()
 };
 
 export const authSlice = createSlice({
-    name: 'auth',
+    name: 'strongAuth',
     initialState,
     reducers: {
-        logout: state => {
-            // todo
+        refresh: (state, action: PayloadAction<AuthResponse>) => {
+            console.log(action);
+            console.log(action.payload.accessToken);
+            console.log(action.payload.refreshToken);
+            state.data = {
+                username: action.payload.username,
+                accessToken: action.payload.accessToken,
+                refreshToken: action.payload.refreshToken
+            };
+            localStorage.setItem('nwha-access-token', String(action.payload.accessToken));
+            localStorage.setItem('nwha-refresh-token', String(action.payload.refreshToken));
+        },
+        logout: (state) => {
+            state.data = undefined;
+            localStorage.removeItem('nwha-usr');
+            localStorage.removeItem('nwha-access-token');
+            localStorage.removeItem('nwha-refresh-token');
         }
     },
     extraReducers: builder => {
-        builder.addCase(doAuth.pending, (state, action) => {
+        builder.addCase(getAccessToken.pending, (state) => {
             state.status = 'loading';
-            state.errorMsg = '';
+            state.errorMessage = '';
         });
-        builder.addCase(doAuth.rejected, (state, action) => {
-            state.status = 'error';
-            state.errorMsg = action.error.message;
-        });
-        builder.addCase(doAuth.fulfilled, (state, action) => {
+        builder.addCase(getAccessToken.fulfilled, (state, action) => {
             state.status = 'successfully';
-            state.data = action.payload;
+            state.errorMessage = '';
+            state.data = {
+                username: action.payload.username,
+                accessToken: action.payload.accessToken,
+                refreshToken: action.payload.refreshToken
+            };
+            localStorage.setItem('nwha-usr', String(action.payload.username));
+            localStorage.setItem('nwha-access-token', String(action.payload.accessToken));
+            localStorage.setItem('nwha-refresh-token', String(action.payload.refreshToken));
+        });
+        builder.addCase(getAccessToken.rejected, (state, action) => {
+            state.status = 'error';
+            state.errorMessage = Object(action.payload).message;
+            localStorage.removeItem('nwha-usr');
+            localStorage.removeItem('nwha-access-token');
+            localStorage.removeItem('nwha-refresh-token');
         });
     }
 });
 
-export const { logout } = authSlice.actions;
-export default authSlice.reducer;
+export const { refresh, logout } = authSlice.actions;

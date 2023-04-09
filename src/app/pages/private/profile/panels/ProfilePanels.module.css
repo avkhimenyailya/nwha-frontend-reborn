@@ -1,0 +1,29 @@
+.Panels {
+
+}
+
+.Tabs {
+    display: flex;
+    flex-direction: column;
+    max-width: fit-content;
+    gap: 4px;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.Tab {
+    max-width: fit-content;
+}
+
+.Tab p {
+    color: var(--sub-color2);
+    background: var(--color-select);
+}
+
+.SelectedTab {
+    outline: none;
+}
+
+.SelectedTab p {
+    color: var(--main-color);
+}

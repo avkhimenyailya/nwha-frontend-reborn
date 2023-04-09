@@ -1,23 +1,32 @@
-import React from 'react';
-import AuthPage from '../AuthPage';
-import { useAppDispatch } from '../../../store/storeHooks';
+import React, { useEffect } from 'react';
+import AuthPageComponent from '../AuthPage.component';
 import { AuthRequest } from '../../../models/auth/request/AuthRequest';
 import { LoginRequest } from '../../../models/auth/request/LoginRequest';
-import { doAuth } from '../../../store/reducers/authSlice';
+import { useAppDispatch, useAppSelector } from '../../../store/store';
+import { getAccessToken } from '../../../store/reducers/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
     const dispatch = useAppDispatch();
+    const { status } = useAppSelector(state => state.auth);
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (status === 'successfully') {
+            navigate('/profile/things');
+        }
+    }, [navigate, status]);
 
     function attemptAuthorization(username: string, password: string) {
         const authRequest: AuthRequest = {
             endpoint: 'login',
-            request: { username, password } as LoginRequest
+            data: { username, password } as LoginRequest
         };
-        dispatch(doAuth(authRequest));
+        dispatch(getAccessToken(authRequest));
     }
 
     return (
-        <AuthPage
+        <AuthPageComponent
             usernamePlaceholder={ 'nickname' }
             passwordPlaceholder={ 'password' }
             attemptAuthorization={ attemptAuthorization }
