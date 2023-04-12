@@ -10,10 +10,14 @@
     cursor: pointer;
 }
 
-
 .button:disabled {
     background: var(--bg-color);
     color: var(--sub-color1);
     border: 1px dashed var(--sub-color1);
     cursor: not-allowed;
+}
+
+.ButtonBorderSide:disabled {
+    border: none;
+    border-top: 1px dashed var(--sub-color1);
 }

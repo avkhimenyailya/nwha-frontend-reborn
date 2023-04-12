@@ -9,7 +9,7 @@ export function useProfileTaskHook(taskOrdinalNumber: number) {
     const [answers] = useState(new Map<number, Answer>()); // questionId <-> answer
     const authData = useAppSelector(state => state.auth.data);
 
-    const { data: profile } = profileApi.useFetchProfileByUsernameQuery(authData?.username!);
+    const { data: profile } = profileApi.useFetchProfileByIdQuery(authData?.profileId!);
     const { data: task } = taskApi.useFetchTaskByOrdinalNumberQuery(taskOrdinalNumber); // for get all questions
     const [updateAnswers, { isLoading, isSuccess, isError }] = profileTaskApi.useUpdateAnswersMutation();
 

@@ -1,17 +1,16 @@
-.EmptyThingCell {
+.EmptyCell {
     background: var(--bg-color);
     border: 1px solid var(--sub-color2);
     width: 177px;
     height: 177px;
     margin-bottom: 4px;
-    cursor: pointer;
 
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.EmptyThingCellHover {
+.EmptyCellHover {
     position: relative;
     border: 1px solid var(--main-color);
 }

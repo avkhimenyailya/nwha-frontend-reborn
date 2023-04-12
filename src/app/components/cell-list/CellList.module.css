@@ -14,6 +14,7 @@
     .ThingCellList {
         grid-template-areas:
         "T T T T";
+        justify-content: center;
     }
 
     .ThingCellList > :not(:nth-child(8n + 1)) {

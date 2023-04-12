@@ -1,8 +1,12 @@
-.ThingSkeleton {
+.CellSkeleton {
 
 }
 
-.ThingTitle {
+.Cell {
+
+}
+
+.CellTitle {
     background: var(--color-select);
     color: var(--main-color);
     width: fit-content;
@@ -11,7 +15,7 @@
     margin-bottom: 6px;
 }
 
-.ThingDescription {
+.CellDescription {
     width: 176px;
     height: 69px;
 

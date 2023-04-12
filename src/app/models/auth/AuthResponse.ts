@@ -1,5 +1,5 @@
 export interface AuthResponse {
-    username: string;
+    profileId: number;
     accessToken: string;
     refreshToken: string;
 }

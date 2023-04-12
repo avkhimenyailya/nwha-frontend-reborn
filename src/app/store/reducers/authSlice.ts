@@ -18,7 +18,7 @@ export const getAccessToken = createAsyncThunk<AuthResponse, AuthRequest>('stron
 
 export interface StrongAuthState {
     data?: {
-        username?: string,
+        profileId?: number,
         accessToken?: string,
         refreshToken?: string
     },
@@ -28,7 +28,7 @@ export interface StrongAuthState {
 
 const initialState: StrongAuthState = {
     data: {
-        username: localStorage.getItem('nwha-usr') || undefined,
+        profileId: Number(localStorage.getItem('nwha-profile-id') || undefined),
         accessToken: localStorage.getItem('nwha-access-token') || undefined,
         refreshToken: localStorage.getItem('nwha-refresh-token') || undefined
     }
@@ -43,7 +43,7 @@ export const authSlice = createSlice({
             console.log(action.payload.accessToken);
             console.log(action.payload.refreshToken);
             state.data = {
-                username: action.payload.username,
+                profileId: action.payload.profileId,
                 accessToken: action.payload.accessToken,
                 refreshToken: action.payload.refreshToken
             };
@@ -52,7 +52,7 @@ export const authSlice = createSlice({
         },
         logout: (state) => {
             state.data = undefined;
-            localStorage.removeItem('nwha-usr');
+            localStorage.removeItem('nwha-profile-id');
             localStorage.removeItem('nwha-access-token');
             localStorage.removeItem('nwha-refresh-token');
         }
@@ -66,18 +66,18 @@ export const authSlice = createSlice({
             state.status = 'successfully';
             state.errorMessage = '';
             state.data = {
-                username: action.payload.username,
+                profileId: action.payload.profileId,
                 accessToken: action.payload.accessToken,
                 refreshToken: action.payload.refreshToken
             };
-            localStorage.setItem('nwha-usr', String(action.payload.username));
+            localStorage.setItem('nwha-profile-id', String(action.payload.profileId));
             localStorage.setItem('nwha-access-token', String(action.payload.accessToken));
             localStorage.setItem('nwha-refresh-token', String(action.payload.refreshToken));
         });
         builder.addCase(getAccessToken.rejected, (state, action) => {
             state.status = 'error';
             state.errorMessage = Object(action.payload).message;
-            localStorage.removeItem('nwha-usr');
+            localStorage.removeItem('nwha-profile-id');
             localStorage.removeItem('nwha-access-token');
             localStorage.removeItem('nwha-refresh-token');
         });

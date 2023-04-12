@@ -5,7 +5,6 @@ export function useKeyPress(targetKey: string): boolean {
 
     useEffect(() => {
         function handleEvent(event: KeyboardEvent) {
-            console.log(event.key);
             if (event.key === targetKey) {
                 setKeyPressed(true);
             }

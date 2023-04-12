@@ -1,0 +1,35 @@
+.CellModal {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 16px;
+    background: var(--bg-color);
+
+    width: 384px;
+    height: 600px;
+}
+
+.TaskOrdinalNumber {
+    margin-bottom: 5px;
+}
+
+.TaskDescription {
+    margin-bottom: 4px;
+}
+
+.TaskDetails {
+    font-style: italic;
+    font-size: 18px;
+    color: var(--sub-color2);
+    line-height: 120%;
+    margin-bottom: 4px;
+}
+
+.DropArea {
+    margin-top: 12px;
+    margin-bottom: 20px;
+}
+
+.ThingEditor {
+    margin-top: 12px;
+    margin-bottom: 20px;
+}

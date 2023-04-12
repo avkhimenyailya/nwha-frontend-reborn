@@ -10,12 +10,11 @@ function ProfilePage() {
     const { data: profile } = profileApi.useFetchProfileByIdQuery(Number(id));
     const { data: collections } = profileApi.useFetchProfileCollectionsThingsByProfileIdQuery(Number(id));
 
-    console.log('ProfilePage: ', profile?.profileTasks);
-
     return (
         <div className={ classes.ProfilePage }>
-            { profile ? <p>@{ profile?.username }</p> : <p>@not found user</p> }
-            { (profile && collections) && <ProfilePanels data={ { profile, collections } }/> }
+            <p>@{ profile?.username }</p>
+            { (profile && collections) &&
+                <ProfilePanels profile={ profile! } collections={ collections! }/> }
         </div>
     );
 }

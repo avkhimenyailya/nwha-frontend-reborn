@@ -1,7 +1,7 @@
 @import "/src/reset.css";
 @import "/src/themes/_index.css";
 
-input, p {
+textarea, input, p {
     font-family: 'Times New Roman', serif;
     font-style: normal;
     font-weight: 400;

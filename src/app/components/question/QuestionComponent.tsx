@@ -4,14 +4,15 @@ import { Question } from '../../models/Question';
 import { Answer } from '../../models/Answer';
 
 interface QuestionProps {
+    answers?: Map<number, Answer>;
     question: Question;
     profileTaskId?: number;
     setAnswer: (answer: Answer) => void;
 }
 
-function QuestionComponent({ question, profileTaskId, setAnswer }: QuestionProps) {
+function QuestionComponent({ answers, question, profileTaskId, setAnswer }: QuestionProps) {
 
-    const radioHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAnswer({
             optionId: Number(event.target.value),
             questionId: Number(event.target.name),
@@ -19,14 +20,26 @@ function QuestionComponent({ question, profileTaskId, setAnswer }: QuestionProps
         });
     };
 
+    function handleCheck(optId: number) {
+        console.log('1');
+        let flag = false;
+        Array
+            .from(answers ? answers.values() : [])
+            .forEach(answer => {
+                flag = answer.optionId === optId;
+            });
+        return flag;
+    }
+
     function renderOptions() {
         return question?.options.map(opt => {
             return <div key={ opt.id } className={ classes.Option }>
                 <input
                     type="radio"
                     name={ String(question.id) }
-                    onChange={ radioHandler }
+                    onChange={ handleRadio }
                     value={ opt.id }
+                    checked={ handleCheck(opt.id) }
                 />
                 <p>{ opt.description }</p>
             </div>;

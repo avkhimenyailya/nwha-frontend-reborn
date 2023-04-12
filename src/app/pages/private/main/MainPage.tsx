@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from './MainPage.module.css';
 
 interface MainPageProps {
 
@@ -6,7 +7,7 @@ interface MainPageProps {
 
 function MainPage(props: MainPageProps) {
     return (
-        <div>
+        <div className={ classes.MainPage }>
             <p>this main page</p>
         </div>
     );

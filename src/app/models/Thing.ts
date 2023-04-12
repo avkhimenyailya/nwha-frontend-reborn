@@ -3,6 +3,7 @@ export interface Thing {
     fileUrl?: string;
     description?: string;
     archived?: boolean;
+    removed?: boolean;
     profileTaskId?: number;
     createdAt?: string;
     updatedAt?: string;

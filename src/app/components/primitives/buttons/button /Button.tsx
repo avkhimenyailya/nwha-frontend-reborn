@@ -3,6 +3,7 @@ import classes from './Button.module.css';
 import './Button.css';
 
 interface ButtonProps {
+    borderSide?: boolean;
     disabled?: boolean;
     value?: string;
     innerRef?: React.MutableRefObject<HTMLInputElement | undefined>;
@@ -14,7 +15,7 @@ interface ButtonProps {
 const Button: FC<ButtonProps> = (props: ButtonProps) => {
     const [ active, setActive ] = useState(false);
 
-    const buttonClasses: string[] = [ classes.button, active ? 'active' : '' ];
+    const buttonClasses: string[] = [ classes.button, props.borderSide && classes.ButtonBorderSide, active ? 'active' : '' ];
     return (
         <input
             ref={ props.innerRef as LegacyRef<HTMLInputElement> }

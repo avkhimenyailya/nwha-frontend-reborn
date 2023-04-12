@@ -9,8 +9,13 @@ import SettingPage from './pages/private/setting/SettingPage';
 import classes from './App.module.css';
 import RegisterPage from './pages/auth/register/RegisterPage';
 import ZeroTask from './pages/private/zero-task/ZeroTask';
+import { useAppSelector } from './store/store';
+import CellModal from './components/cell-skeleton/modal/CellModal';
 
 function App() {
+    const visibleCellModal
+        = useAppSelector(state => state.cellModal.visibleCellModal);
+
     return (
         <div className={ classes.App }>
             <Routes>

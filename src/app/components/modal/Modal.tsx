@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import classes from './Modal.module.css';
 import { useKeyPress } from '../../hooks/key-press.hook';
 import Button from '../primitives/buttons/button /Button';
 
-interface ModalComponentProps {
-    content?: React.ReactNode;
-    setShowModal: (flag: boolean) => void;
+interface ModalProps {
+    children: React.ReactNode;
+    setModalVisible: (flag: boolean) => void;
+
+    disableButton: boolean;
 }
 
-function Modal({ setShowModal, content }: ModalComponentProps) {
+function Modal(props: ModalProps) {
     const keyPressed: boolean = useKeyPress('Escape');
-    const [disableBtnSave, setDisableBtnSave] = useState(true);
 
     useEffect(() => {
-        setShowModal(!keyPressed);
-    }, [setShowModal, keyPressed]);
+        props.setModalVisible(!keyPressed);
+    }, [keyPressed, props]);
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -23,19 +24,24 @@ function Modal({ setShowModal, content }: ModalComponentProps) {
         };
     }, []);
 
-    function submit() {
-
-    }
 
     return (
         <div className={ classes.ModalArea }>
             <div className={ classes.Modal }>
-                <p onClick={ () => setShowModal(false) } className={ classes.EscBtn }>[ esc ]</p>
+                <p
+                    onClick={ () => props.setModalVisible(false) }
+                    className={ classes.EscBtn }>
+                    [ esc ]</p>
                 <div className={ classes.ModalContent }>
-                    { content }
-                    {/*<div className={ classes.SubmitBtn }>*/}
-                    {/*    <Button disabled={ disableBtnSave } value={ 'save' } onClick={ submit }/>*/}
-                    {/*</div>*/}
+                    { props.children }
+                    <div className={ classes.SubmitBtn }>
+                        <Button
+                            borderSide={ true }
+                            disabled={ props.disableButton }
+                            value={ 'save' }
+                            onClick={ () => {
+                            } }/>
+                    </div>
                 </div>
             </div>
         </div>

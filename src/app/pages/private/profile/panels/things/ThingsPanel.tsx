@@ -1,20 +1,13 @@
 import React from 'react';
-import ThingCellList from '../../../../../components/thing-cell-list/ThingCellList';
+import CellList from '../../../../../components/cell-list/CellList';
 import { Profile } from '../../../../../models/Profile';
 
 interface ThingsPanelProps {
     profile: Profile;
 }
 
-function ThingsPanel(props: ThingsPanelProps) {
-
-    console.log('ThingsPanel: ', props.profile?.profileTasks);
-
-    return (
-        <div>
-            <ThingCellList profile={ props.profile }/>
-        </div>
-    );
+function ThingsPanel({ profile }: ThingsPanelProps) {
+    return <CellList profile={ profile }/>;
 }
 
 export default ThingsPanel;
