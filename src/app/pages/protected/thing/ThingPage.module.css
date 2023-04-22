@@ -1,0 +1,14 @@
+.ThingPage {
+    display: grid;
+    grid-template-areas:
+            "P P P P P P P P P P P I I I I I";
+}
+
+.Photo {
+    grid-area: P;
+}
+
+.Info {
+    grid-area: I;
+}
+
