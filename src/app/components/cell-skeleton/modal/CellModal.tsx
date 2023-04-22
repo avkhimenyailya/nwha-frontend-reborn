@@ -4,8 +4,7 @@ import Modal from '../../modal/Modal';
 import { ProfileTask } from '../../../models/ProfileTask';
 import QuestionComponent from '../../question/QuestionComponent';
 import { Answer } from '../../../models/Answer';
-import DropArea from './drop-area/DropArea';
-import ThingEditor from './thing-editor/ThingEditor';
+import DropArea from '../../modal/profile-task-modal/drop-area/DropArea';
 import { Thing } from '../../../models/Thing';
 
 interface CellModalProps {
@@ -39,14 +38,7 @@ function CellModal(props: CellModalProps) {
     function renderThingEditor() {
         return (props.file || (props.thing && !props.thing.archived && !props.thing.removed))
             && <div className={ classes.ThingEditor }>
-                <ThingEditor
-                    thing={ props.thing }
-                    setThing={ props.setThing }
-                    file={ props.file }
-                    setFile={ props.setFile }
-                    thingDescr={ props.thingDescr }
-                    setThingDescr={ props.setThingDescr }
-                />
+
             </div>;
     }
 
@@ -59,44 +51,39 @@ function CellModal(props: CellModalProps) {
 
     function renderQuestions() {
         return props.profileTask.task.questions.map(question =>
-            <QuestionComponent
-                answers={ props.answers }
-                key={ question.id }
-                question={ question }
-                setAnswer={ setAnswer }
-                profileTaskId={ props.profileTask.id }
-            />
+            // <QuestionComponent
+            //     answers={ props.answers }
+            //     key={ question.id }
+            //     question={ question }
+            //     profileTaskId={ props.profileTask.id }
+            // />
+            <p/>
         );
     }
 
-    function setAnswer(answer: Answer) {
-        props.answers.set(answer.questionId!, answer);
-        if (props.answers.size > 0 && props.file) {
-            setDisableButton(false);
-        }
-    }
-
     return (
-        <Modal
-            disableButton={ disableButton }
-            setModalVisible={ props.setModalVisible }>
-            <div className={ classes.CellModal }>
-                <p className={ classes.TaskOrdinalNumber }>
-                    { 'Task ' + props.profileTask.task.ordinalNumber }
-                </p>
-                <p className={ classes.TaskDescription }>
-                    { props.profileTask.task.description }
-                </p>
-                { props.profileTask.task.details &&
-                    <p className={ classes.TaskDetails }>
-                        { props.profileTask.task.details }
-                    </p>
-                }
-                { renderThingEditor() }
-                { renderDropArea() }
-                { renderQuestions() }
-            </div>
-        </Modal>
+        // <Modal
+        //     disableButton={ disableButton }
+        //     setModalVisible={ props.setModalVisible }
+        // >
+        //     <div className={ classes.CellModal }>
+        //         <p className={ classes.TaskOrdinalNumber }>
+        //             { 'Task ' + props.profileTask.task.ordinalNumber }
+        //         </p>
+        //         <p className={ classes.TaskDescription }>
+        //             { props.profileTask.task.description }
+        //         </p>
+        //         { props.profileTask.task.details &&
+        //             <p className={ classes.TaskDetails }>
+        //                 { props.profileTask.task.details }
+        //             </p>
+        //         }
+        //         { renderThingEditor() }
+        //         { renderDropArea() }
+        //         { renderQuestions() }
+        //     </div>
+        // </Modal>
+        <p/>
     );
 }
 

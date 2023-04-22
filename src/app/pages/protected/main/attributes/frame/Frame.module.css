@@ -1,0 +1,47 @@
+.Frame {
+    display: grid;
+    grid-template-areas:
+    "D D D D D . . . ."
+    "C C C C C C C C C";
+    grid-template-columns: minmax(88px, 88px);
+    grid-gap: 32px;
+}
+
+.Description {
+    grid-area: D;
+    max-width: 440px;
+}
+
+.Content {
+    grid-area: C;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Col {
+    grid-area: c1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.Title {
+    font-size: 28px;
+    line-height: 132%;
+    /* identical to box height, or 37px */
+
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+
+.Img {
+    max-width: 352px;
+    max-height: 240px;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 32px;
+}
+
+.Text {
+    max-width: 351px;
+}

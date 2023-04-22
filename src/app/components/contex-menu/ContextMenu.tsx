@@ -2,17 +2,17 @@ import React, { FC } from 'react';
 import classes from './ContextMenu.module.css';
 
 interface ContextMenuProps {
-    children?: React.ReactElement[];
+    children: React.ReactNode;
     handleHover?: (flag: boolean) => void;
 }
 
-const ContextMenu: FC<ContextMenuProps> = ({ children, handleHover }: ContextMenuProps) => {
+const ContextMenu: FC<ContextMenuProps> = (props: ContextMenuProps) => {
     return (
         <div
-            onMouseEnter={ () => handleHover && handleHover(true) }
-            onMouseLeave={ () => handleHover && handleHover(false) }
+            onMouseEnter={ () => props.handleHover && props.handleHover(true) }
+            onMouseLeave={ () => props.handleHover && props.handleHover(false) }
             className={ classes.container }>
-            { children }
+            { props.children }
         </div>
     );
 };

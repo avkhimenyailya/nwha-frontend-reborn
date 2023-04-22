@@ -21,7 +21,7 @@ function Loading() {
     }, [counter]);
 
     return (
-        <div className={ classes.loadingPage }>
+        <div className={ classes.LoadingPage }>
             <span className={ classes.Bar }>{ loadingString }</span>
         </div>
     );

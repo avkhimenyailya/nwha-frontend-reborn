@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { MouseEventHandler, useEffect } from 'react';
 import classes from './Modal.module.css';
 import { useKeyPress } from '../../hooks/key-press.hook';
 import Button from '../primitives/buttons/button /Button';
@@ -6,12 +6,13 @@ import Button from '../primitives/buttons/button /Button';
 interface ModalProps {
     children: React.ReactNode;
     setModalVisible: (flag: boolean) => void;
-
     disableButton: boolean;
+    onClickSave: MouseEventHandler<HTMLInputElement>;
 }
 
 function Modal(props: ModalProps) {
     const keyPressed: boolean = useKeyPress('Escape');
+
 
     useEffect(() => {
         props.setModalVisible(!keyPressed);
@@ -23,7 +24,6 @@ function Modal(props: ModalProps) {
             document.body.style.overflow = 'unset';
         };
     }, []);
-
 
     return (
         <div className={ classes.ModalArea }>
@@ -39,8 +39,7 @@ function Modal(props: ModalProps) {
                             borderSide={ true }
                             disabled={ props.disableButton }
                             value={ 'save' }
-                            onClick={ () => {
-                            } }/>
+                            onClick={ props.onClickSave }/>
                     </div>
                 </div>
             </div>

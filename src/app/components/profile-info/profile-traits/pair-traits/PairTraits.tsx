@@ -25,7 +25,7 @@ const PairTraits: FC<PairTraitsProps> = ({ pair }: PairTraitsProps) => {
 
     return (
         <div className={ classes.pair }>
-            <p className={ classes.symbolChart }> {getSymbolChart(pair.profileTraitFirst.value)} </p>
+            <p className={ classes.symbolChart }> { getSymbolChart(pair.profileTraitFirst?.value) } </p>
         </div>
     );
 };

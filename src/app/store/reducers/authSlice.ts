@@ -19,6 +19,7 @@ export const getAccessToken = createAsyncThunk<AuthResponse, AuthRequest>('stron
 export interface StrongAuthState {
     data?: {
         profileId?: number,
+        username?: string,
         accessToken?: string,
         refreshToken?: string
     },
@@ -29,6 +30,7 @@ export interface StrongAuthState {
 const initialState: StrongAuthState = {
     data: {
         profileId: Number(localStorage.getItem('nwha-profile-id') || undefined),
+        username: localStorage.getItem('nwha-profile-usr') || undefined,
         accessToken: localStorage.getItem('nwha-access-token') || undefined,
         refreshToken: localStorage.getItem('nwha-refresh-token') || undefined
     }
@@ -43,6 +45,7 @@ export const authSlice = createSlice({
             console.log(action.payload.accessToken);
             console.log(action.payload.refreshToken);
             state.data = {
+                username: action.payload.username,
                 profileId: action.payload.profileId,
                 accessToken: action.payload.accessToken,
                 refreshToken: action.payload.refreshToken
@@ -51,8 +54,14 @@ export const authSlice = createSlice({
             localStorage.setItem('nwha-refresh-token', String(action.payload.refreshToken));
         },
         logout: (state) => {
-            state.data = undefined;
+            state.data = {
+                username: undefined,
+                profileId: undefined,
+                accessToken: undefined,
+                refreshToken: undefined
+            };
             localStorage.removeItem('nwha-profile-id');
+            localStorage.removeItem('nwha-profile-usr');
             localStorage.removeItem('nwha-access-token');
             localStorage.removeItem('nwha-refresh-token');
         }
@@ -67,10 +76,12 @@ export const authSlice = createSlice({
             state.errorMessage = '';
             state.data = {
                 profileId: action.payload.profileId,
+                username: action.payload.username,
                 accessToken: action.payload.accessToken,
                 refreshToken: action.payload.refreshToken
             };
             localStorage.setItem('nwha-profile-id', String(action.payload.profileId));
+            localStorage.setItem('nwha-profile-usr', String(action.payload.username));
             localStorage.setItem('nwha-access-token', String(action.payload.accessToken));
             localStorage.setItem('nwha-refresh-token', String(action.payload.refreshToken));
         });
@@ -78,6 +89,7 @@ export const authSlice = createSlice({
             state.status = 'error';
             state.errorMessage = Object(action.payload).message;
             localStorage.removeItem('nwha-profile-id');
+            localStorage.removeItem('nwha-profile-usr');
             localStorage.removeItem('nwha-access-token');
             localStorage.removeItem('nwha-refresh-token');
         });

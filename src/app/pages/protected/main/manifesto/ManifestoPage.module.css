@@ -1,0 +1,46 @@
+.ManifestoPage {
+    margin-top: -4px;
+    display: grid;
+    grid-template-areas: ". . C C C C C C C C C C C . .";
+    grid-auto-columns: 88px;
+}
+
+.Content {
+    grid-area: C;
+    display: flex;
+}
+
+.Column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.Item {
+    display: grid;
+
+    grid-template-areas: "N T T T T T";
+    grid-auto-columns: minmax(auto, 88px);
+}
+
+.Number {
+    width: 88px;
+}
+
+.Number {
+    grid-area: N;
+    padding-top: 7px;
+    font-size: 20px;
+    line-height: 95%;
+    /* or 19px */
+    letter-spacing: -0.03em;
+}
+
+.Text {
+    grid-area: T;
+    font-size: 28px;
+    line-height: 100%;
+    /* identical to box height, or 28px */
+
+    letter-spacing: -0.02em;
+}

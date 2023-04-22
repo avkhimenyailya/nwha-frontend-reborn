@@ -15,7 +15,7 @@ const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
     baseUrl: 'https://api.nwha.grayproject.io',
     prepareHeaders: (headers, { getState }) => {
-        const accessToken = (getState() as RootState).auth.data?.accessToken;
+        const accessToken = (getState() as RootState).authSlice.data?.accessToken;
         headers.set('Content-Type', 'application/json;charset=UTF-8');
         headers.set('Authorization', `Bearer ${ accessToken || '' }`);
         return headers;
@@ -30,7 +30,7 @@ const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         if (!mutex.isLocked()) {
             const release = await mutex.acquire();
             try {
-                const refreshToken = (api.getState() as RootState).auth.data?.refreshToken!;
+                const refreshToken = (api.getState() as RootState).authSlice.data?.refreshToken!;
                 const refreshResult = await baseQuery({
                         url: '/auth/refresh',
                         method: 'post',

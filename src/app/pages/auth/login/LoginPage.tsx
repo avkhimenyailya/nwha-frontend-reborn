@@ -8,14 +8,14 @@ import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
     const dispatch = useAppDispatch();
-    const { status } = useAppSelector(state => state.auth);
+    const { status, data } = useAppSelector(state => state.authSlice);
 
     const navigate = useNavigate();
     useEffect(() => {
         if (status === 'successfully') {
-            navigate('/profile/things');
+            navigate(`/${ data?.username }`);
         }
-    }, [navigate, status]);
+    }, [data?.username, navigate, status]);
 
     function attemptAuthorization(username: string, password: string) {
         const authRequest: AuthRequest = {

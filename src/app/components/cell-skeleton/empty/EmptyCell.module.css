@@ -1,6 +1,6 @@
 .EmptyCell {
     background: var(--bg-color);
-    border: 1px solid var(--sub-color2);
+    border: 1px solid var(--sub-color1);
     width: 177px;
     height: 177px;
     margin-bottom: 4px;

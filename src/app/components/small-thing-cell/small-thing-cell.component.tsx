@@ -14,7 +14,7 @@ function SmallThingCellComponent({ imgUrl, hover }: SmallThingCellComponentProps
                 alt={ '?' }
                 draggable={ false }
                 style={ { objectFit: 'contain' } }
-                src={ imgUrl ? imgUrl : 'https://cdnimages.absatz.media/images/2022.06/original/1920_629f55f9b09c60b37527f12a.jpg' }
+                src={ imgUrl ? imgUrl : 'https://lifehacker.ru/wp-content/uploads/2021/02/Trinity-Matrix-phone-booth_1613043690.jpg' }
             />
         </div>
     );

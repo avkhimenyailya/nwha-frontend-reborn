@@ -1,0 +1,20 @@
+.AttributesPage {
+    display: grid;
+    grid-template-areas: ". M M . C C C C C C C C C . .";
+    grid-auto-columns: minmax(auto, 88px);
+}
+
+.Menu {
+    grid-area: M;
+}
+
+.Menu > * {
+    position: sticky;
+    top: 96px;
+}
+
+.Content {
+    grid-area: C;
+    margin-bottom: 400px;
+    z-index: 2;
+}

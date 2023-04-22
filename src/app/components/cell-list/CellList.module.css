@@ -1,4 +1,4 @@
-.ThingCellList {
+.CellList {
     display: grid;
     grid-template-areas:
     "T T T T T T T T";
@@ -6,37 +6,37 @@
     row-gap: 40px;
 }
 
-.ThingCellList > :not(:nth-child(8n + 1)) {
+.CellList > :not(:nth-child(8n + 1)) {
     margin-left: -1px;
 }
 
 @media screen and (max-width: 1439px) {
-    .ThingCellList {
+    .CellList {
         grid-template-areas:
         "T T T T";
         justify-content: center;
     }
 
-    .ThingCellList > :not(:nth-child(8n + 1)) {
+    .CellList > :not(:nth-child(8n + 1)) {
         margin-left: initial;
     }
 
-    .ThingCellList > :not(:nth-child(4n + 1)) {
+    .CellList > :not(:nth-child(4n + 1)) {
         margin-left: -1px;
     }
 }
 
 @media screen and (max-width: 720px) {
-    .ThingCellList {
+    .CellList {
         grid-template-areas:
         "T T";
     }
 
-    .ThingCellList > :not(:nth-child(4n + 1)) {
+    .CellList > :not(:nth-child(4n + 1)) {
         margin-left: initial;
     }
 
-    .ThingCellList > :not(:nth-child(2n + 1)) {
+    .CellList > :not(:nth-child(2n + 1)) {
         margin-left: -1px;
     }
 }

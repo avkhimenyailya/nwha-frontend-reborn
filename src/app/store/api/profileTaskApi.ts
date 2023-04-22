@@ -7,7 +7,7 @@ export const profileTaskApi = commonApi.injectEndpoints({
         // устанавливает/перезаписывает новые ответы в задание
         updateAnswers: build.mutation<ProfileTask, { profileTaskId: number, answers: Answer[] }>({
             query: ({ profileTaskId, answers }) => ({
-                url: `/profile_task/${ profileTaskId }/answers`,
+                url: `/pt/${ profileTaskId }/put/answer`,
                 method: 'PUT',
                 body: answers
             })

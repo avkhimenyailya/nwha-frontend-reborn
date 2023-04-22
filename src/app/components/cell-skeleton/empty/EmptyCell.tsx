@@ -24,7 +24,7 @@ function EmptyCell(props: EmptyCellProps) {
         return <svg height={ '177' } width={ '177' }>
             <line
                 xmlns={ 'http://www.w3.org/2000/svg' }
-                stroke={ '#AAAAB0' }
+                stroke={ 'var(--sub-color1)' }
                 y2={ '0' }
                 x2={ '0' }
                 y1={ '177' }

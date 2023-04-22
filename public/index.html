@@ -1,14 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="https://nothingtowritehomeabout.space/favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width">
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>nothingtowritehomeabout</title>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+    <style>
+        #blink {
+            -webkit-animation: blink 0.3s linear infinite;
+            animation: blink 0.3s linear infinite;
+            color: #08ff00;
+            background: white;
+            text-align: center;
+        }
+
+        @-webkit-keyframes blink {
+            0% {
+                color: #f7ff00;
+            }
+            50% {
+                color: #FBB;
+            }
+            100% {
+                color: #09ff00;
+            }
+        }
+
+        @keyframes blink {
+            0% {
+                color: #30ff00;
+            }
+            50% {
+                color: #FBB;
+            }
+            100% {
+                color: #056e18;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+</body>
 </html>

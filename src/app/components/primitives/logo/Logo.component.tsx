@@ -2,31 +2,18 @@ import React from 'react';
 import classes from './Logo.module.css';
 import { useAppSelector } from '../../../store/store';
 
-
-interface LogoProps {
-}
-
 function LogoComponent() {
-    const stateTheme = useAppSelector(state => state.theme);
-
-    const navigateToMainPage = () => {
-        // todo navigate to main page
-    };
-
+    const theme = useAppSelector(state => state.themeSlice.theme);
     return (
-        <>
-            <img
-                draggable={ false }
-                alt={ 'there should be a logo here' }
-                src={ require(
-                    stateTheme.theme === 'light'
-                        ? '../../../../static/icons/logo__light.svg'
-                        : '../../../../static/icons/logo__dark.svg').default }
-                className={ classes.logo }
-                onClick={ navigateToMainPage }
-            />
-        </>
+        <img
+            draggable={ false }
+            alt={ '???' }
+            src={ require(theme === 'light'
+                ? './logo.light.svg'
+                : './logo.dark.svg').default }
+            className={ classes.logo }
+        />
     );
-};
+}
 
 export default LogoComponent;

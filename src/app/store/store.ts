@@ -4,15 +4,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { commonApi } from './commonApi';
 import { themeSlice } from './reducers/themeSlice';
 import { authSlice } from './reducers/authSlice';
-import { cellModalSlice } from './reducers/modalSlice';
 
 const preloadedState = {};
 
 const rootReducer = combineReducers({
     [commonApi.reducerPath]: commonApi.reducer,
-    auth: authSlice.reducer,
-    theme: themeSlice.reducer,
-    cellModal: cellModalSlice.reducer
+
+    themeSlice: themeSlice.reducer,
+    authSlice: authSlice.reducer
 });
 
 export const store = configureStore({

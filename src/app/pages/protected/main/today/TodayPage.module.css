@@ -1,0 +1,32 @@
+.HomePage {
+    display: grid;
+    grid-template-areas: ". . C C C . R R R R R R R R .";
+    grid-auto-columns: minmax(auto, 88px);
+}
+
+.Label {
+    color: var(--sub-color2);
+    margin-bottom: 5px;
+}
+
+.Cell {
+    grid-area: C;
+    min-height: 300px;
+}
+
+
+.Cell > :nth-child(1) {
+    position: sticky;
+    top: 96px;
+}
+
+.Cell > :nth-child(2) {
+    position: sticky;
+    top: 128px;
+}
+
+.ListRecent {
+    grid-area: R;
+    min-height: 300px;
+    z-index: 2;
+}

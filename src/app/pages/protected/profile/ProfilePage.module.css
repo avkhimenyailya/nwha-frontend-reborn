@@ -1,0 +1,64 @@
+.info {
+    display: grid;
+    grid-template-areas:
+    "A A A A   C C C C   C C D D   D D D D"
+    "B B B B   C C C C   C C D D   D D D D";
+
+    margin-bottom: 72px;
+    column-gap: 44px;
+}
+
+.username {
+    grid-area: A;
+}
+
+.navigator {
+    grid-area: B;
+    display: flex;
+    flex-direction: column-reverse;
+    min-width: max-content;
+}
+
+.description {
+    grid-area: C;
+    min-width: max-content;
+}
+
+.traits {
+    grid-area: D;
+    min-width: max-content;
+}
+
+.chart {
+    grid-area: G;
+    max-width: max-content;
+}
+
+.label {
+    color: var(--sub-color2);
+    margin-bottom: 24px;
+}
+
+@media screen and (max-width: 768px) {
+    .info {
+        gap: 50px 0;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .info > * {
+        min-width: min-content;
+    }
+
+    .navigator {
+        order: 1;
+    }
+}
+
+.ProfilePage {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+    padding-top: 6px;
+}

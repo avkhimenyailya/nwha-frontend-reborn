@@ -3,10 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const themeSlice = createSlice({
     name: 'theme',
     initialState: {
-        theme:
-            localStorage.getItem('nwha-theme')
-                ? localStorage.getItem('nwha-theme')
-                : 'light'
+        theme: localStorage.getItem('nwha-theme') ?? 'light'
     },
     reducers: {
         toggleTheme: (state) => {
@@ -16,10 +13,12 @@ export const themeSlice = createSlice({
                     localStorage.setItem('nwha-theme', state.theme);
                     break;
                 case 'dark':
+                default:
                     state.theme = 'light';
                     localStorage.setItem('nwha-theme', state.theme);
                     break;
             }
+            document.querySelector('body')!.setAttribute('theme', state.theme);
         }
     }
 });

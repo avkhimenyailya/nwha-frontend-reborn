@@ -6,15 +6,22 @@ import { profileApi } from '../store/api/profileApi';
 import { useAppSelector } from '../store/store';
 
 export function useProfileTaskHook(taskOrdinalNumber: number) {
-    const [answers] = useState(new Map<number, Answer>()); // questionId <-> answer
-    const authData = useAppSelector(state => state.auth.data);
+    const authData = useAppSelector(state => state.authSlice.data);
 
     const { data: profile } = profileApi.useFetchProfileByIdQuery(authData?.profileId!);
     const { data: task } = taskApi.useFetchTaskByOrdinalNumberQuery(taskOrdinalNumber); // for get all questions
+
     const [updateAnswers, { isLoading, isSuccess, isError }] = profileTaskApi.useUpdateAnswersMutation();
 
     // получем нужное задание профиля
     const profileTask = profile?.profileTasks.find(x => x.task.id === 1)!;
+
+    const [answers] = useState(new Map<number, Answer>()); // questionId <-> answer
+
+    useEffect(() => {
+        console.log(profileTask);
+        profileTask?.answers.forEach(a => answers.set(a.questionId!, a));
+    }, [answers, profileTask]);
 
     useEffect(() => {
         if (isSuccess || isError) {
@@ -31,6 +38,7 @@ export function useProfileTaskHook(taskOrdinalNumber: number) {
 
         // отправялем на сервер
         updateAnswers(answersWrap);
+        console.log(answers);
     }
 
     return {

@@ -13,7 +13,7 @@ interface ThingCellModalProps {
 }
 
 function ThingCellModal(props: ThingCellModalProps) {
-    const authData = useAppSelector(state => state.auth.data);
+    const authData = useAppSelector(state => state.authSlice.data);
     const [progress, setProgress] = useState<number>(0);
     const [disableBtnSave, setDisableBtnSave] = useState(true);
     const [selectedFile, setSelectedFile] = useState<File>();
@@ -32,16 +32,16 @@ function ThingCellModal(props: ThingCellModalProps) {
         console.log(answers);
     }
 
-    function renderQuestions() {
-        return props.profileTask.task.questions.map(question =>
-            <QuestionComponent
-                key={ question.id }
-                question={ question }
-                setAnswer={ setAnswer }
-                profileTaskId={ props.profileTask.id }
-            />
-        );
-    }
+    // function renderQuestions() {
+    //     return props.profileTask.task.questions.map(question =>
+    //         <QuestionComponent
+    //             key={ question.id }
+    //             question={ question }
+    //             answers={ answers }
+    //             profileTaskId={ props.profileTask.id }
+    //         />
+    //     );
+    // }
 
     function createResult() {
         const formData = new FormData();
@@ -96,7 +96,7 @@ function ThingCellModal(props: ThingCellModalProps) {
                     textDecoration: 'underline'
                 } }>upload</span> or drop files here</p>
             </div>
-            { renderQuestions() }
+
             <div style={ { marginTop: '30px' } }>
                 <Button disabled={ disableBtnSave } value={ 'save' } onClick={ createResult }/>
             </div>

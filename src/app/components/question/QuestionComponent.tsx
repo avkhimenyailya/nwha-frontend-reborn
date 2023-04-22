@@ -2,57 +2,35 @@ import React from 'react';
 import classes from './QuestionComponent.module.css';
 import { Question } from '../../models/Question';
 import { Answer } from '../../models/Answer';
+import OptionComponent from './option/OptionComponent';
 
 interface QuestionProps {
-    answers?: Map<number, Answer>;
+    profileTaskId: number;
     question: Question;
-    profileTaskId?: number;
-    setAnswer: (answer: Answer) => void;
+
+    answers: Map<number, Answer>;
+    setAnswers: (map: Map<number, Answer>) => void;
 }
 
-function QuestionComponent({ answers, question, profileTaskId, setAnswer }: QuestionProps) {
-
-    const handleRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAnswer({
-            optionId: Number(event.target.value),
-            questionId: Number(event.target.name),
-            profileTaskId: profileTaskId
-        });
-    };
-
-    function handleCheck(optId: number) {
-        console.log('1');
-        let flag = false;
-        Array
-            .from(answers ? answers.values() : [])
-            .forEach(answer => {
-                flag = answer.optionId === optId;
-            });
-        return flag;
-    }
-
-    function renderOptions() {
-        return question?.options.map(opt => {
-            return <div key={ opt.id } className={ classes.Option }>
-                <input
-                    type="radio"
-                    name={ String(question.id) }
-                    onChange={ handleRadio }
-                    value={ opt.id }
-                    checked={ handleCheck(opt.id) }
-                />
-                <p>{ opt.description }</p>
-            </div>;
-        });
-    }
-
+function QuestionComponent(props: QuestionProps) {
     return (
         <div className={ classes.Question }>
             <p className={ classes.QuestionTitle }>
-                Question { question.ordinalNumber || '???' }
+                Question { props.question.ordinalNumber + ' [' + props.question.id + ']' || '???' }
             </p>
             <div className={ classes.Options }>
-                { renderOptions() }
+                {
+                    props.question.options.map(opt =>
+                        <OptionComponent
+                            key={ opt.id }
+                            opt={ opt }
+                            questionId={ props.question.id }
+                            profileTaskId={ props.profileTaskId }
+                            answers={ props.answers }
+                            setAnswers={ props.setAnswers }
+                        />
+                    )
+                }
             </div>
         </div>
     );

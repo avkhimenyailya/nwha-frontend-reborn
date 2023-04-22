@@ -1,0 +1,37 @@
+.RecentlyAddedThings {
+    display: grid;
+    grid-template-areas: "R";
+}
+
+.Row {
+    grid-area: R;
+    display: grid;
+    grid-template-areas: "U U N N . . T T";
+    grid-auto-columns: minmax(auto, 88px);
+    height: 32px;
+    align-items: center;
+}
+
+.Row:hover * {
+    color: var(--sub-color2);
+}
+
+.U {
+    grid-area: U;
+}
+
+.N {
+    grid-area: N;
+}
+
+.T {
+    grid-area: T;
+    text-align: end;
+}
+
+.Preview {
+    pointer-events: none;
+    position: absolute;
+    width: 200px;
+    height: auto;
+}

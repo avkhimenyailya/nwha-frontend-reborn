@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Thing } from '../../../models/Thing';
 
 export function useFileUploader() {
-    const data = useAppSelector(state => state.auth.data);
+    const data = useAppSelector(state => state.authSlice.data);
 
     const [currentImage, setCurrentImage] = useState<File>();
     const [progress, setProgress] = useState<number>(0);

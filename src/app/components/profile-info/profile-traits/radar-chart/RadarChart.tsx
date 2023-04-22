@@ -16,7 +16,7 @@ interface RadarChartProps {
 }
 
 const RadarChart: FC<RadarChartProps> = ({}: RadarChartProps) => {
-    const [ smile, setSmile ] = useState([ 30, 54, 80, 13, 91, 70, 46, 20, 87, 9 ]);
+    const [smile, setSmile] = useState([30, 54, 80, 13, 91, 70, 46, 20, 87, 9]);
 
 
     useEffect(() => {
@@ -42,18 +42,18 @@ const RadarChart: FC<RadarChartProps> = ({}: RadarChartProps) => {
             ];
             setSmile(arr);
         }, 800);
-    }, [ smile ]);
+    }, [smile]);
 
-    const labels = [ 'I', 'F', 'P', 'A', 'O', 'E', 'M', 'C', 'S', 'D' ];
+    const labels = ['I', 'F', 'P', 'A', 'O', 'E', 'M', 'C', 'S', 'D'];
 
     const data = {
         labels: labels,
-        datasets: [ {
+        datasets: [{
             label: 'W',
             data: smile,
             backgroundColor: '#2F2F33',
             borderColor: '#2F2F33'
-        } ]
+        }]
     };
 
     const options = {
@@ -94,7 +94,7 @@ const RadarChart: FC<RadarChartProps> = ({}: RadarChartProps) => {
         <div className={ classes.chart }>
             <Radar style={ { zIndex: 1 } } data={ data }
                    options={ options }/>
-            { [ ...Array(5) ].map((x, i) => {
+            { [...Array(5)].map((x, i) => {
                 console.log(i * 36);
                 return <div style={ { rotate: (i * 36) + 'deg' } } className={ classes.line }>
                     <p style={ { rotate: -(i * 36) + 'deg' } }>{ labels[i] }</p>

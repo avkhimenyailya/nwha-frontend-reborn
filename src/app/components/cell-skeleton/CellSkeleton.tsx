@@ -14,15 +14,16 @@ import { Answer } from '../../models/Answer';
 
 interface CellSkeletonProps {
     profileTask: ProfileTask;
+    disableDescr?: boolean;
 }
 
-function CellSkeleton({ profileTask }: CellSkeletonProps) {
+function CellSkeleton({ profileTask, disableDescr }: CellSkeletonProps) {
     const [answers] = useState(new Map<number, Answer>()); // questionId <-> answer
     const [file, setFile] = useState<File | null>(null);
     const [thing, setThing] = useState<Thing | null>(profileTask.thing ?? null);
     const [thingDescr, setThingDescr] = useState<string>(profileTask.thing?.description ?? '');
 
-    const authData = useAppSelector(state => state.auth.data);
+    const authData = useAppSelector(state => state.authSlice.data);
     const [isPerson, setPersonFlag] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -30,9 +31,7 @@ function CellSkeleton({ profileTask }: CellSkeletonProps) {
     const description = useDescription(profileTask);
 
     useEffect(() => {
-        setPersonFlag(
-            profileTask.profileId === authData?.profileId
-        );
+        setPersonFlag(profileTask.profileId === authData?.profileId);
     }, [authData?.profileId, profileTask]);
 
     function renderCell() {
@@ -71,7 +70,7 @@ function CellSkeleton({ profileTask }: CellSkeletonProps) {
                 { title }
             </p>
             <p className={ classes.CellDescription }>
-                { description }
+                { !disableDescr && description }
             </p>
         </div>
     );

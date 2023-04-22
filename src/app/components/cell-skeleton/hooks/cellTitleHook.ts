@@ -15,7 +15,7 @@ export function useTitle(profileTask: ProfileTask) {
     useEffect(() => {
         const result: string = addZeroToBegin(profileTask.task.ordinalNumber);
         setTitle(profileTask.thing?.id
-            ? result.concat('-').concat(String(profileTask.thing.id))
+            ? result.concat(' – ').concat(String(profileTask.thing.id))
             : result);
     }, [profileTask.task.ordinalNumber, profileTask.thing?.id]);
 

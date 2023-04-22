@@ -1,0 +1,27 @@
+.Menu {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.Link {
+    background: var(--color-select);
+    color: var(--main-color);
+    width: max-content;
+}
+
+.Link p {
+    color: var(--sub-color1);
+}
+
+.Link p:hover {
+    color: var(--sub-color2);
+}
+
+.Active p {
+    color: var(--main-color);
+}
+
+.Active p:hover {
+    color: var(--main-color);
+}

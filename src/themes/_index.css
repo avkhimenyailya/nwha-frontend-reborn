@@ -1,4 +1,4 @@
-:root {
+[theme="light"] {
     --bg-color: #F8F8F8;
     --bg-text: #FFFFFF;
 
@@ -8,7 +8,7 @@
     --sub-color1: #D9D9D9;
     --sub-color2: #AAAAB0;
 
-    --bg-select-color: black;
+    --bg-select-color: #1b1b1e;
     --color-select: white;
 }
 
@@ -23,5 +23,5 @@
     --sub-color2: #68686c;
 
     --bg-select-color: #ffffff;
-    --color-select: #000000;
+    --color-select: #1b1b1e;
 }

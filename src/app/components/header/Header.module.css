@@ -1,26 +1,37 @@
 .Header {
-    z-index: 999;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
 
+    min-width: auto;
+    width: 100%;
     height: 58px;
-    margin-bottom: 6px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    background-color: var(--bg-color);
 
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
+
+    padding: 15px 16px;
+    background: var(--bg-color);
 }
 
-.ChangeThemeBtn {
+.Bar {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+}
+
+.LeftBar {
+    display: flex;
     justify-content: center;
-    margin-right: 12px;
-    cursor: pointer;
+    align-items: center;
+    gap: 12px;
+}
+
+.ProfileMenu {
+    position: absolute;
+    right: 80px;
+    top: 80px;
 }

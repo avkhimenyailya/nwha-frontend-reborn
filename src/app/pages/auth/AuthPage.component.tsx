@@ -16,7 +16,7 @@ function AuthPageComponent(props: AuthPageProps) {
 
     const [usernameValue, setUsernameValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
-    const { errorMessage, status } = useAppSelector(state => state.auth);
+    const { errorMessage, status } = useAppSelector(state => state.authSlice);
 
     useEffect(() => {
         setLoading(status === 'loading');

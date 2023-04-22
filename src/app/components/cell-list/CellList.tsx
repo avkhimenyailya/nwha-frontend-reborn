@@ -1,17 +1,14 @@
 import React from 'react';
 import classes from './CellList.module.css';
-import CellSkeleton from '../cell-skeleton/CellSkeleton';
-import { Profile } from '../../models/Profile';
 
-interface ThingCellListProps {
-    profile: Profile;
+interface CellListProps {
+    children: React.ReactNode;
 }
 
-function CellList({ profile }: ThingCellListProps) {
+function CellList(props: CellListProps) {
     return (
-        <div className={ classes.ThingCellList }>
-            { profile.profileTasks.filter(p => p.task.id !== 1).map(p =>
-                <CellSkeleton key={ p.id } profileTask={ p }/>) }
+        <div className={ classes.CellList }>
+            { props.children }
         </div>
     );
 }

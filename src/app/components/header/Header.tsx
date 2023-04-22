@@ -2,57 +2,54 @@ import React, { useState } from 'react';
 import classes from './Header.module.css';
 import LogoComponent from '../primitives/logo/Logo.component';
 import LetterButton from './letter-button/LetterButton';
-import { Profile } from '../../models/Profile';
 import { useAppDispatch, useAppSelector } from '../../store/store';
-import { toggleTheme } from '../../store/reducers/themeSlice';
+import { Link, useNavigate } from 'react-router-dom';
+import ThemeButton from './theme-button/ThemeButton';
+import ContextMenu from '../contex-menu/ContextMenu';
+import SmallButton from '../primitives/buttons/small-button/SmallButton';
+import { logout } from '../../store/reducers/authSlice';
 
-interface HeaderProps {
-    authProfile?: Profile;
-}
+function Header() {
+    const username = useAppSelector(state => state.authSlice.data?.username);
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-
-function Header({ authProfile }: HeaderProps) {
-    const [showMenu, setShowMenu] = useState(false);
-
-    function profile() {
-
+    function navigateProfile() {
+        navigate(`/${ username }`);
     }
 
-    function settings() {
-
+    function doLogout() {
+        dispatch(logout());
+        navigate('/login', { replace: false });
     }
 
-    function logout() {
-
-    }
-
-
-    function renderThemeIcon() {
-        return <img
-            draggable={ false }
-            alt={ '?' }
-            src={ require(
-                localStorage.getItem('theme') === 'light'
-                    ? '../../../static/icons/theme_toggle__dark.svg'
-                    : '../../../static/icons/theme_toggle__light.svg').default }
-            className={ classes.ChangeThemeBtn }
-            onClick={ () => {
-                document.querySelector('body')?.setAttribute('theme', 'dark')
-            }}
-        />;
+    function renderProfileMenu() {
+        return <div className={ classes.ProfileMenu }>
+            <p id="blink">for administrator</p>
+            <ContextMenu>
+                <SmallButton value={ 'profile' } onClick={ navigateProfile }/>
+                <SmallButton value={ 'zero task' } onClick={ () => navigate('/start') }/>
+                <SmallButton value={ 'logout' } onClick={ doLogout }/>
+            </ContextMenu>
+        </div>;
     }
 
     return (
-        <div className={ classes.Header }>
-            <LogoComponent/>
-            <div style={ { display: 'flex' } }>
-                { renderThemeIcon() }
-                <LetterButton
-                    profileName={ authProfile?.username }
-                    handleHover={ setShowMenu }
-                />
+        <header className={ classes.Header }>
+            { showProfileMenu && renderProfileMenu() }
+            <div className={ classes.Bar }>
+                <Link to={ '/today' }>
+                    <LogoComponent/>
+                </Link>
+                <div className={ classes.LeftBar }>
+                    <ThemeButton/>
+                    <LetterButton onClick={ () => {
+                        setShowProfileMenu(prevState => !prevState);
+                    } } username={ username ?? '?' }/>
+                </div>
             </div>
-        </div>
+        </header>
     );
 }
 
