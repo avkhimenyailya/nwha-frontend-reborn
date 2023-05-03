@@ -1,0 +1,93 @@
+.CollectionThingsModal {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: var(--bg-color);
+
+    width: 384px;
+    height: 600px;
+}
+
+.ModalWrap {
+    padding: 15px 15px 67px 15px;
+}
+
+.File {
+    gap: 20px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin-bottom: 14px;
+    height: 62px;
+    width: 352px;
+}
+
+.FileImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--sub-color1);
+}
+
+.FileName {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.AddNewCollectionButton {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 12px;
+}
+
+.AddNewCollectionButton p {
+    color: var(--sub-color2);
+    cursor: pointer;
+    user-select: none;
+}
+
+.CollectionsThingsList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.CollectionThingsItem {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border: 1px solid var(--sub-color1);
+    padding-left: 16px;
+    height: 52px;
+}
+
+.CollectionThingsItem input[type="checkbox"] {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+}
+
+.CollectionThingsItem p {
+    text-align: center;
+}
+
+.CollectionThingsItem:has(input[type="checkbox"]:checked) {
+    border: 1px solid var(--main-color);
+}
+
+.CollectionThingsItem:has(input[type="checkbox"]:not(:checked):hover) {
+    border: 1px solid var(--sub-color2);
+}
+
+.AddButton {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}

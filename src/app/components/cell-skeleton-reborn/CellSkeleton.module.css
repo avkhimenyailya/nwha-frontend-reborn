@@ -11,15 +11,16 @@
     width: 177px;
     height: 177px;
 
-    margin-bottom: 4px;
-    cursor: pointer;
+    margin-bottom: 3px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    overflow: clip;
 }
 
-.Content:hover {
+.ContentHover {
     position: relative;
     border: 1px solid var(--main-color);
 }
@@ -34,6 +35,7 @@
     width: max-content;
     color: var(--main-color);
     background: var(--color-select);
+    margin-bottom: 6px;
 }
 
 .Remark {
@@ -46,15 +48,11 @@
 
 }
 
-.Img {
-    object-fit: contain;
-    height: 100%;
-}
-
 .Clickable {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }

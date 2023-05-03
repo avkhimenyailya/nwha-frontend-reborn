@@ -3,8 +3,16 @@
     grid-template-areas:
     "I I I I"
     "L L L L";
-    justify-content: center;
     margin-bottom: 200px;
+}
+
+.EmptyList {
+    color: var(--sub-color2);
+    grid-area: L;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20vh;
 }
 
 .CollectionsPanelInterface {
@@ -39,7 +47,7 @@
     grid-area: Y;
 }
 
-.CollectionCellList >:empty .CollectionsPanel {
+.CollectionCellList > :empty .CollectionsPanel {
     justify-content: initial;
 }
 
@@ -93,6 +101,7 @@
     .CollectionsPanelInterface {
         /*justify-content: center;*/
     }
+
     .CollectionCellList {
         grid-template-areas:
         "Y";

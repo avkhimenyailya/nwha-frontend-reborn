@@ -1,7 +1,7 @@
 .AttributesPage {
     display: grid;
     grid-template-areas: ". M M . C C C C C C C C C . .";
-    grid-auto-columns: minmax(auto, 88px);
+    grid-auto-columns: 88px;
 }
 
 .Menu {

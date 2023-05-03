@@ -8,12 +8,12 @@ interface IeProps {
 
 function Ie(props: IeProps) {
     const theme = useAppSelector(state => state.themeSlice.theme);
+
     return (
         <Frame
             description={
                 <p>
-                    The Introvert / Extrovert line is responsible for the interaction of your home space with the world
-                    around you, drawing boundaries between the outside and the inside
+                    { 'The Introvert / Extrovert line is responsible for the\ninteraction of your home space with the world around you,\ndrawing boundaries between the outside and the inside' }
                 </p>
             }
             c1={ {

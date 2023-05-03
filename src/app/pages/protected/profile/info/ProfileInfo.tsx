@@ -3,12 +3,15 @@ import classes from './ProfileInfo.module.css';
 import { Profile } from '../../../../models/Profile';
 import Menu from '../../../../components/menu/Menu';
 import ProfileTraits from '../../../../components/profile-info/profile-traits/ProfileTraits';
+import { useAppSelector } from '../../../../store/store';
 
 interface ProfileInfoProps {
     profile: Profile;
 }
 
 function ProfileInfo({ profile }: ProfileInfoProps) {
+    const currentProfileId = useAppSelector(state => state.authSlice.data?.profileId);
+
     return (
         <div className={ classes.ProfileInfo }>
             <div className={ classes.Username }>
@@ -19,7 +22,8 @@ function ProfileInfo({ profile }: ProfileInfoProps) {
                     linkNames={ [
                         ['Things', 'things'],
                         ['Collections', 'collections'],
-                        ['Archive', 'archive']
+                        profile.id === currentProfileId
+                            ? ['Archive', 'archive'] : []
                     ] }
                 />
             </div>

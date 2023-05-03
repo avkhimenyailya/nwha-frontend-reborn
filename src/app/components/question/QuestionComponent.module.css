@@ -33,7 +33,7 @@
 }
 
 .QuestionTitle {
-    margin-bottom: 4px;
+    margin-bottom: 12px;
 }
 
 .Option p {
@@ -44,8 +44,8 @@
     border: 1px solid var(--main-color);
 }
 
-.Option:has(input[type="radio"]:hover) {
-    border: 1px solid var(--main-color);
+.Option:has(input[type="radio"]:not(:checked):hover) {
+    border: 1px solid var(--sub-color2);
 }
 
 @container (max-width: 384px) {

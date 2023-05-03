@@ -4,7 +4,8 @@ import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router
 import { profileApi } from '../../../store/api/profileApi';
 import ProfileInfo from './info/ProfileInfo';
 import ThingsPanel from './panels/things/ThingsPanel';
-import CellSkeleton from '../../../components/cell-skeleton-reborn/CellSkeleton';
+import CollectionPanel from './panels/collections/CollectionPanel';
+import Udwarn from '../../../components/udwarn/Udwarn';
 
 function ProfilePage() {
     const { username } = useParams();
@@ -17,6 +18,11 @@ function ProfilePage() {
         isSuccess: profileSuccess
     } = profileApi.useFetchProfileByUsernameQuery(username!);
 
+    const {
+        data: collectionThings,
+        isSuccess: collectionThingsSuccess
+    } = profileApi.useFetchCollectionsThingsByProfileIdQuery(profile?.id, { skip: !profile?.id });
+
     useEffect(() => {
         document.title = `${ username } — nwha`;
         return () => {
@@ -25,7 +31,6 @@ function ProfilePage() {
     }, [username]);
 
     useEffect(() => {
-        console.log(location.pathname);
         if (profileSuccess && location.pathname === '/' + profile.username) {
             navigate(`things`);
         }
@@ -36,13 +41,12 @@ function ProfilePage() {
             { profileSuccess &&
                 <ProfileInfo profile={ profile }/>
             }
-            { profileSuccess &&
+            { (profileSuccess && collectionThingsSuccess) &&
                 <Routes>
                     <Route path={ 'things' } element={ <ThingsPanel profile={ profile }/> }/>
                     <Route path={ 'collections' }
-                           element={ <CellSkeleton remark={ '(archived)' } foreign={ true }
-                                                   cellTitle={ '04 - 5' }
-                                                   description={ 'long descr' }/> }/>
+                           element={ <CollectionPanel collectionsThings={ collectionThings }/> }/>
+                    <Route path={ 'archive' } element={ <Udwarn/> }/>
                 </Routes>
             }
         </div>

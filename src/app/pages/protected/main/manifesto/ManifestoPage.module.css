@@ -1,13 +1,13 @@
 .ManifestoPage {
-    margin-top: -4px;
     display: grid;
-    grid-template-areas: ". . C C C C C C C C C C C . .";
+    grid-template-areas: ". . . . C C C C C C C C C C .";
     grid-auto-columns: 88px;
 }
 
 .Content {
     grid-area: C;
     display: flex;
+    margin-bottom: 400px;
 }
 
 .Column {
@@ -19,8 +19,8 @@
 .Item {
     display: grid;
 
-    grid-template-areas: "N T T T T T";
-    grid-auto-columns: minmax(auto, 88px);
+    grid-template-areas: "N T T T T";
+    grid-auto-columns: 88px;
 }
 
 .Number {

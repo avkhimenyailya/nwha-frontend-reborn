@@ -7,6 +7,7 @@ interface DropAreaProps {
 }
 
 function DropArea(props: DropAreaProps) {
+    
     const onDrop = useCallback((acceptedFiles: File[]) => {
         if (acceptedFiles[0]) {
             props.setFile(acceptedFiles[0]);
@@ -21,6 +22,7 @@ function DropArea(props: DropAreaProps) {
         isDragAccept && classes.DropAreaAccept,
         isDragReject && classes.DropAreaReject
     ];
+
     return (
         <div className={ dropAreaClasses.join(' ') } { ...getRootProps() }>
             <input { ...getInputProps() }/>

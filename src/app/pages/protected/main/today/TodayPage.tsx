@@ -28,7 +28,7 @@ function TodayPage() {
                     <p className={ classes.Label }>/random thing of the day</p>
                     <CellSkeleton
                         thing={ profile.profileTasks?.find(p => p.thing)?.thing }
-                        cellTitle={'27 – 02'}
+                        extraTitle={ '' }
                     />
                 </div>
             }

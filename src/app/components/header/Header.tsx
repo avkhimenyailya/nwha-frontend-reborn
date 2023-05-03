@@ -1,52 +1,61 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './Header.module.css';
 import LogoComponent from '../primitives/logo/Logo.component';
 import LetterButton from './letter-button/LetterButton';
-import { useAppDispatch, useAppSelector } from '../../store/store';
-import { Link, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../store/store';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ThemeButton from './theme-button/ThemeButton';
-import ContextMenu from '../contex-menu/ContextMenu';
 import SmallButton from '../primitives/buttons/small-button/SmallButton';
-import { logout } from '../../store/reducers/authSlice';
+import ContextMenu from '../contex-menu/ContextMenu';
 
 function Header() {
     const username = useAppSelector(state => state.authSlice.data?.username);
+    const [showProfileContextMenu, setShowProfileContextMenu] = useState(false);
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
-    const [showProfileMenu, setShowProfileMenu] = useState(false);
+    const location = useLocation();
 
-    function navigateProfile() {
-        navigate(`/${ username }`);
-    }
+    const [headerTransparent, setHeaderTransparent] = useState(false);
 
-    function doLogout() {
-        dispatch(logout());
-        navigate('/login', { replace: false });
-    }
+    useEffect(() => {
+        setHeaderTransparent(location.pathname === '/today'
+            || location.pathname === '/rules'
+            || location.pathname === '/about'
+            || location.pathname === '/manifesto'
+            || location.pathname.includes('/attributes')
+        );
+    }, [location]);
 
     function renderProfileMenu() {
-        return <div className={ classes.ProfileMenu }>
-            <p id="blink">for administrator</p>
+        return showProfileContextMenu && <div className={ classes.ProfileMenu }>
             <ContextMenu>
-                <SmallButton value={ 'profile' } onClick={ navigateProfile }/>
-                <SmallButton value={ 'zero task' } onClick={ () => navigate('/start') }/>
-                <SmallButton value={ 'logout' } onClick={ doLogout }/>
+                <SmallButton
+                    value={ 'profile' }
+                    onClick={ () => navigate(`/${ username }`) }
+                />
+                <SmallButton
+                    value={ 'log out' }
+                    onClick={ () => navigate('/logout') }
+                />
             </ContextMenu>
         </div>;
     }
 
+    const headerClasses = [classes.Header, headerTransparent && classes.T];
     return (
-        <header className={ classes.Header }>
-            { showProfileMenu && renderProfileMenu() }
+        <header className={ headerClasses.join(' ') }>
             <div className={ classes.Bar }>
                 <Link to={ '/today' }>
                     <LogoComponent/>
                 </Link>
                 <div className={ classes.LeftBar }>
                     <ThemeButton/>
-                    <LetterButton onClick={ () => {
-                        setShowProfileMenu(prevState => !prevState);
-                    } } username={ username ?? '?' }/>
+                    <div
+                        onMouseEnter={ () => setShowProfileContextMenu(true) }
+                        onMouseLeave={ () => setShowProfileContextMenu(false) }
+                        className={ classes.LetterButton }>
+                        { renderProfileMenu() }
+                        <LetterButton username={ username ?? '?' }/>
+                    </div>
                 </div>
             </div>
         </header>

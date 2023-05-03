@@ -8,11 +8,12 @@ interface OdProps {
 
 function Od(props: OdProps) {
     const theme = useAppSelector(state => state.themeSlice.theme);
+
     return (
         <Frame
             description={
                 <p>
-                    The Order / Disorder line is responsible for how you organise and interact with your space
+                    { 'The Order / Disorder line is responsible for\nhow you organise and interact with your space' }
                 </p>
             }
             c1={ {

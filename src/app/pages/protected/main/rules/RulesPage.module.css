@@ -2,7 +2,7 @@
     display: grid;
     grid-template-areas:
     ". . . . C C C C C C C C C . .";
-    grid-auto-columns: minmax(auto, 88px);
+    grid-auto-columns: 88px;
 }
 
 .Content {
@@ -12,7 +12,7 @@
     gap: 48px;
     max-width: 968px;
     z-index: 2;
-    margin-bottom: 82px;
+    margin-bottom: 400px;
 }
 
 .Paragraph {

@@ -1,7 +1,7 @@
-import { commonApi } from '../commonApi';
+import { api } from '../api';
 import { Task } from '../../models/Task';
 
-export const taskApi = commonApi.injectEndpoints({
+export const taskApi = api.injectEndpoints({
     endpoints: build => ({
         fetchTaskByOrdinalNumber: build.query<Task, number>({
             query: (ordinalNumber: number) => ({

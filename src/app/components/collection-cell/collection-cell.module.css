@@ -41,3 +41,25 @@
 .ThingCellList *:not(:first-child) {
     margin-left: -1px;
 }
+
+.CommonSmallCell {
+    border: 1px solid var(--sub-color1);
+    width: 89px;
+    height: 89px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CommonSmallCellHover {
+    position: relative;
+    border: 1px solid var(--main-color);
+}
+
+.CommonSmallCellHover > p {
+    color: var(--main-color);
+}
+
+.Amount {
+    color: var(--sub-color2);
+}

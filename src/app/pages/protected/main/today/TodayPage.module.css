@@ -1,7 +1,7 @@
 .HomePage {
     display: grid;
     grid-template-areas: ". . C C C . R R R R R R R R .";
-    grid-auto-columns: minmax(auto, 88px);
+    grid-auto-columns: 88px;
 }
 
 .Label {
@@ -29,4 +29,11 @@
     grid-area: R;
     min-height: 300px;
     z-index: 2;
+}
+
+.Herbarium {
+    position: absolute;
+    top: 480px;
+    max-height: 300px;
+    max-width: 340px;
 }

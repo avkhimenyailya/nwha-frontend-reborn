@@ -1,0 +1,37 @@
+.AboutPage {
+    display: grid;
+    grid-template-areas: ". . . . C C C C C C C C C . .";
+    grid-auto-columns: 88px;
+}
+
+.Content {
+    grid-area: C;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 400px;
+}
+
+.B {
+    font-size: 28px;
+    line-height: 100%;
+
+    letter-spacing: -0.02em;
+}
+
+.Sub {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Sub p {
+    width: 352px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.03em;
+    text-align: left;
+}
+
+.Watch:hover {
+    color: var(--sub-color2);
+}

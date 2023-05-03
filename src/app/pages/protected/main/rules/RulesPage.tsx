@@ -1,6 +1,7 @@
 import React from 'react';
 import clasees from './RulesPage.module.css';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../../../store/store';
 
 
 interface RulesPageProps {
@@ -8,6 +9,8 @@ interface RulesPageProps {
 }
 
 function RulesPage(props: RulesPageProps) {
+    const theme = useAppSelector(state => state.themeSlice.theme);
+
     return (
         <div className={ clasees.RulesPage }>
 
@@ -77,12 +80,12 @@ function RulesPage(props: RulesPageProps) {
                             <div className={ clasees.PointContent }>
                                 <img
                                     style={ {
-                                        maxWidth: '180px',
+                                        maxWidth: '268px',
                                         maxHeight: '32px'
                                     } }
                                     draggable={ false }
                                     alt={ '???' }
-                                    src={ require('./imgs/II-1.png') }
+                                    src={ require(`./imgs/II-1.${ theme }.png`) }
                                 />
                             </div>
                         </div>
@@ -103,7 +106,7 @@ function RulesPage(props: RulesPageProps) {
                                 <img
                                     draggable={ false }
                                     alt={ '???' }
-                                    src={ require('./imgs/II-2.png') }
+                                    src={ require(`./imgs/II-2.${ theme }.png`) }
                                 />
                             </div>
                         </div>
@@ -122,7 +125,7 @@ function RulesPage(props: RulesPageProps) {
                                     } }
                                     draggable={ false }
                                     alt={ '???' }
-                                    src={ require('./imgs/II-3.png') }
+                                    src={ require(`./imgs/II-3.${ theme }.png`) }
                                 />
                             </div>
                         </div>

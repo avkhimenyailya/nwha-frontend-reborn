@@ -4,7 +4,8 @@ export interface Thing {
     description?: string;
     archived?: boolean;
     removed?: boolean;
+    profileId?: number;
     profileTaskId?: number;
-    createdAt?: string;
-    updatedAt?: string;
+    addedDate?: string;
+    taskOrdinalNumber?: number;
 }

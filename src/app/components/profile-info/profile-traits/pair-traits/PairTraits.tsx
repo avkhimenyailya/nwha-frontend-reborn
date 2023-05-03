@@ -14,9 +14,9 @@ const PairTraits: FC<PairTraitsProps> = ({ pair }: PairTraitsProps) => {
         for (let i = 0; i < 100; i++) {
             if (i % 10 === 0) {
                 if (value >= i && value < (i + 10)) {
-                    result += '—';
-                } else {
                     result += '*';
+                } else {
+                    result += '—';
                 }
             }
         }
@@ -25,7 +25,11 @@ const PairTraits: FC<PairTraitsProps> = ({ pair }: PairTraitsProps) => {
 
     return (
         <div className={ classes.pair }>
-            <p className={ classes.symbolChart }> { getSymbolChart(pair.profileTraitFirst?.value) } </p>
+            <p className={ classes.traitName }>{ pair.firstProfileTrait.traitName }</p>
+            <p className={ classes.symbolChart }>
+                { getSymbolChart(pair.firstProfileTrait.value) }
+            </p>
+            <p className={ classes.traitName }>{ pair.secondProfileTrait.traitName }</p>
         </div>
     );
 };

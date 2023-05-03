@@ -1,21 +1,21 @@
 .Frame {
     display: grid;
     grid-template-areas:
-    "D D D D D . . . ."
+    "D D D D D D D D D"
     "C C C C C C C C C";
-    grid-template-columns: minmax(88px, 88px);
+    grid-auto-columns: 88px;
     grid-gap: 32px;
 }
 
 .Description {
     grid-area: D;
-    max-width: 440px;
+    height: 74px;
 }
 
 .Content {
     grid-area: C;
     display: flex;
-    justify-content: space-between;
+    gap: 88px;
 }
 
 .Col {
@@ -35,10 +35,9 @@
 }
 
 .Img {
-    max-width: 352px;
-    max-height: 240px;
-    width: 100%;
-    height: 100%;
+    display: flex;
+    width: 352px;
+    height: 240px;
     margin-bottom: 32px;
 }
 

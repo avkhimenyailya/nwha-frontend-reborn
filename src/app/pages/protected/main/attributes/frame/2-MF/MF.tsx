@@ -8,11 +8,12 @@ interface MfProps {
 
 function Mf(props: MfProps) {
     const theme = useAppSelector(state => state.themeSlice.theme);
+
     return (
         <Frame
             description={
                 <p>
-                    The Mind / Feeling line is responsible for the source of decision-making in your everyday life
+                    { 'The Mind / Feeling line is responsible for the\nsource of decision-making in your everyday life' }
                 </p>
             }
             c1={ {
@@ -28,7 +29,7 @@ function Mf(props: MfProps) {
             } }
             c2={ {
                 title: 'Feeling (F)',
-                img: <img alt={ '???' } src={ require(`./1-mf.${ theme }.png`) }/>,
+                img: <img alt={ '???' } src={ require(`./2-mf.${ theme }.png`) }/>,
                 text: <p>
                     You trust your feelings to make decisions. Your day is rather unstructured, as many of your actions
                     are mood-driven, which can make them impulsive. You tend to animate your belongings and spaces, or

@@ -1,34 +1,47 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classes from './CollectionPanel.module.css';
 import CollectionCellComponent from '../../../../../components/collection-cell/collection-cell.component';
-import { Collection } from '../../../../../models/Collection';
+import { collectionThingsApi } from '../../../../../store/api/collectionThingsApi';
+import { useAppSelector } from '../../../../../store/store';
+import { CollectionThings } from '../../../../../models/CollectionThings';
 
 interface CollectionPanelProps {
-    collections?: Collection[];
+    collectionsThings: CollectionThings[];
 }
 
-function CollectionPanel({ collections }: CollectionPanelProps) {
-    const [collectionsList, setCollectionList] = useState([...Array(0)]);
+function CollectionPanel(props: CollectionPanelProps) {
+    const currentProfileId = useAppSelector(state => state.authSlice.data?.profileId);
+
+    const [create, {
+        isSuccess: createCtSuccess
+    }] = collectionThingsApi.useCreateCollectionThingsMutation();
 
     function addNewCollection() {
-        setCollectionList(prevState => [...prevState, undefined]);
+        create('New collection');
     }
 
     return (
         <div className={ classes.CollectionsPanel }>
-            <div className={ classes.CollectionsPanelInterface }>
+            { props.collectionsThings && <div className={ classes.CollectionsPanelInterface }>
                 <p onClick={ () => addNewCollection() } className={ classes.CreateNewCollectionBtn }>
                     [ create new collection ]
                 </p>
-            </div>
-            <div className={ classes.CollectionCellList }>
-                { collectionsList.map((x, i) =>
-                    <CollectionCellComponent
-                        key={ i }
-                        name={ 'Collection ' + (i + 1) }
-                    />).reverse()
-                }
-            </div>
+            </div> }
+            {
+                props.collectionsThings && !props.collectionsThings.length &&
+                <p className={ classes.EmptyList }>no collections yet</p>
+            }
+            {
+                props.collectionsThings &&
+                <div className={ classes.CollectionCellList }>
+                    { props.collectionsThings.map(ct =>
+                        <CollectionCellComponent
+                            key={ ct.id }
+                            collectionThings={ ct }
+                        />).reverse()
+                    }
+                </div>
+            }
         </div>
     );
 }

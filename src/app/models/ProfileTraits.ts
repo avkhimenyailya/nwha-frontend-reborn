@@ -1,10 +1,10 @@
 export interface ProfileTraits {
-    id: number,
-    traitId: number,
     value: number
+    profileId: number,
+    traitName: string,
 }
 
 export interface ProfilePairTraits {
-    profileTraitFirst: ProfileTraits;
-    profileTraitSecond: ProfileTraits;
+    firstProfileTrait: ProfileTraits;
+    secondProfileTrait: ProfileTraits;
 }

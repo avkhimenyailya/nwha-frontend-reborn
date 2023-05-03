@@ -1,16 +1,16 @@
-import { commonApi } from '../commonApi';
+import { api } from '../api';
 import { Profile } from '../../models/Profile';
 import { Thing } from '../../models/Thing';
-import { Collection } from '../../models/Collection';
+import { CollectionThings } from '../../models/CollectionThings';
 
-export const profileApi = commonApi.injectEndpoints({
+export const profileApi = api.injectEndpoints({
     endpoints: build => ({
-        fetchProfile: build.query<Profile, void>({
+        fetchAuthorizedProfile: build.query<Profile, void>({
             query: () => ({
                 url: '/profile'
             })
         }),
-        fetchProfileById: build.query<Profile, number>({
+        fetchProfileById: build.query<Profile, number | undefined>({
             query: (id: number) => ({
                 url: `/profile/id/${ id }`
             }),
@@ -19,17 +19,19 @@ export const profileApi = commonApi.injectEndpoints({
         fetchProfileByUsername: build.query<Profile, string>({
             query: (username: string) => ({
                 url: `/profile/usr/${ username }`
-            })
+            }),
+            providesTags: ['Profile']
         }),
-        fetchProfileThingsByProfileId: build.query<Thing[], number>({
-            query: (profileId: number | undefined) => ({
+        fetchThingsByProfileId: build.query<Thing[], number>({
+            query: (profileId: number) => ({
                 url: `/profile/${ profileId }/things`
             })
         }),
-        fetchProfileCollectionsThingsByProfileId: build.query<Collection[], number>({
+        fetchCollectionsThingsByProfileId: build.query<CollectionThings[], number | undefined>({
             query: (profileId: number | undefined) => ({
                 url: `/profile/${ profileId }/collections`
-            })
+            }),
+            providesTags: ['CollectionThings']
         })
     })
 });

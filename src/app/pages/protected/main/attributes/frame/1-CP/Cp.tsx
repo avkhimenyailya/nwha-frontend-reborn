@@ -1,6 +1,7 @@
 import React from 'react';
 import Frame from '../Frame';
 import { useAppSelector } from '../../../../../../store/store';
+import Img from '../../../../../../components/primitives/img/Img';
 
 interface CpProps {
 
@@ -8,17 +9,17 @@ interface CpProps {
 
 function Cp(props: CpProps) {
     const theme = useAppSelector(state => state.themeSlice.theme);
+
     return (
         <Frame
             description={
                 <p>
-                    The Conductor / Producer line indicates the role arrangement in your relationship with things and
-                    the nature of your relationship with your home
+                    { 'The Conductor / Producer line indicates the role\narrangement in your relationship with things and\nthe nature of your relationship with your home' }
                 </p>
             }
             c1={ {
                 title: 'Conductor (C)',
-                img: <img alt={ '???' } src={ require(`./1-cp.${ theme }.png`) }/>,
+                img: <Img imgUrl={ require(`./1-cp.${ theme }.png`) }/>,
                 text: <p>
                     Your attitude towards things can be compared to a human relationship: you tend to come into close
                     contact with them, establishing not only an emotional connection but also a bodily one: things seem
@@ -31,7 +32,7 @@ function Cp(props: CpProps) {
             } }
             c2={ {
                 title: 'Producer (P)',
-                img: <img alt={ '???' } src={ require(`./2-cp.${ theme }.png`) }/>,
+                img: <Img imgUrl={ require(`./2-cp.${ theme }.png`) }/>,
                 text: <p>
                     You, not your things, are the centre of your home, while things are only subject to your needs and
                     desires. You don't get emotionally attached to things, you don't give them additional meanings

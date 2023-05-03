@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 export function useEventHandler() {
-    const usernameFieldRef = useRef<HTMLInputElement>();
-    const passwordFieldRef = useRef<HTMLInputElement>();
-    const buttonRef = useRef<HTMLInputElement>();
+    const usernameFieldRef = useRef<HTMLInputElement>(null);
+    const passwordFieldRef = useRef<HTMLInputElement>(null);
+    const buttonRef = useRef<HTMLInputElement>(null);
 
-    const [ event, setEvent ]
-        = useState<React.KeyboardEvent<HTMLInputElement>>();
+    const [event, setEvent] = useState<React.KeyboardEvent<HTMLInputElement>>();
 
-    const handleInputEvent
-        = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    const handleInputEvent = (event: React.KeyboardEvent<HTMLInputElement>): void => {
         setEvent(event);
     };
 
@@ -56,7 +54,7 @@ export function useEventHandler() {
                 }
                 break;
         }
-    }, [ event ]);
+    }, [event]);
 
 
     return {

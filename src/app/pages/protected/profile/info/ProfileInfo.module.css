@@ -3,11 +3,15 @@
     grid-template-areas:
     "U U U U D D D D D . T T T T T ."
     "N N N N D D D D D . T T T T T .";
-    grid-template-columns: minmax(auto, 88px);
+    grid-auto-columns: 88px;
 }
 
 .Username {
     grid-area: U;
+}
+
+.Username p {
+
 }
 
 .Menu {
@@ -35,12 +39,12 @@
     grid-area: T;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
     .ProfileInfo {
         gap: 50px 0;
         display: flex;
         flex-direction: column;
-        margin-bottom: 10px;
+        margin-bottom: initial;
     }
 
     .ProfileInfo > * {
@@ -48,7 +52,7 @@
     }
 
     .Menu {
-        align-self: center;
+        align-self: start;
         order: 1;
     }
 }

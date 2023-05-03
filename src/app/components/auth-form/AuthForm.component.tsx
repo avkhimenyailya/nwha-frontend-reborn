@@ -1,5 +1,5 @@
 import React, { MouseEventHandler, useEffect, useState } from 'react';
-import Field from '../primitives/fields/field/Field';
+import Input from '../primitives/fields/field/Input';
 import Button from '../primitives/buttons/button /Button';
 import classes from './AuthForm.module.css';
 import LogoComponent from '../primitives/logo/Logo.component';
@@ -34,21 +34,21 @@ function AuthFormComponent(props: AuthFormComponentProps) {
             </div>
             <form className={ classes.formContainer }>
                 <div className={ classes.usernameContainer }>
-                    <Field
+                    <Input
                         value={ props.usernameValue }
                         placeholder={ props.usernamePlaceholder }
                         onChange={ props.usernameOnChange }
-                        innerRef={ keyboardEventHandler.usernameFieldRef }
+                        ref={ keyboardEventHandler.usernameFieldRef }
                         onKeyDown={ keyboardEventHandler.handleInputEvent }
                     />
                 </div>
                 <div className={ classes.passwordContainer }>
-                    <Field
+                    <Input
                         password={ true }
                         value={ props.passwordValue }
                         placeholder={ props.passwordPlaceholder }
                         onChange={ props.passwordOnChange }
-                        innerRef={ keyboardEventHandler.passwordFieldRef }
+                        ref={ keyboardEventHandler.passwordFieldRef }
                         onKeyDown={ keyboardEventHandler.handleInputEvent }
                     />
                 </div>
@@ -57,7 +57,7 @@ function AuthFormComponent(props: AuthFormComponentProps) {
                         value={ 'start' }
                         disabled={ disableButton }
                         onClick={ props.buttonOnClick }
-                        innerRef={ keyboardEventHandler.buttonRef }
+                        ref={ keyboardEventHandler.buttonRef }
                         onKeyUp={ keyboardEventHandler.handleInputEvent }
                         onKeyDown={ keyboardEventHandler.handleInputEvent }
                     />

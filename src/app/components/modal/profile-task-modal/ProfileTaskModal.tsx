@@ -1,53 +1,109 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './ProfileTaskModal.module.css';
 import { ProfileTask } from '../../../models/ProfileTask';
 import QuestionComponent from '../../question/QuestionComponent';
 import { Answer } from '../../../models/Answer';
+import Button from '../../primitives/buttons/button /Button';
+import DropArea from './drop-area/DropArea';
+import ThingEditor from './thing-editor/ThingEditor';
+import { Thing } from '../../../models/Thing';
+import { thingApi } from '../../../store/api/thingApi';
+import FileLoadBar from './file-load-bar/FileLoadBar';
+import { useFileUploader } from './useFileUploader';
+import { profileTaskApi } from '../../../store/api/profileTaskApi';
 
 interface ProfileTaskModalProps {
-    answers: Map<number, Answer>;
-    setAnswers: (map: Map<number, Answer>) => void;
-
     profileTask: ProfileTask;
-    setDisableButton: (flag: boolean) => void;
+    setShowProfileTaskModal: (flag: boolean) => void;
 }
 
 function ProfileTaskModal(props: ProfileTaskModalProps) {
+    const [disableSaveButton, setDisableSaveButton] = useState(true);
+    const [answers, setAnswers] = useState(new Map<number, Answer>());
+
+    const {
+        logic,
+
+        file,
+        setFile,
+        setFileUrl,
+
+        fileUrl,
+        progress,
+        isUploading
+    } = useFileUploader();
+
+    // thing editor
+    const [thing, setThing] = useState<Thing>(props.profileTask.thing ?? { profileTaskId: props.profileTask.id } as Thing);
+
+    // drop area
+    const [createThing] = thingApi.useCreateMutation();
+    const [update] = thingApi.useUpdateMutation();
+
+    const [updateAnswers, { isLoading, isSuccess, isError }] = profileTaskApi.useUpdateAnswersMutation();
 
     useEffect(() => {
-        if (props.answers.size === 1) {
-            props.setDisableButton(false);
+        setDisableSaveButton(!Boolean(answers.size === 1 && (fileUrl || thing.id)));
+    }, [answers, fileUrl, thing]);
+
+    useEffect(() => {
+        if (file) {
+            logic();
         }
-    }, [props.answers, props]);
-
-    useEffect(() => {
-        return () => {
-            props.setDisableButton(true);
-            props.setAnswers(new Map<number, Answer>());
-        };
-    }, [props]);
-
+    }, [file]);
 
     useEffect(() => {
         const newMap = new Map<number, Answer>();
         props.profileTask.answers.map(a => newMap.set(a.questionId!, a));
-        props.setAnswers(newMap);
+        setAnswers(newMap);
     }, [props.profileTask]);
+
+    function save() {
+        if (thing.id) {
+            update({ ...thing });
+        } else {
+            createThing({ ...thing, fileUrl });
+        }
+        updateAnswers({
+            profileTaskId: props.profileTask.id,
+            answers: Array.from(answers.values())
+        });
+        props.setShowProfileTaskModal(false);
+    }
 
     function renderTaskTitle() {
         return <p className={ classes.TaskOrdinalNumber }>
-            { 'Task ' + props.profileTask.task.ordinalNumber + ' [' + props.profileTask.id + ']' }</p>;
+            { 'Task ' + props.profileTask.task.ordinalNumber }</p>;
     }
 
     function renderTaskDescription() {
         return <p className={ classes.TaskDescription }>
-            { props.profileTask.task.description }</p>;
+            { props.profileTask.task.description.replaceAll('%%%', ' ') }</p>;
     }
 
-    function renderTaskDetails() {
-        return <p className={ classes.TaskDetails }>
-            { props.profileTask.task.details }
-        </p>;
+    function renderThingEditor() {
+        return (fileUrl || thing.id) &&
+            <div className={ classes.ThingEditor }>
+                <ThingEditor
+                    fileUrl={ fileUrl }
+                    setFileUrl={ setFileUrl }
+                    thing={ thing }
+                    setThing={ setThing }
+                />
+            </div>;
+    }
+
+    function renderDropArea() {
+        return (!thing?.id && !fileUrl && !isUploading) &&
+            <div className={ classes.DropArea }>
+                <DropArea setFile={ setFile }/>
+            </div>;
+    }
+
+    function renderFileLoadBar() {
+        return isUploading && <div className={ classes.FileLoadBar }>
+            <FileLoadBar percent={ progress }/>
+        </div>;
     }
 
     function renderQuestion() {
@@ -55,18 +111,38 @@ function ProfileTaskModal(props: ProfileTaskModalProps) {
             .task
             .questions
             .map(q =>
-                <QuestionComponent profileTaskId={ props.profileTask.id }
-                                   question={ q } answers={ props.answers }
-                                   setAnswers={ props.setAnswers }/>
+                <QuestionComponent
+                    key={ q.id }
+                    profileTaskId={ props.profileTask.id }
+                    question={ q } answers={ answers }
+                    setAnswers={ setAnswers }
+                />
             );
+    }
+
+    function renderButton() {
+        return <div
+            className={ classes.SaveButton }>
+            <Button
+                borderSide={ true }
+                disabled={ disableSaveButton }
+                value={ 'save' }
+                onClick={ () => save() }
+            />
+        </div>;
     }
 
     return (
         <div className={ classes.ProfileTaskModal }>
-            { renderTaskTitle() }
-            { renderTaskDescription() }
-            { renderTaskDetails() }
-            { renderQuestion() }
+            <div className={ classes.ModalWrap }>
+                { renderTaskTitle() }
+                { renderTaskDescription() }
+                { renderFileLoadBar() }
+                { renderDropArea() }
+                { renderThingEditor() }
+                { renderQuestion() }
+            </div>
+            { renderButton() }
         </div>
     );
 }

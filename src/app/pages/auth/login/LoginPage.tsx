@@ -13,7 +13,7 @@ function LoginPage() {
     const navigate = useNavigate();
     useEffect(() => {
         if (status === 'successfully') {
-            navigate(`/${ data?.username }`);
+            navigate(`/today`);
         }
     }, [data?.username, navigate, status]);
 

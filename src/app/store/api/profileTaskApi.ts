@@ -1,17 +1,23 @@
-import { commonApi } from '../commonApi';
+import { api } from '../api';
 import { Answer } from '../../models/Answer';
 import { ProfileTask } from '../../models/ProfileTask';
 
-export const profileTaskApi = commonApi.injectEndpoints({
+export const profileTaskApi = api.injectEndpoints({
     endpoints: build => ({
-        // устанавливает/перезаписывает новые ответы в задание
-        updateAnswers: build.mutation<ProfileTask, { profileTaskId: number, answers: Answer[] }>({
-            query: ({ profileTaskId, answers }) => ({
-                url: `/pt/${ profileTaskId }/put/answer`,
-                method: 'PUT',
-                body: answers
+        fetchProfileTaskById: build.query<ProfileTask, number | undefined>({
+            query: (id: number | undefined) => ({
+                url: `/pt/${ id }`
             })
         }),
+        // устанавливает/перезаписывает новые ответы в задание
+        updateAnswers:
+            build.mutation<ProfileTask, { profileTaskId: number, answers: Answer[] }>({
+                query: ({ profileTaskId, answers }) => ({
+                    url: `/pt/${ profileTaskId }/put/answer`,
+                    method: 'PUT',
+                    body: answers
+                })
+            }),
         // удаляет все ответы из задания
         refreshAnswers:
             build.mutation<ProfileTask, { profileTaskId: number }>({

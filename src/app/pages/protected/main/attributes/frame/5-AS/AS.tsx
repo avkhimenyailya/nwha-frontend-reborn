@@ -8,11 +8,12 @@ interface AsProps {
 
 function As(props: AsProps) {
     const theme = useAppSelector(state => state.themeSlice.theme);
+
     return (
         <Frame
             description={
                 <p>
-                    The Altruistic / Separate line is responsible for the points of support
+                    { 'The Altruistic / Separate line is responsible\nfor the points of support' }
                 </p>
             }
             c1={ {

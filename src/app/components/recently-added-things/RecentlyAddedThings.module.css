@@ -6,8 +6,8 @@
 .Row {
     grid-area: R;
     display: grid;
-    grid-template-areas: "U U N N . . T T";
-    grid-auto-columns: minmax(auto, 88px);
+    grid-template-areas: "U U N N N . T T";
+    grid-auto-columns: minmax(88px, 88px);
     height: 32px;
     align-items: center;
 }

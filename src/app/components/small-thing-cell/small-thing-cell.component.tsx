@@ -1,21 +1,25 @@
 import React from 'react';
 import classes from './small-thing-cell.module.css';
+import { Thing } from '../../models/Thing';
 
 interface SmallThingCellComponentProps {
-    imgUrl?: string;
+    thing?: Thing;
     hover: boolean;
 }
 
-function SmallThingCellComponent({ imgUrl, hover }: SmallThingCellComponentProps) {
+function SmallThingCellComponent(props: SmallThingCellComponentProps) {
 
     return (
-        <div className={ classes.SmallThingCell + (hover ? ' ' + classes.SmallThingCellHover : '') }>
-            <img
-                alt={ '?' }
-                draggable={ false }
-                style={ { objectFit: 'contain' } }
-                src={ imgUrl ? imgUrl : 'https://lifehacker.ru/wp-content/uploads/2021/02/Trinity-Matrix-phone-booth_1613043690.jpg' }
-            />
+        <div className={ classes.SmallThingCell + (props.hover ? ' ' + classes.SmallThingCellHover : '') }>
+            {
+                props.thing &&
+                <img
+                    alt={ '?' }
+                    draggable={ false }
+                    style={ { objectFit: 'contain' } }
+                    src={ props.thing.fileUrl! }
+                />
+            }
         </div>
     );
 }

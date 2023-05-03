@@ -2,12 +2,12 @@ import React from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import ThingsPanel from './things/ThingsPanel';
 import classes from './ProfilePanels.module.css';
-import { Collection } from '../../../../models/Collection';
+import { CollectionThings } from '../../../../models/CollectionThings';
 import { Profile } from '../../../../models/Profile';
 
 interface ProfilePanelsProps {
     profile: Profile,
-    collections: Collection[]
+    collections: CollectionThings[]
 }
 
 function ProfilePanels(props: ProfilePanelsProps) {

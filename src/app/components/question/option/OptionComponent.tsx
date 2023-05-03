@@ -33,7 +33,7 @@ function OptionComponent(props: OptionProps) {
                 name={ String(props.questionId) }
                 checked={ Array.from(props.answers.values()).some(a => a.optionId === props.opt.id) }
             />
-            <p>{ props.opt.description + ' [' + props.opt.id + ']' }</p>
+            <p>{ props.opt.description }</p>
         </div>
     );
 }

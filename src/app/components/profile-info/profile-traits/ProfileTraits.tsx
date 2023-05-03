@@ -10,7 +10,7 @@ interface ProfileTraitsProps {
 const ProfileTraits: FC<ProfileTraitsProps> = ({ pairsTraits }: ProfileTraitsProps) => {
     return (
         <div className={ classes.container }>
-            { pairsTraits.map(pair => <PairTraits pair={ pair }/>) }
+            { pairsTraits.map((pair, index) => <PairTraits key={ index } pair={ pair }/>) }
         </div>
     );
 };

@@ -1,0 +1,27 @@
+.CollectionPage {
+    margin-top: 6px;
+}
+
+.Interface {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.Name {
+    display: flex;
+}
+
+.ChangeNameButton {
+    cursor: pointer;
+    color: var(--sub-color2);
+}
+
+.CountThings {
+
+}
+
+.DeleteCollectionButton {
+    cursor: pointer;
+    color: var(--sub-color2);
+}

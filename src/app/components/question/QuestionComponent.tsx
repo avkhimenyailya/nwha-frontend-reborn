@@ -16,7 +16,7 @@ function QuestionComponent(props: QuestionProps) {
     return (
         <div className={ classes.Question }>
             <p className={ classes.QuestionTitle }>
-                Question { props.question.ordinalNumber + ' [' + props.question.id + ']' || '???' }
+                Question { props.question.ordinalNumber || '???' }
             </p>
             <div className={ classes.Options }>
                 {

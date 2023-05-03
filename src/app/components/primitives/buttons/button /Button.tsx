@@ -6,19 +6,20 @@ interface ButtonProps {
     borderSide?: boolean;
     disabled?: boolean;
     value?: string;
-    innerRef?: React.MutableRefObject<HTMLInputElement | undefined>;
+    ref?: React.Ref<HTMLInputElement>;
     onKeyUp?: { (event: React.KeyboardEvent<HTMLInputElement>): any };
     onKeyDown?: { (event: React.KeyboardEvent<HTMLInputElement>): any };
     onClick: MouseEventHandler<HTMLInputElement>;
 }
 
 const Button: FC<ButtonProps> = (props: ButtonProps) => {
-    const [ active, setActive ] = useState(false);
+    const [active, setActive] = useState(false);
 
-    const buttonClasses: string[] = [ classes.button, props.borderSide && classes.ButtonBorderSide, active ? 'active' : '' ];
+    const buttonClasses: string[] =
+        [classes.button, props.borderSide && classes.ButtonBorderSide, active ? 'active' : ''];
     return (
         <input
-            ref={ props.innerRef as LegacyRef<HTMLInputElement> }
+            ref={ props.ref as LegacyRef<HTMLInputElement> }
             type={ 'button' }
             disabled={ props.disabled }
             value={ props.value || 'btn' }
