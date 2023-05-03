@@ -48,6 +48,7 @@ function Header() {
                     <LogoComponent/>
                 </Link>
                 <div className={ classes.LeftBar }>
+                    <p id={ 'w' }>early access_beta 1.0.55</p>
                     <ThemeButton/>
                     <div
                         onMouseEnter={ () => setShowProfileContextMenu(true) }

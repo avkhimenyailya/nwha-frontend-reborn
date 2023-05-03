@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import classes from './CollectionThingsModal.module.css';
 import { useAppSelector } from '../../../store/store';
 import { profileApi } from '../../../store/api/profileApi';
@@ -8,7 +8,6 @@ import Input from '../../primitives/fields/field/Input';
 import { CollectionThings } from '../../../models/CollectionThings';
 import Img from '../../primitives/img/Img';
 import { ProfileTask } from '../../../models/ProfileTask';
-import CollectionThingsItem from './CollectionThingsItem';
 
 export interface CollectionThingsWrap {
     collectionThings: CollectionThings;
@@ -20,8 +19,27 @@ interface CollectionThingsModalProps {
     modalVisible: (flag: boolean) => void;
 }
 
+type CollectionThingItemProps = {
+    id: number;
+    checked: boolean;
+    onChange: (status: boolean, id: number) => void;
+    name: string;
+};
+
+export const CollectionThingItem: FC<CollectionThingItemProps> = ({ name, id, checked, onChange }) => (
+    <div className={ classes.CollectionThingsItem }>
+        <input
+            value={ id }
+            type={ 'checkbox' }
+            checked={ checked }
+            onChange={ event => onChange(event.target.checked, id) }
+        />
+        <p>{ name }</p>
+    </div>
+);
+
+
 function CollectionThingsModal(props: CollectionThingsModalProps) {
-    // >>>-------------------------------- states  --------------------------------<<<
     const authorizedProfileId = useAppSelector(state => state.authSlice.data?.profileId);
 
     const [nameFieldValue, setNameFieldValue] = useState('');
@@ -29,62 +47,28 @@ function CollectionThingsModal(props: CollectionThingsModalProps) {
     const [collectionsThingsList, setCollectionsThingsList] = useState<CollectionThingsWrap[]>([]);
     const nameFieldRef = useRef<HTMLInputElement>(null);
 
-    // >>>-------------------------------- queries --------------------------------<<<
     const {
         data: collectionsThings,
         isSuccess: collectionsThingsSuccess
     } = profileApi.useFetchCollectionsThingsByProfileIdQuery(authorizedProfileId, { skip: !authorizedProfileId });
 
-    const [createCollectionThings, {
-        isSuccess: createCollectionThingsSuccess
-    }] = collectionThingsApi.useCreateCollectionThingsMutation();
-
-    const [putThing, {
-        isSuccess: putThingSuccess
-    }] = collectionThingsApi.usePutThingInCollectionThingsMutation();
+    const [putThing] = collectionThingsApi.usePutThingInCollectionThingsMutation();
+    const [createCollectionThings] = collectionThingsApi.useCreateCollectionThingsMutation();
 
     const {
         data: ownerThing,
         isSuccess: ownerThingSuccess
     } = profileApi.useFetchProfileByIdQuery(props.profileTask.profileId);
 
-    // >>>-------------------------------- effects --------------------------------<<<
     useEffect(() => {
-        function handleKeydown(ev: KeyboardEvent) {
-            if (ev.key === 'Enter') {
-                if (nameFieldValue) {
-                    const wrap = {
-                        collectionThings: {
-                            things: [],
-                            name: nameFieldValue,
-                            profileId: authorizedProfileId!
-                        },
-                        checked: true
-                    } as CollectionThingsWrap;
-
-                    const newList = [...collectionsThingsList!, wrap];
-                    setCollectionsThingsList(newList);
-                    setNameFieldValue('');
-                    setNameFieldVisible(false);
-                }
-            }
-        }
-
-        window.addEventListener('keydown', handleKeydown);
-        return () => {
-            window.removeEventListener('keydown', handleKeydown);
-        };
-    }, [authorizedProfileId, collectionsThingsList, nameFieldValue, nameFieldValue.length]);
-
-    useEffect(() => {
-        console.log('eefff');
-        setCollectionsThingsList(collectionsThings?.map(ct => {
+        const newListWraps = collectionsThings?.filter(ct => !collectionsThingsList.find(c => c.collectionThings.id === ct.id)).map(ct => {
             return {
                 collectionThings: ct,
                 checked: false
             } as CollectionThingsWrap;
-        }) ?? []);
-    }, [collectionsThings]);
+        });
+        setCollectionsThingsList([...collectionsThingsList, ...newListWraps ?? []]);
+    }, [collectionsThings, collectionsThingsList]);
 
     useEffect(() => {
         if (nameFieldVisible) nameFieldRef.current?.focus();
@@ -93,8 +77,7 @@ function CollectionThingsModal(props: CollectionThingsModalProps) {
 
     function renderFileInfo() {
         return <div className={ classes.File }>
-            {
-                ownerThingSuccess &&
+            { ownerThingSuccess &&
                 <>
                     <div className={ classes.FileImg }>
                         <Img imgUrl={ props.profileTask.thing?.fileUrl! }/>
@@ -103,8 +86,7 @@ function CollectionThingsModal(props: CollectionThingsModalProps) {
                         <p>{ props.profileTask.thing?.id }</p>
                         <p>{ `by @${ ownerThing.username }` }</p>
                     </div>
-                </>
-            }
+                </> }
         </div>;
     }
 
@@ -118,15 +100,38 @@ function CollectionThingsModal(props: CollectionThingsModalProps) {
             </div>;
     }
 
+    function createNewCollection() {
+        if (nameFieldValue.length > 5) {
+            createCollectionThings(nameFieldValue)
+                .unwrap()
+                .then(r => {
+                    const wrap = {
+                        collectionThings: r,
+                        checked: true
+                    } as CollectionThingsWrap;
+                    const newList = [...collectionsThingsList!, wrap];
+                    setCollectionsThingsList(newList);
+                    setNameFieldValue('');
+                    setNameFieldVisible(false);
+                });
+        } else {
+            alert('min 6 chars');
+        }
+    }
+
     function renderNameField() {
         return nameFieldVisible &&
             <div style={ { marginBottom: '8px' } }>
                 <Input
+                    onKeyDown={ event => {
+                        if (event.key === 'Enter') {
+                            createNewCollection();
+                        }
+                    } }
                     onBlur={ () => {
                         setNameFieldValue('');
                         setNameFieldVisible(false);
                     } }
-                    onFocus={ () => console.log('О, а теперь в фокусе') }
                     ref={ nameFieldRef }
                     value={ nameFieldValue }
                     placeholder={ 'min 6 chars' }
@@ -138,12 +143,29 @@ function CollectionThingsModal(props: CollectionThingsModalProps) {
     function renderCollectionsThingsList() {
         return collectionsThingsSuccess &&
             <div className={ classes.CollectionsThingsList }>
-                { collectionsThingsList?.map(ct => renderCollectionThingsItem(ct)).reverse() }
+                { collectionsThingsList?.map(ct => {
+                    return renderCollectionThingsItem(ct);
+                }).reverse() }
             </div>;
     }
 
+    const handleChangeThingItem = (status: boolean, id: number) => {
+        const updatedCollectionList = collectionsThingsList.map((collection) => {
+            if (collection.collectionThings.id === id) {
+                return { ...collection, checked: status };
+            }
+            return collection;
+        });
+        setCollectionsThingsList(updatedCollectionList);
+    };
+
     function renderCollectionThingsItem(collectionThingsWrap: CollectionThingsWrap) {
-        return <CollectionThingsItem collectionThingsWrap={ collectionThingsWrap }/>;
+        return <CollectionThingItem
+            onChange={ handleChangeThingItem }
+            checked={ collectionThingsWrap.checked }
+            id={ collectionThingsWrap.collectionThings.id! }
+            name={ collectionThingsWrap.collectionThings.name! }
+        />;
     }
 
     return (
@@ -155,7 +177,20 @@ function CollectionThingsModal(props: CollectionThingsModalProps) {
                 { renderCollectionsThingsList() }
             </div>
             <div className={ classes.AddButton }>
-                <Button onClick={ () => props.modalVisible(false) }/>
+                <Button
+                    value={ 'add' }
+                    onClick={ () => {
+                        collectionsThingsList
+                            .filter(ct => ct.checked)
+                            .forEach(ct => {
+                                putThing({
+                                    collectionId: ct.collectionThings.id!,
+                                    thingId: props.profileTask.thing?.id!
+                                });
+                            });
+                        props.modalVisible(false);
+                    } }
+                />
             </div>
         </div>
     );

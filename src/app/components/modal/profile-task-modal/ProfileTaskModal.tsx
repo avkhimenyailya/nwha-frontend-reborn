@@ -11,6 +11,7 @@ import { thingApi } from '../../../store/api/thingApi';
 import FileLoadBar from './file-load-bar/FileLoadBar';
 import { useFileUploader } from './useFileUploader';
 import { profileTaskApi } from '../../../store/api/profileTaskApi';
+import InfoByHover from '../../info-by-hover/InfoByHover';
 
 interface ProfileTaskModalProps {
     profileTask: ProfileTask;
@@ -72,8 +73,10 @@ function ProfileTaskModal(props: ProfileTaskModalProps) {
     }
 
     function renderTaskTitle() {
-        return <p className={ classes.TaskOrdinalNumber }>
-            { 'Task ' + props.profileTask.task.ordinalNumber }</p>;
+        return <div className={ classes.ProfileTaskModalHeader }>
+            <p className={ classes.TaskOrdinalNumber }>
+                { 'Task ' + props.profileTask.task.ordinalNumber }</p>
+            { props.profileTask.task.details && <InfoByHover value={ props.profileTask.task.details }/> }</div>;
     }
 
     function renderTaskDescription() {

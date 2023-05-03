@@ -11,8 +11,14 @@
     padding: 15px 15px 67px 15px;
 }
 
-.TaskOrdinalNumber {
+.ProfileTaskModalHeader {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin-bottom: 5px;
+}
+
+.TaskOrdinalNumber {
 }
 
 .TaskDescription {

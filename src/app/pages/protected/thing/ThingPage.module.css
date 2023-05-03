@@ -59,12 +59,12 @@
 
 .OwnerProfileUsername {
     background: var(--color-select);
-    color: var(--sub-color2);
+    color: var(--sub-color1);
     width: max-content;
 }
 
 .OwnerProfileUsername:hover {
-    color: var(--main-color);
+    color: var(--sub-color2);
 }
 
 .BottomContainer {
