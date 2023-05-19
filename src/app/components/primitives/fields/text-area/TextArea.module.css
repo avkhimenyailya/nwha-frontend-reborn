@@ -1,0 +1,22 @@
+.TextAreaContainer {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--sub-color1);
+    padding: 8px 8px 4px 8px;
+}
+
+.TextArea {
+    font-style: italic;
+    width: 100%;
+    resize: none;
+    margin-bottom: 8px;
+}
+
+.TextArea::placeholder {
+    color: var(--sub-color1);
+}
+
+.LetterCounter {
+    text-align: end;
+    color: var(--sub-color1);
+}

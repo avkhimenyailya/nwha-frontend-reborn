@@ -1,0 +1,17 @@
+.ProfileAttributes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.AttributeItem {
+    display: flex;
+}
+
+.AttributeName {
+    width: calc(88px * 2);
+}
+
+.AttributeValue {
+    width: 88px;
+}
+

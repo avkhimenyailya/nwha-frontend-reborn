@@ -1,19 +1,16 @@
 import React from 'react';
 import classes from './TodayPage.module.css';
 import CellSkeleton from '../../../../components/cell-skeleton-reborn/CellSkeleton';
-import { useAppSelector } from '../../../../store/store';
-import { profileApi } from '../../../../store/api/profileApi';
 import { thingApi } from '../../../../store/api/thingApi';
 import RecentlyAddedThings from '../../../../components/recently-added-things/RecentlyAddedThings';
+import { profileTaskApi } from '../../../../store/api/profileTaskApi';
 
 
 function TodayPage() {
-    const authData = useAppSelector(state => state.authSlice.data);
-
     const {
-        data: profile,
-        isSuccess: profileSuccess
-    } = profileApi.useFetchProfileByIdQuery(authData?.profileId!);
+        data: profileTasks,
+        isSuccess: profileTasksSuccess
+    } = profileTaskApi.useFetchProfileTasksByPrincipalQuery();
 
     const {
         data: recentlyAddedThings,
@@ -23,12 +20,12 @@ function TodayPage() {
     return (
         <div className={ classes.HomePage }>
             {
-                profileSuccess &&
+                profileTasksSuccess &&
                 <div className={ classes.Cell }>
                     <p className={ classes.Label }>/random thing of the day</p>
                     <CellSkeleton
-                        thing={ profile.profileTasks?.find(p => p.thing)?.thing }
-                        extraTitle={ '' }
+                        foreign={ true }
+                        extraTitle={ '#' }
                     />
                 </div>
             }

@@ -1,0 +1,67 @@
+.ProfileTopContainer {
+    display: grid;
+    grid-template-areas:
+    "UN UN UN UN AT AT AT AT . . AS AS AS AS AS AS"
+    "PN PN PN PN AT AT AT AT . . AS AS AS AS AS AS";
+    grid-auto-columns: minmax(0, 88px);
+}
+
+.ContainerLabel {
+    margin-bottom: 23px;
+    display: flex;
+    gap: 4px;
+}
+
+.ContainerLabel p {
+    color: var(--sub-color2);
+}
+
+.UsernameContainer {
+    grid-area: UN;
+}
+
+.TabPanelContainer {
+    grid-area: PN;
+    align-self: end;
+}
+
+
+.AboutContainer {
+    grid-area: AT;
+}
+
+.AttributesContainer {
+    max-width: calc(88px * 7);
+    grid-area: AS;
+}
+
+@media screen and (max-width: 1439px) {
+    .ProfileTopContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: initial;
+    }
+
+    .ProfileTopContainer > * {
+        min-width: min-content;
+    }
+
+    .TabPanelContainer {
+        align-self: start;
+        order: 1;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

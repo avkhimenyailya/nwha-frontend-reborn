@@ -1,6 +1,5 @@
 import React from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
-import ThingsPanel from './things/ThingsPanel';
 import classes from './ProfilePanels.module.css';
 import { CollectionThings } from '../../../../models/CollectionThings';
 import { Profile } from '../../../../models/Profile';
@@ -22,7 +21,6 @@ function ProfilePanels(props: ProfilePanelsProps) {
                 </Tab>
             </TabList>
             <TabPanel>
-                <ThingsPanel profile={ props.profile }/>
             </TabPanel>
         </Tabs>
     );

@@ -1,38 +1,31 @@
-import { api } from '../api';
-import { Answer } from '../../models/Answer';
-import { ProfileTask } from '../../models/ProfileTask';
+import {api} from '../api';
+import {ProfileTask} from '../../models/ProfileTask';
+import {Answer} from '../../models/Answer';
 
 export const profileTaskApi = api.injectEndpoints({
     endpoints: build => ({
-        fetchProfileTaskById: build.query<ProfileTask, number | undefined>({
-            query: (id: number | undefined) => ({
-                url: `/pt/${ id }`
-            })
+        fetchProfileTasksByPrincipal: build.query<ProfileTask[], void>({
+            providesTags: ['ProfileTask'],
+            query: () => ({url: `/profile/tasks`})
         }),
-        // устанавливает/перезаписывает новые ответы в задание
-        updateAnswers:
-            build.mutation<ProfileTask, { profileTaskId: number, answers: Answer[] }>({
-                query: ({ profileTaskId, answers }) => ({
-                    url: `/pt/${ profileTaskId }/put/answer`,
-                    method: 'PUT',
-                    body: answers
-                })
-            }),
-        // удаляет все ответы из задания
-        refreshAnswers:
-            build.mutation<ProfileTask, { profileTaskId: number }>({
-                query: ({ profileTaskId }) => ({
-                    url: `/profile_task/${ profileTaskId }/answers`,
-                    method: 'DELETE'
-                })
-            }),
-        // если есть вещь — переносит ее в архив, удаляет все ответы из задания
-        refreshProfileTask:
-            build.mutation<ProfileTask, { profileTaskId: number }>({
-                query: ({ profileTaskId }) => ({
-                    url: `/profile_task/${ profileTaskId }`,
-                    method: 'DELETE'
-                })
+        fetchProfileTasksByProfileId: build.query<ProfileTask[], number | undefined>({
+            providesTags: ['ProfileTask'],
+            query: (id: number) => ({url: `/profile/${id}/tasks`})
+        }),
+        fetchProfileTaskById: build.query<ProfileTask, number | undefined>({
+            providesTags: ['ProfileTask'],
+            query: (id: number) => ({url: `/profileTask/${id}`})
+        }),
+        updateAnswersByProfileTaskId: build.mutation<ProfileTask, {
+            profileTaskId: number | undefined,
+            answers: Answer[]
+        }>({
+            invalidatesTags: ['ProfileTask', 'Profile'],
+            query: ({profileTaskId, answers}) => ({
+                url: `/profileTask/${profileTaskId}`,
+                method: 'put',
+                body: answers
             })
+        })
     })
 });

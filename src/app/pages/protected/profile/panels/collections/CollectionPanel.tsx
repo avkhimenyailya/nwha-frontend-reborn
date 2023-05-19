@@ -6,6 +6,7 @@ import { useAppSelector } from '../../../../../store/store';
 import { CollectionThings } from '../../../../../models/CollectionThings';
 
 interface CollectionPanelProps {
+    foreign: boolean;
     collectionsThings: CollectionThings[];
 }
 
@@ -23,9 +24,10 @@ function CollectionPanel(props: CollectionPanelProps) {
     return (
         <div className={ classes.CollectionsPanel }>
             { props.collectionsThings && <div className={ classes.CollectionsPanelInterface }>
-                <p onClick={ () => addNewCollection() } className={ classes.CreateNewCollectionBtn }>
-                    [ create new collection ]
-                </p>
+                { !props.foreign &&
+                    <p onClick={ () => addNewCollection() } className={ classes.CreateNewCollectionBtn }>
+                        [ create new collection ]
+                    </p> }
             </div> }
             {
                 props.collectionsThings && !props.collectionsThings.length &&

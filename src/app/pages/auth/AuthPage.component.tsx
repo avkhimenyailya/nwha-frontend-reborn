@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import AuthFormComponent from '../../components/auth-form/AuthForm.component';
 
 import classes from './AuthPage.module.css';
 import Loading from '../../components/loading/Loading';
-import { useAppSelector } from '../../store/store';
+import {useAppSelector} from '../../store/store';
 
 interface AuthPageProps {
+    submitValue: string;
     usernamePlaceholder: string;
     passwordPlaceholder: string;
     attemptAuthorization: { (username: string, password: string): void };
@@ -16,7 +17,7 @@ function AuthPageComponent(props: AuthPageProps) {
 
     const [usernameValue, setUsernameValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
-    const { errorMessage, status } = useAppSelector(state => state.authSlice);
+    const {errorMessage, status} = useAppSelector(state => state.authSlice);
 
     useEffect(() => {
         setLoading(status === 'loading');
@@ -27,23 +28,24 @@ function AuthPageComponent(props: AuthPageProps) {
     }
 
     function renderAuthPageComponent() {
-        return <div className={ classes.AuthPageComponent }>
+        return <div className={classes.AuthPageComponent}>
             <AuthFormComponent
-                errorMessage={ errorMessage }
-                buttonOnClick={ handleClick }
-                usernameValue={ usernameValue }
-                passwordValue={ passwordValue }
-                usernameOnChange={ setUsernameValue }
-                passwordOnChange={ setPasswordValue }
-                usernamePlaceholder={ props.usernamePlaceholder }
-                passwordPlaceholder={ props.passwordPlaceholder }
+                submitValue={props.submitValue}
+                errorMessage={errorMessage}
+                buttonOnClick={handleClick}
+                usernameValue={usernameValue}
+                passwordValue={passwordValue}
+                usernameOnChange={setUsernameValue}
+                passwordOnChange={setPasswordValue}
+                usernamePlaceholder={props.usernamePlaceholder}
+                passwordPlaceholder={props.passwordPlaceholder}
             />
         </div>;
     }
 
     return (
         <>
-            { isLoading ? <Loading/> : renderAuthPageComponent() }
+            {isLoading ? <Loading/> : renderAuthPageComponent()}
         </>
     );
 }

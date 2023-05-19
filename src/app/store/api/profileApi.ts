@@ -1,37 +1,41 @@
 import { api } from '../api';
 import { Profile } from '../../models/Profile';
-import { Thing } from '../../models/Thing';
-import { CollectionThings } from '../../models/CollectionThings';
 
 export const profileApi = api.injectEndpoints({
     endpoints: build => ({
-        fetchAuthorizedProfile: build.query<Profile, void>({
+        fetchProfileByPrincipal: build.query<Profile, void>({
+            providesTags: ['Profile'],
             query: () => ({
                 url: '/profile'
             })
         }),
         fetchProfileById: build.query<Profile, number | undefined>({
+            providesTags: ['Profile'],
             query: (id: number) => ({
                 url: `/profile/id/${ id }`
-            }),
-            providesTags: ['Profile']
-        }),
-        fetchProfileByUsername: build.query<Profile, string>({
-            query: (username: string) => ({
-                url: `/profile/usr/${ username }`
-            }),
-            providesTags: ['Profile']
-        }),
-        fetchThingsByProfileId: build.query<Thing[], number>({
-            query: (profileId: number) => ({
-                url: `/profile/${ profileId }/things`
             })
         }),
-        fetchCollectionsThingsByProfileId: build.query<CollectionThings[], number | undefined>({
-            query: (profileId: number | undefined) => ({
-                url: `/profile/${ profileId }/collections`
-            }),
-            providesTags: ['CollectionThings']
+        fetchProfileByUsername: build.query<Profile, string | undefined>({
+            providesTags: ['Profile'],
+            query: (username: string) => ({
+                url: `/profile/username/${ username }`
+            })
+        }),
+        updateProfileDescription: build.mutation<Profile, string | undefined>({
+            invalidatesTags: ['Profile'],
+            query: (description: string) => ({
+                url: '/profile/description',
+                method: 'put',
+                params: { description }
+            })
+        }),
+        updateProfilePersonalLink: build.mutation<Profile, string | undefined>({
+            invalidatesTags: ['Profile'],
+            query: (personalLink: string) => ({
+                url: '/profile/personalLink',
+                method: 'put',
+                params: { personalLink }
+            })
         })
     })
 });

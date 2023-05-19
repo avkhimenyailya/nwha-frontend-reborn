@@ -1,10 +1,9 @@
-import { ProfileTask } from './ProfileTask';
-import { ProfilePairTraits } from './ProfileTraits';
+import { ProfileAttribute } from './ProfileAttribute';
 
 export interface Profile {
     id: number;
     username: string;
     description?: string;
-    profileTasks: ProfileTask[];
-    profilePairsTraits: ProfilePairTraits[];
+    personalLink?: string;
+    profileAttributes: ProfileAttribute[];
 }

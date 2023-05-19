@@ -1,0 +1,13 @@
+.StringButton {
+    text-align: left;
+    color: var(--sub-color2);
+    cursor: pointer;
+}
+
+.StringButton:hover {
+    color: var(--main-color);
+}
+
+.StringButton:disabled {
+    text-decoration: line-through;
+}

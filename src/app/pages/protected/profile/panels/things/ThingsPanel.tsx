@@ -1,13 +1,13 @@
 import React from 'react';
-import { Profile } from '../../../../../models/Profile';
 import ProfileTaskList from '../../../../../components/cell-list/profile-task-list/ProfileTaskList';
+import { ProfileTask } from '../../../../../models/ProfileTask';
 
 interface ThingsPanelProps {
-    profile: Profile;
+    profileTasks: ProfileTask[];
 }
 
-function ThingsPanel({ profile }: ThingsPanelProps) {
-    return <ProfileTaskList profileTasks={ profile.profileTasks }/>;
+function ThingsPanel({ profileTasks }: ThingsPanelProps) {
+    return <ProfileTaskList profileTasks={ profileTasks }/>;
 }
 
 export default ThingsPanel;

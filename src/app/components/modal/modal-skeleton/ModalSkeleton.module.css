@@ -1,0 +1,63 @@
+
+.ModalSkeletonArea {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    backdrop-filter: blur(1px);
+    background: var(--bg-modal);
+}
+
+.ModalSkeleton {
+    position: relative;
+    display: flex;
+}
+
+.EscapeButton {
+    margin-right: 8px;
+    cursor: pointer;
+    user-select: none;
+    height: min-content;
+}
+
+.ModalContainer {
+    overflow: scroll;
+    height: 560px;
+}
+
+.ModalContent {
+    width: 384px;
+    min-height: 100%;
+    background: var(--bg-color);
+    padding: 16px;
+    margin-bottom: 52px;
+}
+
+.ButtonsContainer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+}
+
+@media screen and (max-width: 798px) {
+    .ModalSkeleton {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        margin-right: initial;
+    }
+
+    .EscapeButton {
+        margin-right: initial;
+        margin-bottom: 8px;
+    }
+}

@@ -13,7 +13,6 @@ interface OptionProps {
 
 function OptionComponent(props: OptionProps) {
 
-
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const newMap = new Map<number, Answer>(props.answers);
         newMap.set(Number(event.target.name), {

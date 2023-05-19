@@ -21,3 +21,9 @@
     border: none;
     border-top: 1px dashed var(--sub-color1);
 }
+
+.InvertColor {
+    background: var(--bg-color);
+    color: var(--main-color);
+    border-top: 1px solid var(--sub-color1);
+}

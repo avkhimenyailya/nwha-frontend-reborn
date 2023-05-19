@@ -4,7 +4,7 @@ import { useAppSelector } from '../../../store/store';
 import { profileApi } from '../../../store/api/profileApi';
 import { collectionThingsApi } from '../../../store/api/collectionThingsApi';
 import Button from '../../primitives/buttons/button /Button';
-import Input from '../../primitives/fields/field/Input';
+import Input from '../../primitives/fields/input/Input';
 import { CollectionThings } from '../../../models/CollectionThings';
 import Img from '../../primitives/img/Img';
 import { ProfileTask } from '../../../models/ProfileTask';
@@ -50,7 +50,7 @@ function CollectionThingsModal(props: CollectionThingsModalProps) {
     const {
         data: collectionsThings,
         isSuccess: collectionsThingsSuccess
-    } = profileApi.useFetchCollectionsThingsByProfileIdQuery(authorizedProfileId, { skip: !authorizedProfileId });
+    } = collectionThingsApi.useFetchCollectionsThingsByPrincipalQuery();
 
     const [putThing] = collectionThingsApi.usePutThingInCollectionThingsMutation();
     const [createCollectionThings] = collectionThingsApi.useCreateCollectionThingsMutation();
@@ -80,7 +80,7 @@ function CollectionThingsModal(props: CollectionThingsModalProps) {
             { ownerThingSuccess &&
                 <>
                     <div className={ classes.FileImg }>
-                        <Img imgUrl={ props.profileTask.thing?.fileUrl! }/>
+                        <Img url={ props.profileTask.thing?.fileUrl! }/>
                     </div>
                     <div className={ classes.FileName }>
                         <p>{ props.profileTask.thing?.id }</p>
@@ -135,7 +135,7 @@ function CollectionThingsModal(props: CollectionThingsModalProps) {
                     ref={ nameFieldRef }
                     value={ nameFieldValue }
                     placeholder={ 'min 6 chars' }
-                    onChange={ setNameFieldValue }
+                    setValue={ setNameFieldValue }
                 />
             </div>;
     }

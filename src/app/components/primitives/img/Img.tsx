@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Swimmer from '../../swimmer/Swimmer';
 
 interface ImgProps {
-    imgUrl?: string;
+    url?: string;
 }
 
 function Img(props: ImgProps) {
@@ -12,7 +12,7 @@ function Img(props: ImgProps) {
         <>
             <img
                 onLoad={ _ => setLoad(true) }
-                alt={ '?' } src={ props.imgUrl }
+                alt={ '?' } src={ props.url }
                 style={ {
                     display: !load ? 'none' : 'block',
                     objectFit: 'contain',

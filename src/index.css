@@ -1,3 +1,4 @@
+/*@import "normalize.css";*/
 @import "/src/reset.css";
 @import "/src/themes/_index.css";
 
@@ -27,7 +28,7 @@ img {
 }
 
 * {
-
+    scrollbar-width: none;
 }
 
 *::selection {

@@ -1,0 +1,44 @@
+.ThingEditor {
+    margin-bottom: 18px;
+}
+
+.File {
+    gap: 20px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.FileImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--sub-color1);
+}
+
+.FileName {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.FieldThingDescription {
+}
+
+.ChangeThingButton {
+    position: absolute;
+    right: 7px;
+    display: flex;
+    color: var(--sub-color1);
+    cursor: pointer;
+}
+
+.ChangeThingMenu {
+    z-index: 4;
+    position: absolute;
+    right: 7px;
+    top: 50px;
+}

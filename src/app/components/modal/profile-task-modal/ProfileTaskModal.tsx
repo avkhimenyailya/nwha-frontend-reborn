@@ -8,7 +8,7 @@ import DropArea from './drop-area/DropArea';
 import ThingEditor from './thing-editor/ThingEditor';
 import { Thing } from '../../../models/Thing';
 import { thingApi } from '../../../store/api/thingApi';
-import FileLoadBar from './file-load-bar/FileLoadBar';
+import FileLoadBar from './file-loadbar/FileLoadBar';
 import { useFileUploader } from './useFileUploader';
 import { profileTaskApi } from '../../../store/api/profileTaskApi';
 import InfoByHover from '../../info-by-hover/InfoByHover';
@@ -39,9 +39,9 @@ function ProfileTaskModal(props: ProfileTaskModalProps) {
 
     // drop area
     const [createThing] = thingApi.useCreateMutation();
-    const [update] = thingApi.useUpdateMutation();
+    const [update] = thingApi.useUpdateThingMutation();
 
-    const [updateAnswers, { isLoading, isSuccess, isError }] = profileTaskApi.useUpdateAnswersMutation();
+    const [updateAnswers, { isLoading, isSuccess, isError }] = profileTaskApi.useUpdateAnswersByProfileTaskIdMutation();
 
     useEffect(() => {
         setDisableSaveButton(!Boolean(answers.size === 1 && (fileUrl || thing.id)));

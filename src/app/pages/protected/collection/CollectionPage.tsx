@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import classes from './CollectionPage.module.css';
-import { collectionThingsApi } from '../../../store/api/collectionThingsApi';
 import { useNavigate, useParams } from 'react-router-dom';
 import CellList from '../../../components/cell-list/CellList';
 import CellSkeleton from '../../../components/cell-skeleton-reborn/CellSkeleton';
 import { profileApi } from '../../../store/api/profileApi';
 import { useAppSelector } from '../../../store/store';
-import Input from '../../../components/primitives/fields/field/Input';
+import Input from '../../../components/primitives/fields/input/Input';
+import { collectionThingsApi } from '../../../store/api/collectionThingsApi';
 
 interface CollectionPageProps {
 
@@ -34,13 +34,12 @@ function CollectionPage(props: CollectionPageProps) {
         isSuccess: ownerProfileSuccess
     } = profileApi.useFetchProfileByIdQuery(collectionThingsById?.profileId, { skip: !collectionThingsById });
 
-    const [updateNameCollectionThingsById] = collectionThingsApi.useUpdateNameCollectionThingsByIdMutation();
     const [deleteCollectionThingsById] = collectionThingsApi.useDeleteCollectionThingsByIdMutation();
+    const [updateNameCollectionThingsById] = collectionThingsApi.useUpdateCollectionThingNameByIdMutation();
 
     useEffect(() => {
         trigger(Number(id));
     }, [id, trigger]);
-
 
     useEffect(() => {
         if (collectionThingsByIdSuccess) setCollectionName(collectionThingsById!.name);
@@ -80,7 +79,7 @@ function CollectionPage(props: CollectionPageProps) {
                             disabled={ disableChangeName }
                             disableStyle={ true }
                             value={ collectionName }
-                            onChange={ setCollectionName }
+                            setValue={ setCollectionName }
                             onKeyDown={ event => {
                                 if (event.key === 'Enter') {
                                     updateName(collectionThingsById!.id!);

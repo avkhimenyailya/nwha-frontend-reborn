@@ -22,6 +22,7 @@ function QuestionComponent(props: QuestionProps) {
                 {
                     props.question.options.map(opt =>
                         <OptionComponent
+                            
                             key={ opt.id }
                             opt={ opt }
                             questionId={ props.question.id }

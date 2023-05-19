@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, {useEffect, useRef} from 'react';
 import classes from './ContextMenu.module.css';
 
 interface ContextMenuProps {
@@ -9,13 +9,13 @@ interface ContextMenuProps {
     triggerRef?: React.MutableRefObject<HTMLDivElement | null>;
 }
 
-const ContextMenu: FC<ContextMenuProps> = (props: ContextMenuProps) => {
-    const ref = useRef<HTMLDivElement>(null);
+function ContextMenu(props: ContextMenuProps) {
+    const contextMenuRef = useRef<HTMLDivElement>(null);
 
     /* close menu on click from outside */
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            if (ref.current && !ref.current.contains(event.target as Node)
+            if (contextMenuRef.current && !contextMenuRef.current.contains(event.target as Node)
                 && !props.triggerRef?.current?.contains(event.target as Node)) {
                 if (props.setShowContextMenu) {
                     props.setShowContextMenu(false);
@@ -27,13 +27,13 @@ const ContextMenu: FC<ContextMenuProps> = (props: ContextMenuProps) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [ref, props]);
+    }, [contextMenuRef, props]);
 
     return (
         <div
-            ref={ ref }
-            className={ classes.ContextMenu }>
-            { props.children }
+            ref={contextMenuRef}
+            className={classes.ContextMenu}>
+            {props.children}
         </div>
     );
 };

@@ -10,7 +10,7 @@ function Svg(props: SvgProps) {
             alt={ '?' }
             src={ props.path }
             draggable={ false }
-            style={ { userSelect: 'none' } }
+            style={ { userSelect: 'none', width: 'min-content' } }
         />
     );
 }

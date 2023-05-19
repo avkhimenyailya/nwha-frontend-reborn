@@ -3,61 +3,47 @@ import { CollectionThings } from '../../models/CollectionThings';
 
 export const collectionThingsApi = api.injectEndpoints({
     endpoints: build => ({
-
-        // FETCHING
-        fetchCountCollectionsByThingId:
-            build.query<number, number | undefined>({
-                query: (thingId: number) => ({
-                    url: `/collection/count/${ thingId }`
-                })
-            }),
-        fetchCollectionThingsById:
-            build.query<CollectionThings, number>({
-                query: (id: number) => ({
-                    url: `/collection/${ id }`
-                })
-            }),
-
-        // MUTATIONS
-        createCollectionThings:
-            build.mutation<CollectionThings, string>({
-                query: (name: string) => ({
-                    method: 'POST',
-                    url: `/collection?name=${ name }`
-                }),
-                invalidatesTags: ['CollectionThings']
-            }),
-        deleteCollectionThingsById:
-            build.mutation<void, number>({
-                query: (id: number) => ({
-                    method: 'DELETE',
-                    url: `/collection/${ id }`
-                }),
-                invalidatesTags: ['CollectionThings']
-            }),
-        updateNameCollectionThingsById:
-            build.mutation<CollectionThings, { collectionId?: number, name?: string }>({
-                query: ({ collectionId, name }) => ({
-                    method: 'PUT',
-                    url: `/collection/${ collectionId }?name=${ name }`
-                }),
-                invalidatesTags: ['CollectionThings']
-            }),
-        putThingInCollectionThings:
-            build.mutation<CollectionThings, { collectionId: number, thingId: number }>({
-                query: ({ collectionId, thingId }) => ({
-                    method: 'PUT',
-                    url: `/collection/${ collectionId }/put/${ thingId }`
-                }),
-                invalidatesTags: ['CollectionThings']
-            }),
-        removeThingInCollectionThings:
-            build.mutation<CollectionThings, { collectionId: number, thingId: number }>({
-                query: ({ collectionId, thingId }) => ({
-                    method: 'PUT',
-                    url: `/collection/${ collectionId }/rm/${ thingId }`
-                }),
-                invalidatesTags: ['CollectionThings']
+        fetchCollectionsThingsByPrincipal: build.query<CollectionThings[], void>({
+            providesTags: ['CollectionThings'],
+            query: () => ({ url: `/profile/collectionsThings` })
+        }),
+        fetchCollectionsThingsByProfileId: build.query<CollectionThings[], number>({
+            providesTags: ['CollectionThings'],
+            query: (profileId: number) => ({ url: `/profile/${ profileId }/collectionsThings` })
+        }),
+        fetchCollectionThingsById: build.query<CollectionThings, number>({
+            providesTags: ['CollectionThings'],
+            query: (id: number) => ({ url: `/collectionThings/${ id }` })
+        }),
+        createCollectionThings: build.mutation<CollectionThings, string>({
+            invalidatesTags: ['CollectionThings'],
+            query: (name: string) => ({ method: 'post', url: '/collectionThings', params: { name } })
+        }),
+        deleteCollectionThingsById: build.mutation<void, number>({
+            invalidatesTags: ['CollectionThings'],
+            query: (id: number) => ({ method: 'delete', url: `/collectionThings/${ id }` })
+        }),
+        updateCollectionThingNameById: build.mutation<CollectionThings, { collectionId: number, name: string }>({
+            invalidatesTags: ['CollectionThings'],
+            query: ({ collectionId, name }) => ({
+                method: 'put',
+                url: `/collectionThings/${ collectionId }`,
+                params: { name }
             })
+        }),
+        putThingInCollectionThings: build.mutation<CollectionThings, { collectionId: number, thingId: number }>({
+            invalidatesTags: ['CollectionThings'],
+            query: ({ collectionId, thingId }) => ({
+                method: 'put',
+                url: `/collectionThings/${ collectionId }/put/${ thingId }`
+            })
+        }),
+        removeThingInCollectionThings: build.mutation<CollectionThings, { collectionId: number, thingId: number }>({
+            invalidatesTags: ['CollectionThings'],
+            query: ({ collectionId, thingId }) => ({
+                method: 'put',
+                url: `/collectionThings/${ collectionId }/rm/${ thingId }`
+            })
+        })
     })
 });

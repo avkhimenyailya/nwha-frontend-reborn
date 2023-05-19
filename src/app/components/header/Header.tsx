@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import classes from './Header.module.css';
 import LogoComponent from '../primitives/logo/Logo.component';
 import LetterButton from './letter-button/LetterButton';
-import { useAppSelector } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ThemeButton from './theme-button/ThemeButton';
 import SmallButton from '../primitives/buttons/small-button/SmallButton';
 import ContextMenu from '../contex-menu/ContextMenu';
+import { logout } from '../../store/reducers/authSlice';
 
 function Header() {
     const username = useAppSelector(state => state.authSlice.data?.username);
+    const dispatch = useAppDispatch();
     const [showProfileContextMenu, setShowProfileContextMenu] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -33,8 +35,12 @@ function Header() {
                     onClick={ () => navigate(`/${ username }`) }
                 />
                 <SmallButton
+                    value={ 'settings' }
+                    onClick={ () => navigate(`/settings`) }
+                />
+                <SmallButton
                     value={ 'log out' }
-                    onClick={ () => navigate('/logout') }
+                    onClick={ () => dispatch(logout()) }
                 />
             </ContextMenu>
         </div>;
@@ -48,7 +54,6 @@ function Header() {
                     <LogoComponent/>
                 </Link>
                 <div className={ classes.LeftBar }>
-                    <p id={ 'w' }>early access_beta 1.0.55</p>
                     <ThemeButton/>
                     <div
                         onMouseEnter={ () => setShowProfileContextMenu(true) }

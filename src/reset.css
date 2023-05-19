@@ -49,6 +49,9 @@ input, textarea, button, select {
     font-size: inherit;
     color: inherit;
     background-color: transparent;
+
+    -webkit-appearance: none;
+    border-radius: 0;
 }
 
 input::-ms-clear {

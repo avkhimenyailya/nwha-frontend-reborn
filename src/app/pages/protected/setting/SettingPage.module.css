@@ -1,0 +1,66 @@
+.SettingPage {
+    margin-top: 6px;
+}
+
+.SettingContainer {
+    height: calc(100vh - (64px + 20px));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 528px;
+}
+
+.InputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.InputContainer {
+    display: grid;
+    grid-template-areas: "L L I I B B";
+    grid-auto-columns: minmax(0, 88px);
+}
+
+.InputLabel {
+    grid-area: L;
+}
+
+.Input {
+    grid-area: I;
+}
+
+.InputChangeButton {
+    grid-area: B;
+    justify-self: end;
+}
+
+.InvitationCodeContainer {
+    margin-top: 44px;
+}
+
+.InvitationCodeLabels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.InvitationCodeLabel {
+
+}
+
+.InvitationsLeftCounter {
+
+}
+
+.InvitationsLeftCounter p {
+    color: var(--sub-color2);
+}
+
+.InvitationCodeInput {
+
+}
+
+.DeleteProfileButton {
+
+}

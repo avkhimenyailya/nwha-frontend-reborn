@@ -1,13 +1,13 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthRequest } from '../../models/auth/request/AuthRequest';
-import { AuthResponse } from '../../models/auth/AuthResponse';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {AuthRequest} from '../../models/auth/request/AuthRequest';
+import {AuthResponse} from '../../models/auth/AuthResponse';
 import axios from 'axios';
+import {baseUrl} from "../../baseUrl";
 
-export const baseUrl: string = 'https://api.nwha.grayproject.io';
 export const getAccessToken = createAsyncThunk<AuthResponse, AuthRequest>('strongAuth/getAccessToken',
-    async (request, { rejectWithValue }) => {
-        return axios.post(`${ baseUrl }/auth/${ request.endpoint }`, request.data,
-            { headers: { 'Content-Type': 'application/json' } })
+    async (request, {rejectWithValue}) => {
+        return axios.post(`${baseUrl}/auth/${request.endpoint}`, request.data,
+            {headers: {'Content-Type': 'application/json'}})
             .then(r => {
                 return r.data as AuthResponse;
             })
@@ -96,4 +96,4 @@ export const authSlice = createSlice({
     }
 });
 
-export const { refresh, logout } = authSlice.actions;
+export const {refresh, logout} = authSlice.actions;

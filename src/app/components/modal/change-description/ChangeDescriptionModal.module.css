@@ -1,0 +1,11 @@
+.ChangeDescriptionModal {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.InputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}

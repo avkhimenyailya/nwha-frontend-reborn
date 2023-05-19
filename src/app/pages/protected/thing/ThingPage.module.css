@@ -51,6 +51,7 @@
 
 .CountCollectionsByThing {
     margin-bottom: 4px;
+    text-decoration: line-through;
 }
 
 .OwnerProfile {
@@ -82,11 +83,22 @@
 
 @media screen and (max-width: 1439px) {
     .TopContainer {
-        border: 1px solid red;
         flex-direction: column;
         justify-content: center;
         margin-bottom: initial;
     }
 
+    .Image {
+        max-height: 380px;
+        margin-bottom: 20px;
+    }
+
+    .ThingDescription {
+        margin-bottom: 20px;
+    }
+
+    .OwnerProfile {
+        margin-bottom: 20px;
+    }
 
 }

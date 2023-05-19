@@ -16,3 +16,7 @@
 .smallButton:active {
     padding-top: 3px;
 }
+
+.smallButton:disabled {
+    text-decoration: line-through;
+}

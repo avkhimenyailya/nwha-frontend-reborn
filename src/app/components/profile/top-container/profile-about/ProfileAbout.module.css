@@ -1,0 +1,14 @@
+.ProfileAbout {
+    height: 120px;
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.DescriptionContainer {
+}
+
+.LinkContainer {
+
+}

@@ -1,0 +1,22 @@
+.ProfileTaskModalHeader {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+}
+
+.TaskDescription {
+    margin-bottom: 12px;
+}
+
+.TaskDetails {
+    font-style: italic;
+    font-size: 18px;
+    color: var(--sub-color2);
+    line-height: 120%;
+    margin-bottom: 12px;
+}
+
+.ThingZone {
+    margin-bottom: 18px;
+}

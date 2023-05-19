@@ -1,13 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import classes from './ThingEditor.module.css';
-import { Thing } from '../../../../models/Thing';
-import DescriptionField from './description-field/DescriptionField';
-import { useAppSelector } from '../../../../store/store';
+import {Thing} from '../../../../models/Thing';
+import {useAppSelector} from '../../../../store/store';
 import Svg from '../../../primitives/svg/Svg';
 import ContextMenu from '../../../contex-menu/ContextMenu';
 import SmallButton from '../../../primitives/buttons/small-button/SmallButton';
-import { thingApi } from '../../../../store/api/thingApi';
+import {thingApi} from '../../../../store/api/thingApi';
 import Img from '../../../primitives/img/Img';
+import TextArea from '../../../primitives/fields/text-area/TextArea';
 
 interface ThingEditorProps {
     fileUrl?: string;
@@ -23,7 +23,8 @@ function ThingEditor(props: ThingEditorProps) {
     const changeButtonRef = useRef<HTMLDivElement>(null);
 
     // const [updateAnswers, { isLoading, isSuccess, isError }] = profileTaskApi.useUpdateAnswersMutation();
-    const [deleteThingById, { isLoading, isSuccess, isError }] = thingApi.useDeleteByIdMutation();
+    const [deleteThingById] = thingApi.useDeleteThingByIdMutation();
+    const [archiveThingById] = thingApi.useArchiveThingByIdMutation();
 
     function changeThing(event: React.MouseEvent<HTMLDivElement>) {
         props.thing.id
@@ -49,22 +50,36 @@ function ThingEditor(props: ThingEditorProps) {
         }
     }
 
-    function archiveThing() {
-        alert('attempt delete archive');
+    function archiveThing(thingId?: number) {
+        if (thingId) {
+            archiveThingById(thingId)
+                .unwrap()
+                .then(resp => {
+                    props.setFileUrl('');
+                    props.setThing({
+                        ...props.thing,
+                        id: undefined,
+                        fileUrl: undefined,
+                        description: undefined,
+                        archived: false,
+                        removed: false
+                    });
+                });
+        }
     }
 
     function renderFile() {
-        return <div className={ classes.File }>
-            { renderFileImg() }
-            { renderFileName() }
-            { renderChangeThingButton() }
-            { renderChangeThingMenu() }
+        return <div className={classes.File}>
+            {renderFileImg()}
+            {renderFileName()}
+            {renderChangeThingButton()}
+            {renderChangeThingMenu()}
         </div>;
     }
 
     function renderFileImg() {
-        return <div className={ classes.FileImg }>
-            <Img imgUrl={ props.thing.fileUrl ?? props.fileUrl }/>
+        return <div className={classes.FileImg}>
+            <Img url={props.thing.fileUrl ?? props.fileUrl}/>
         </div>;
     }
 
@@ -81,26 +96,34 @@ function ThingEditor(props: ThingEditorProps) {
     }
 
     function renderFileName() {
-        return <div className={ classes.FileName }>
-            <p>{ getPrettyId(props.thing?.id!) ?? getFileName() }</p>
-            <p>{ `by @${ username }` }</p>
+        return <div className={classes.FileName}>
+            <p>{getPrettyId(props.thing?.id!) ?? getFileName()}</p>
+            <p>{`by @${username}`}</p>
         </div>;
     }
 
     function renderChangeThingButton() {
         return <div
-            ref={ changeButtonRef }
-            onClick={ event => changeThing(event) }
-            className={ classes.ChangeThingButton }>
-            <Svg path={ require('./change-thing.light.svg').default }/>
+            ref={changeButtonRef}
+            onClick={event => changeThing(event)}
+            className={classes.ChangeThingButton}>
+            <Svg path={require('./change-thing.light.svg').default}/>
         </div>;
     }
 
+    const [thingDescription, setThingDescription] = useState('');
+
+    useEffect(() => {
+        setThingDescription(props.thing.description ?? '');
+    }, [props.thing]);
+
     function renderDescriptionField() {
-        return <div className={ classes.FieldThingDescription }>
-            <DescriptionField
-                thing={ props.thing }
-                setThing={ props.setThing }
+        return <div className={classes.FieldThingDescription}>
+            <TextArea
+                maxLength={140}
+                rows={5}
+                value={thingDescription}
+                onChange={e => setThingDescription(e.target.value)}
             />
         </div>;
     }
@@ -108,18 +131,18 @@ function ThingEditor(props: ThingEditorProps) {
     function renderChangeThingMenu() {
         return showChangeThingMenu &&
             <div
-                className={ classes.ChangeThingMenu }>
-                <ContextMenu triggerRef={ changeButtonRef } setShowContextMenu={ setShowChangeThingMenu }>
-                    <SmallButton value={ 'delete' } onClick={ _ => deleteThing(props.thing?.id!) }/>
-                    <SmallButton value={ 'archive' } onClick={ _ => archiveThing() }/>
+                className={classes.ChangeThingMenu}>
+                <ContextMenu triggerRef={changeButtonRef} setShowContextMenu={setShowChangeThingMenu}>
+                    <SmallButton value={'delete'} onClick={_ => deleteThing(props.thing?.id!)}/>
+                    <SmallButton value={'archive'} onClick={_ => archiveThing(props.thing?.id!)}/>
                 </ContextMenu>
             </div>;
     }
 
     return (
-        <div className={ classes.ThingEditor }>
-            { renderFile() }
-            { renderDescriptionField() }
+        <div className={classes.ThingEditor}>
+            {renderFile()}
+            {renderDescriptionField()}
         </div>
     );
 }

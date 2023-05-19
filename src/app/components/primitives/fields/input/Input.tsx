@@ -12,7 +12,10 @@ interface InputProps {
     onBlur?: { (event: React.FocusEvent<HTMLInputElement>): void };
     onFocus?: { (event: React.FocusEvent<HTMLInputElement>): any };
     onKeyDown?: { (event: React.KeyboardEvent<HTMLInputElement>): any };
-    onChange: { (value: string): any };
+    setValue: { (value: string): any };
+    onChange?: { (event: React.ChangeEvent<HTMLInputElement>): any };
+
+    inputByClick?: boolean;
 }
 
 const Input = React.forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) => {
@@ -23,11 +26,17 @@ const Input = React.forwardRef((props: InputProps, ref: React.Ref<HTMLInputEleme
             value={ props.value }
             onBlur={ props.onBlur }
             onFocus={ props.onFocus }
-            disabled={ props.disabled }
+            disabled={ props.disabled || props.inputByClick }
             onKeyDown={ props.onKeyDown }
             placeholder={ props.placeholder }
-            onChange={ e => props.onChange(e.target.value) }
             type={ props.password ? 'password' : 'text' }
+            onChange={ e => {
+                if (props.onChange) {
+                    props.onChange(e);
+                } else {
+                    props.setValue(e.target.value);
+                }
+            } }
             className={ inputClasses.join(' ').trim() }
         />
     );

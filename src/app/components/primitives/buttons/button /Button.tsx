@@ -10,13 +10,15 @@ interface ButtonProps {
     onKeyUp?: { (event: React.KeyboardEvent<HTMLInputElement>): any };
     onKeyDown?: { (event: React.KeyboardEvent<HTMLInputElement>): any };
     onClick: MouseEventHandler<HTMLInputElement>;
+    invertColor?: boolean;
 }
 
 const Button: FC<ButtonProps> = (props: ButtonProps) => {
     const [active, setActive] = useState(false);
 
     const buttonClasses: string[] =
-        [classes.button, props.borderSide && classes.ButtonBorderSide, active ? 'active' : ''];
+        [classes.button, props.borderSide && classes.ButtonBorderSide, active ? 'active' : '',
+            props.invertColor && classes.InvertColor];
     return (
         <input
             ref={ props.ref as LegacyRef<HTMLInputElement> }

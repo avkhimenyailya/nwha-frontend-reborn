@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import classes from './RecentlyAddedThings.module.css';
-import { RecentlyAddedThing } from '../../models/RecentlyAddedThing';
-import { Link } from 'react-router-dom';
+import {RecentlyAddedThing} from '../../models/RecentlyAddedThing';
+import {Link} from 'react-router-dom';
 
 interface RecentlyAddedThingsProps {
     recentlyAddedThings: RecentlyAddedThing[];
 }
 
-function RecentlyAddedThings({ recentlyAddedThings }: RecentlyAddedThingsProps) {
+function RecentlyAddedThings({recentlyAddedThings}: RecentlyAddedThingsProps) {
     const [imgVisible, setImgVisible] = useState(false);
     const [imgUrl, setImgUrl] = useState('');
-    const [imgPosition, setImgPosition] = useState({ x: 0, y: 0 });
+    const [imgPosition, setImgPosition] = useState({x: 0, y: 0});
 
     function showPreview(flag: boolean, url: string) {
         setImgVisible(flag);
@@ -23,15 +23,15 @@ function RecentlyAddedThings({ recentlyAddedThings }: RecentlyAddedThingsProps) 
             left: imgPosition.x + 20 + 'px'
         };
         return imgVisible && <img
-            alt={ '?' }
-            src={ imgUrl }
-            style={ style }
-            className={ classes.Preview }
+            alt={'?'}
+            src={imgUrl}
+            style={style}
+            className={classes.Preview}
         />;
     }
 
     function handleMove(event: React.MouseEvent<HTMLDivElement>) {
-        setImgPosition({ x: event.pageX, y: event.pageY });
+        setImgPosition({x: event.pageX, y: event.pageY});
     }
 
     function getPrettyNumber(number: number) {
@@ -45,28 +45,28 @@ function RecentlyAddedThings({ recentlyAddedThings }: RecentlyAddedThingsProps) 
 
     return (
         <div
-            onMouseMove={ handleMove }
-            className={ classes.RecentlyAddedThings }>
-            { renderImg() }
-            { recentlyAddedThings.map((item, index) =>
+            onMouseMove={handleMove}
+            className={classes.RecentlyAddedThings}>
+            {renderImg()}
+            {recentlyAddedThings.map((item, index) =>
                 <Link
-                    key={ index }
-                    to={ `/${ item.username }` }>
+                    key={index}
+                    to={`/thing/${item.thingId}`}>
                     <div
-                        className={ classes.Row }
-                        onMouseEnter={ _ => showPreview(true, item.thingFileUrl) }
-                        onMouseLeave={ _ => showPreview(false, item.thingFileUrl) }>
-                        <p className={ classes.U }>
-                            { getThingInfo(
+                        className={classes.Row}
+                        onMouseEnter={_ => showPreview(true, item.thingFileUrl)}
+                        onMouseLeave={_ => showPreview(false, item.thingFileUrl)}>
+                        <p className={classes.U}>
+                            {getThingInfo(
                                 item.thingId,
                                 item.taskOrdinalNumber
-                            ) }
+                            )}
                         </p>
-                        <p className={ classes.N }>@{ item.username }</p>
-                        <p className={ classes.T }>{ item.addingTime }</p>
+                        <p className={classes.N}>@{item.username}</p>
+                        <p className={classes.T}>{item.addingTime}</p>
                     </div>
                 </Link>
-            ) }
+            )}
         </div>
     );
 }

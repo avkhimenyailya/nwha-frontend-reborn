@@ -6,20 +6,19 @@ import {
     FetchBaseQueryError
 } from '@reduxjs/toolkit/dist/query/react';
 
-import { logout, refresh } from './reducers/authSlice';
-import { RootState } from './store';
-import { Mutex } from 'async-mutex';
-import { AuthResponse } from '../models/auth/AuthResponse';
-
-export const remoteBaseURL: string = 'https://api.nwha.grayproject.io';
+import {logout, refresh} from './reducers/authSlice';
+import {RootState} from './store';
+import {Mutex} from 'async-mutex';
+import {AuthResponse} from '../models/auth/AuthResponse';
+import {baseUrl} from "../baseUrl";
 
 const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
-    baseUrl: remoteBaseURL,
-    prepareHeaders: (headers, { getState }) => {
+    baseUrl: baseUrl,
+    prepareHeaders: (headers, {getState}) => {
         const accessToken = (getState() as RootState).authSlice.data?.accessToken;
         headers.set('Content-Type', 'application/json;charset=UTF-8');
-        headers.set('Authorization', `Bearer ${ accessToken || '' }`);
+        headers.set('Authorization', `Bearer ${accessToken || ''}`);
         return headers;
     }
 });
@@ -36,8 +35,8 @@ const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
                 const refreshResult = await baseQuery({
                         url: '/auth/refresh',
                         method: 'post',
-                        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-                        body: { 'refreshToken': refreshToken || '' }
+                        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+                        body: {'refreshToken': refreshToken || ''}
                     },
                     api,
                     extraOptions
@@ -61,7 +60,13 @@ const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 
 export const api = createApi({
     reducerPath: 'api',
-    tagTypes: ['Profile', 'CollectionThings'],
+    tagTypes: [
+        'Profile',
+        'CollectionThings',
+        'ProfileTask',
+        'Thing',
+        'User'
+    ],
     baseQuery: baseQueryWithReAuth,
     endpoints: _ => ({})
 });
