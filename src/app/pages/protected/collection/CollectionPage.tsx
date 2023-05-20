@@ -115,7 +115,7 @@ function CollectionPage(props: CollectionPageProps) {
             { (collectionThingsByIdSuccess && ownerProfileSuccess) && <div className={ classes.ThingList }>
                 <CellList>
                     { collectionThingsById?.things?.map(t =>
-                        <CellSkeleton thing={ t }/>) }
+                        <CellSkeleton thing={ t } />) }
                 </CellList>
             </div> }
         </div>

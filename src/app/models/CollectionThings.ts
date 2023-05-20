@@ -1,4 +1,4 @@
-import { Thing } from './Thing';
+import {Thing} from "./Thing";
 
 export interface CollectionThings {
     id?: number,

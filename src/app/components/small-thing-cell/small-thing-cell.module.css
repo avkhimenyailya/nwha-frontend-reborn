@@ -3,6 +3,7 @@
     width: 89px;
     height: 89px;
     display: flex;
+    justify-content: center;
 }
 
 .SmallThingCellHover {

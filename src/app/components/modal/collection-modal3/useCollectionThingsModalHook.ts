@@ -1,15 +1,10 @@
-import { collectionThingsApi } from '../../../store/api/collectionThingsApi';
-import { profileApi } from '../../../store/api/profileApi';
-import { Thing } from '../../../models/Thing';
-import { useEffect, useState } from 'react';
+import {collectionThingsApi} from '../../../store/api/collectionThingsApi';
+import {profileApi} from '../../../store/api/profileApi';
+import {Thing} from '../../../models/Thing';
+import {useEffect, useState} from 'react';
+import {Profile} from "../../../models/Profile";
 
-export function useCollectionThingsModalHook(thing: Thing) {
-
-    const {
-        data: ownerProfile,
-        isError: ownerProfileIsError,
-        isLoading: ownerProfileIsLoading
-    } = profileApi.useFetchProfileByIdQuery(thing.profileId);
+export function useCollectionThingsModalHook(ownerProfile: Profile, thing: Thing) {
 
     const {
         data: collectionsThings,
@@ -26,8 +21,8 @@ export function useCollectionThingsModalHook(thing: Thing) {
 
     const [checkedCollectionsThingsIds, setCheckedCollectionsThingsIds] = useState(new Set());
 
-    const isError = collectionsThingsIsError || ownerProfileIsError;
-    const isLoading = collectionsThingsIsLoading || ownerProfileIsLoading;
+    const isError = collectionsThingsIsError;
+    const isLoading = collectionsThingsIsLoading;
 
     useEffect(() => {
         setDisableCreateNewCollectionButton(!(newCollectionThingName.length >= 6));
@@ -58,8 +53,6 @@ export function useCollectionThingsModalHook(thing: Thing) {
     return {
         isError,
         isLoading,
-
-        ownerProfile,
         collectionsThings,
 
         putThing,

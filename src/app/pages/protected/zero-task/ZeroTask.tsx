@@ -37,7 +37,6 @@ function ZeroTask() {
     }, [currentProfileTask]);
 
     useEffect(() => {
-        console.log(answers.size);
         setDisableButton(!(answers.size >= 7));
     }, [answers]);
 

@@ -45,3 +45,19 @@ img {
     background: var(--color-select);
     width: max-content;
 }
+
+.highlight {
+    color: var(--bg-select-color);
+    background: var(--color-select);
+    width: max-content;
+}
+
+.link {
+    background: var(--color-select);
+    color: var(--sub-color1);
+    width: max-content;
+}
+
+.link:hover {
+    color: var(--link-hover);
+}

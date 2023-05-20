@@ -1,16 +1,16 @@
 import {useEffect, useState} from "react";
-import {Thing2} from "../../../models/Thing2";
+import {Thing} from "../../../models/Thing";
 import {ProfileTask} from "../../../models/ProfileTask";
 import {Answer} from "../../../models/Answer";
-import {thingApi2} from "../../../store/api/thingApi2";
+import {thingApi} from "../../../store/api/thingApi";
 import {profileTaskApi} from "../../../store/api/profileTaskApi";
 
 export function useProfileTaskModalFutureHook(profileTask: ProfileTask, setModalVisible: (flag: boolean) => void) {
-    const [thingState, setThingState] = useState<Thing2>(profileTask.thing2 ?? {
+    const [thingState, setThingState] = useState<Thing>(profileTask.thing ?? {
         profileTaskId: profileTask.id,
         archived: false,
         removed: false
-    } as Thing2);
+    } as Thing);
 
     const [answers, setAnswers] = useState(new Map<number, Answer>());
 
@@ -20,8 +20,8 @@ export function useProfileTaskModalFutureHook(profileTask: ProfileTask, setModal
         setAnswers(newMap);
     }, [profileTask]);
 
-    const [createThing] = thingApi2.useCreateThing2Mutation();
-    const [updateThing] = thingApi2.useUpdateThing2Mutation();
+    const [createThing] = thingApi.useCreateThingMutation();
+    const [updateThing] = thingApi.useUpdateThingMutation();
     const [updateAnswers] = profileTaskApi.useUpdateAnswersByProfileTaskIdMutation();
 
     function save() {

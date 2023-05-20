@@ -1,117 +1,149 @@
 import React, {useEffect, useState} from 'react';
-import classes from './ThingPage.module.css';
-import {Link, useParams} from 'react-router-dom';
-import {thingApi} from '../../../store/api/thingApi';
-import {profileApi} from '../../../store/api/profileApi';
-import {usePrettyNumber} from '../../../hooks/usePrettyNumber';
-import {profileTaskApi} from '../../../store/api/profileTaskApi';
-import CellList from '../../../components/cell-list/CellList';
-import CellSkeleton from '../../../components/cell-skeleton-reborn/CellSkeleton';
-import Img from '../../../components/primitives/img/Img';
-import StringButton from '../../../components/primitives/buttons/string-button/StringButton';
-import {useAppSelector} from '../../../store/store';
-import CollectionThingsModal3 from '../../../components/modal/collection-modal3/CollectionThingsModal3';
+import classes from './ThingPage.module.scss';
+import {Link, useParams} from "react-router-dom";
+import {thingApi} from "../../../store/api/thingApi";
 import Loading from "../../../components/loading/Loading";
+import {usePrettyNumber} from "../../../hooks/usePrettyNumber";
+import {profileTaskApi} from "../../../store/api/profileTaskApi";
+import {profileApi} from "../../../store/api/profileApi";
+import {Profile} from "../../../models/Profile";
+import Button from "../../../components/primitives/buttons/button /Button";
+import CellSkeleton from "../../../components/cell-skeleton-reborn/CellSkeleton";
+import CellList from "../../../components/cell-list/CellList";
+import Img from "../../../components/img/Img";
+import CollectionThingsModal3 from "../../../components/modal/collection-modal3/CollectionThingsModal3";
+import {useAppSelector} from "../../../store/store";
+import ProfileTaskModalFuture from "../../../components/modal/profile-task-modal-future/ProfileTaskModalFuture";
+import {ProfileTask} from "../../../models/ProfileTask";
+import {Thing} from "../../../models/Thing";
 
 function ThingPage() {
-    const {id} = useParams();
-    const {getPrettyNumber} = usePrettyNumber();
-    const principalProfileId = useAppSelector(state => state.authSlice.data?.profileId);
+    const {id} = useParams()
 
     const {
         data: thing,
-        isSuccess: thingSuccess,
-        isError
-    } = thingApi.useFetchThingByIdQuery(Number(id));
+        isLoading: thingLoading,
+        isError: thingError
+    } = thingApi.useFetchThingByIdQuery(Number(id))
 
     const {
-        data: ownerProfile,
-        isSuccess: ownerProfileSuccess
-    } = profileApi.useFetchProfileByIdQuery(thing?.profileId!, {skip: !thing});
+        data: profileTask,
+        isLoading: profileTaskLoading,
+        isError: profileTaskError
+    } = profileTaskApi.useFetchProfileTaskByIdQuery(thing?.profileTaskId!, {skip: !thing})
 
     const {
-        data: profileTaskByThing,
-        isSuccess: profileTaskByThingSuccess
-    } = profileTaskApi.useFetchProfileTaskByIdQuery(thing?.profileTaskId!, {skip: !thing});
+        data: owner,
+        isLoading: ownerLoading,
+        isError: ownerError
+    } = profileApi.useFetchProfileByIdQuery(profileTask?.profileId, {skip: !profileTask})
 
-    const [trigger, {
-        data: randomThingsByTask,
-        isSuccess: randomThingsByTaskSuccess,
-        isLoading
-    }] = thingApi.useLazyFetchRandomThingQuery();
-
-    const [showProfileTaskModal, setShowProfileTaskModal] = useState(false); // todo
-    const [showCollectionThingModal, setShowCollectionThingModal] = useState(false);
+    const {
+        data: thingByTaskOrdinalNumber,
+        isLoading: thingByTaskOrdinalNumberLoading,
+        isError: thingByTaskOrdinalNumberError
+    } = thingApi.useFetchThingsByTaskIdQuery(profileTask?.task?.id!, {skip: !profileTask})
 
     useEffect(() => {
         window.scrollTo({
             top: 0,
             behavior: "smooth",
         })
-        trigger({limit: 8, taskOrdinalNumber: thing?.taskOrdinalNumber})
-    }, [id, thing?.taskOrdinalNumber, trigger]);
+    }, [id]);
 
-    if (isLoading) return <Loading/>
-    if (isError) return <p>thing not found</p>
+    if (thingLoading || profileTaskLoading || ownerLoading || thingByTaskOrdinalNumberLoading) return <Loading/>
+    if (thingError) return <p>Thing not found</p>
+    if (profileTaskError) return <p>Task not found</p>
+    if (ownerError) return <p>Owner (profile) not found</p>
+    if (thingByTaskOrdinalNumberError) return <p>Thing by task ordinal number not found</p>
+
     return (
-        <div className={classes.ThingPage}>
-            {showCollectionThingModal &&
-                <CollectionThingsModal3 thing={thing!} setModalVisible={setShowCollectionThingModal}/>}
-            <div className={classes.TopContainer}>
-                {thingSuccess && <div className={classes.Image}>
-                    <Img url={thing.fileUrl}/>
-                </div>}
-                {(thingSuccess && profileTaskByThing && ownerProfile) && <div className={classes.ThingInfo}>
-                    <div className={classes.ThingInfoTopContainer}>
-                        <p id={'w'} className={classes.ThingTitle}>
-                            {`${getPrettyNumber(thing.id!)} – ${getPrettyNumber(thing.taskOrdinalNumber!)}`}
-                        </p>
-                        {principalProfileId !== ownerProfile.id &&
-                            <StringButton onClick={() => setShowCollectionThingModal(true)} value={'collect'}/>}
-                    </div>
-                    <p className={classes.TaskDescription}>
-                        {`${profileTaskByThing.task.description.replaceAll('%%%', ' ')}`}
-                    </p>
-                    <p className={classes.ThingDescription}>
-                        {`${thing.description ?? 'no description yet'}`}
-                    </p>
-                    <p id={'w'} className={classes.ThingAddedDate}>
-                        {`date: ${thing.addedDate}`}
-                    </p>
-                    <p id={'w'} className={classes.CountCollectionsByThing}>
-                        {`collected: infinity`}
-                    </p>
-                    <p id={'w'} className={classes.OwnerProfile}>{`owner: `}
-                        <Link to={`/${ownerProfile.username}`}>
-                            <span className={classes.OwnerProfileUsername}>
-                                {`@${ownerProfile.username}`}
-                            </span>
-                        </Link>
-                    </p>
-                </div>}
+        <div className={classes.thing_page}>
+            <div className={classes.thing_page_content}>
+                <Img className={classes.thing_page_content_picture} src={thing!.pictureLink!}/>
+                <LeftContainer
+                    thing={thing!}
+                    profileTask={profileTask!}
+                    owner={owner!}
+                />
             </div>
-            <div className={classes.BottomContainer}>
-                {profileTaskByThingSuccess && <p className={classes.LabelThingList}>
-                    {`/other things for Task ${profileTaskByThing.task.ordinalNumber}`}
-                </p>}
-                {randomThingsByTaskSuccess && <div className={classes.RandomThingsList}>
-                    <CellList>
-                        {randomThingsByTask!
-                            .filter(thing => thing.id !== Number(id))
-                            .map(thing => <CellSkeleton
-                                thing={thing}
-                            />)}
-                        {[...Array(24 - randomThingsByTask!.length)]
-                            .map(_ => <CellSkeleton
-                                extraTitle={'#'}
-                                foreign={true}
-                                lock={true}
-                            />)}
-                    </CellList>
-                </div>}
+            <div className={classes.thing_page_similar_things}>
+                <p className={classes.thing_page_similar_things_label}>
+                    {`/other things for Task ${profileTask?.task.ordinalNumber}`}
+                </p>
+                <CellList>
+                    {thingByTaskOrdinalNumber!
+                        .filter(thing => thing.id !== Number(id))
+                        .map(t =>
+                        <Link to={`/thing/${t.id}`}>
+                            <CellSkeleton
+                                key={t.id}
+                                thing={t}
+                                task={profileTask?.task}
+                            />
+                        </Link>
+                    )}
+                    {[...Array(25 - thingByTaskOrdinalNumber!.length)]
+                        .map((value, index) => <CellSkeleton
+                            key={index + 24}
+                            extraTitle={'#'}
+                            foreign={true}
+                            lock={true}
+                        />)}
+                </CellList>
             </div>
         </div>
-    );
+    )
+}
+
+function LeftContainer(props: { thing: Thing, profileTask: ProfileTask, owner: Profile }) {
+    const {getPrettyNumber} = usePrettyNumber();
+
+    const [colThingsModalVisible, setColThingsModalVisible] = useState(false);
+    const [profileTaskModalVisible, setProfileTaskModalVisible] = useState(false);
+
+    const principalProfileId = useAppSelector(state => state.authSlice.data?.profileId);
+
+    return (
+        <div className={classes.thing_page_content_left_container}>
+            {colThingsModalVisible &&
+                <CollectionThingsModal3
+                    thing={props.profileTask.thing!}
+                    ownerProfile={props.owner}
+                    setModalVisible={setColThingsModalVisible}/>}
+            {profileTaskModalVisible &&
+                <ProfileTaskModalFuture profileTask={props.profileTask} setModalVisible={setProfileTaskModalVisible}/>}
+            <div className={classes.thing_page_content_thing_info}>
+                <p className={[classes.thing_page_content_left_container_thing_info_thing_title, 'highlight'].join(' ')}>
+                    {`${getPrettyNumber(props.profileTask.thing?.id!)} – ${getPrettyNumber(props.profileTask.task.ordinalNumber!)}`}
+                </p>
+                <p className={classes.thing_page_content_left_container_thing_info_task_description}>
+                    {props.profileTask.task.description.replaceAll('%%%', ' ')}
+                </p>
+                <p className={classes.thing_page_content_left_container_thing_info_thing_description}>
+                    {props.profileTask.thing?.description ?? 'no description yet'}
+                </p>
+                <p className={[classes.thing_page_content_left_container_thing_info_thing_add_date, 'highlight'].join(' ')}>
+                    date: {props.profileTask.thing?.addDate}
+                </p>
+                <p className={[classes.thing_page_content_left_container_thing_info_thing_col_amount, 'highlight'].join(' ')}>
+                    collected: {props.thing.amountCollections}
+                </p>
+                <p className={[classes.thing_page_content_left_container_thing_info_thing_owner, 'highlight'].join(' ')}>
+                    {'owner: '}
+                    <Link to={`/${props.owner.username}`}>
+                        <span className="link">@{`${props.owner.username}`}</span>
+                    </Link>
+                </p>
+            </div>
+            <div className={classes.thing_page_content_thing_info_col_button}>
+                {
+                    principalProfileId !== props.owner.id &&
+                    <Button onClick={() => setColThingsModalVisible(true)} value={'collect'}/>
+                }
+            </div>
+        </div>
+    )
 }
 
 export default ThingPage;

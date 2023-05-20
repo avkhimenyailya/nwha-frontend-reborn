@@ -1,1 +1,1 @@
-export const baseUrl = 'https://api.nwha.grayproject.io';
+export const baseUrl = 'http://localhost:8080';

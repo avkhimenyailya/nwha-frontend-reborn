@@ -12,6 +12,8 @@
     --color-select: white;
 
     --bg-modal: rgba(217, 217, 217, 0.8);
+
+    --link-hover: #97C7F2;
 }
 
 [theme="dark"] {
@@ -28,4 +30,6 @@
     --color-select: #1b1b1e;
 
     --bg-modal: rgba(59, 59, 59, 0.8);
+
+    --link-hover: #ffe0a6;
 }

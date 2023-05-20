@@ -2,6 +2,7 @@
     display: grid;
     grid-template-areas: ". . C C C . R R R R R R R R .";
     grid-auto-columns: 88px;
+    margin-bottom: 400px;
 }
 
 .Label {

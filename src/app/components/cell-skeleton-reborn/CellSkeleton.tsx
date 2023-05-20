@@ -1,14 +1,16 @@
 import React, {MouseEventHandler, useState} from 'react';
 import classes from './CellSkeleton.module.css';
 import Svg from '../primitives/svg/Svg';
-import Img from '../primitives/img/Img';
-import {Thing} from '../../models/Thing';
 import {Link} from 'react-router-dom';
 import {useAppSelector} from '../../store/store';
 import {usePrettyNumber} from '../../hooks/usePrettyNumber';
+import {Thing} from "../../models/Thing";
+import Img from "../img/Img";
+import {Task} from "../../models/Task";
 
 interface CellSkeletonProps {
     thing?: Thing;
+    task?: Task;
 
     remark?: string;
     description?: string;
@@ -39,7 +41,7 @@ function CellSkeleton(props: CellSkeletonProps) {
     }
 
     function renderContent() {
-        return props.thing?.fileUrl
+        return props.thing?.pictureLink
             ? renderImg()
             : props.foreign
                 ? renderObliqueLine()
@@ -68,15 +70,13 @@ function CellSkeleton(props: CellSkeletonProps) {
 
     function renderImg() {
         return <Link to={`/thing/${props.thing?.id}`}>
-            <div className={classes.Clickable}>
-                <Img url={props.thing?.fileUrl ?? ''}/>
-            </div>
+            <Img src={props.thing?.pictureLink!}/>
         </Link>;
     }
 
 
     function renderContextMenu() {
-        return props.thing?.fileUrl && <div className={classes.ContextMenu}>
+        return props.thing?.pictureLink && <div className={classes.ContextMenu}>
             {props.contextMenu}
         </div>;
     }
@@ -84,13 +84,16 @@ function CellSkeleton(props: CellSkeletonProps) {
     function renderCellTitle() {
         return <p className={classes.CellTitle}>
             {props.extraTitle
-                ? (<span
-                    style={{color: props.lock ? 'var(--sub-color2)' : 'var(--main-color)'}}>{props.extraTitle}</span>)
-                : (
-                    <span>{`${getPrettyNumber(props.thing?.id!)} – ${getPrettyNumber(props.thing?.taskOrdinalNumber!)}`}</span>
-                )}
-            <span className={classes.Remark}>{props.remark}</span>
+                ?
+                <span style={{color: props.lock ? 'var(--sub-color2)' : 'var(--main-color)'}}>{props.extraTitle}</span>
+                : renderPrettyThingTitle()
+            }
+            {props.remark && <span className={classes.Remark}>{props.remark}</span>}
         </p>;
+    }
+
+    function renderPrettyThingTitle() {
+        return <span>{`${getPrettyNumber(props.thing?.id!)} – ${getPrettyNumber(props.thing?.taskId! - 1)}`}</span>
     }
 
     function renderDescription() {

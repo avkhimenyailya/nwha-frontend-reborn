@@ -60,7 +60,7 @@ function RulesPage(props: RulesPageProps) {
                             </div>
                             <div className={ clasees.PointContent }>
                                 <p>Archive things to research yourself through time (remember <Link to={ '/manifesto' }><span
-                                    style={ { fontStyle: 'italic', textDecoration: 'underline' } }>the tenth rule</span></Link>)
+                                    className="link">the tenth rule</span></Link>)
                                 </p>
                             </div>
                         </div>
@@ -136,10 +136,7 @@ function RulesPage(props: RulesPageProps) {
                             <div className={ clasees.PointContent }>
                                 <p>If you are photographing a place, don't try to make it perfect or put everything in
                                     order. Remember <Link to={ '/manifesto' }><span
-                                        style={ {
-                                            fontStyle: 'italic',
-                                            textDecoration: 'underline'
-                                        } }>the first rule</span></Link>.</p>
+                                        className="link">the first rule</span></Link>.</p>
                             </div>
                         </div>
                         <div className={ clasees.Point }>
@@ -216,10 +213,7 @@ function RulesPage(props: RulesPageProps) {
                             <div className={ clasees.PointContent }>
                                 <p>Observe other people's everyday life in their profiles (remember <Link
                                     to={ '/manifesto' }><span
-                                    style={ {
-                                        fontStyle: 'italic',
-                                        textDecoration: 'underline'
-                                    } }>the sixth rule</span></Link>)</p>
+                                    className="link">the sixth rule</span></Link>)</p>
                             </div>
                         </div>
                         <div className={ clasees.Point }>

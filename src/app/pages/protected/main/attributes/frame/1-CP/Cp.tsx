@@ -1,7 +1,7 @@
 import React from 'react';
 import Frame from '../Frame';
 import { useAppSelector } from '../../../../../../store/store';
-import Img from '../../../../../../components/primitives/img/Img';
+import Img from "../../../../../../components/img/Img";
 
 interface CpProps {
 
@@ -19,7 +19,7 @@ function Cp(props: CpProps) {
             }
             c1={ {
                 title: 'Conductor (C)',
-                img: <Img url={ require(`./1-cp.${ theme }.png`) }/>,
+                img: <Img src={ require(`./1-cp.${ theme }.png`) }/>,
                 text: <p>
                     Your attitude towards things can be compared to a human relationship: you tend to come into close
                     contact with them, establishing not only an emotional connection but also a bodily one: things seem
@@ -32,7 +32,7 @@ function Cp(props: CpProps) {
             } }
             c2={ {
                 title: 'Producer (P)',
-                img: <Img url={ require(`./2-cp.${ theme }.png`) }/>,
+                img: <Img src={ require(`./2-cp.${ theme }.png`) }/>,
                 text: <p>
                     You, not your things, are the centre of your home, while things are only subject to your needs and
                     desires. You don't get emotionally attached to things, you don't give them additional meanings

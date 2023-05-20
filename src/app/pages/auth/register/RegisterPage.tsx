@@ -29,7 +29,7 @@ function RegisterPage() {
 
     return (
         <AuthPageComponent
-            submitValue={'start'}
+            submitValue={'register'}
             usernamePlaceholder={'new nickname'}
             passwordPlaceholder={'new password'}
             attemptAuthorization={attemptAuthorization}

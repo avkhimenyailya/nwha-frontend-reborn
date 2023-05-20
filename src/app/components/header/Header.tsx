@@ -8,6 +8,7 @@ import ThemeButton from './theme-button/ThemeButton';
 import SmallButton from '../primitives/buttons/small-button/SmallButton';
 import ContextMenu from '../contex-menu/ContextMenu';
 import { logout } from '../../store/reducers/authSlice';
+import InfoByHover from "../info-by-hover/InfoByHover";
 
 function Header() {
     const username = useAppSelector(state => state.authSlice.data?.username);
@@ -54,6 +55,7 @@ function Header() {
                     <LogoComponent/>
                 </Link>
                 <div className={ classes.LeftBar }>
+                    <p>beta</p>
                     <ThemeButton/>
                     <div
                         onMouseEnter={ () => setShowProfileContextMenu(true) }

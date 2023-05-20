@@ -1,10 +1,10 @@
-import { thingApi } from '../../../store/api/thingApi';
-import { profileApi } from '../../../store/api/profileApi';
-import { profileTaskApi } from '../../../store/api/profileTaskApi';
-import { collectionThingsApi } from '../../../store/api/collectionThingsApi';
-import { useParams } from 'react-router-dom';
-import { taskApi } from '../../../store/api/taskApi';
-import { useEffect, useState } from 'react';
+import {thingApi} from '../../../store/api/thingApi';
+import {profileApi} from '../../../store/api/profileApi';
+import {profileTaskApi} from '../../../store/api/profileTaskApi';
+import {collectionThingsApi} from '../../../store/api/collectionThingsApi';
+import {useParams} from 'react-router-dom';
+import {taskApi} from '../../../store/api/taskApi';
+import {useEffect, useState} from 'react';
 
 export function useProfileHook() {
     const { username } = useParams();
@@ -32,7 +32,7 @@ export function useProfileHook() {
         data: archivedThings,
         isError: isArchivedThingsError,
         isLoading: isArchivedThingsLoading
-    } = thingApi.useFetchArchivedThingByPrincipalQuery();
+    } = thingApi.useFetchArchivedThingsByPrincipalQuery();
 
     const [updProfileDescription] = profileApi.useUpdateProfileDescriptionMutation();
     const [updProfilePersonalLink] = profileApi.useUpdateProfilePersonalLinkMutation();

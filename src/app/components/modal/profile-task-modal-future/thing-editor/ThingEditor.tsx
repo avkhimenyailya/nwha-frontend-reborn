@@ -1,18 +1,18 @@
 import React, {useRef, useState} from 'react';
 import classes from './ThingEditor.module.css';
-import {Thing2} from "../../../../models/Thing2";
+import {Thing} from "../../../../models/Thing";
 import TextArea from "../../../primitives/fields/text-area/TextArea";
 import SmallButton from "../../../primitives/buttons/small-button/SmallButton";
 import ContextMenu from "../../../contex-menu/ContextMenu";
 import Svg from "../../../primitives/svg/Svg";
 import {usePrettyNumber} from "../../../../hooks/usePrettyNumber";
 import {useAppSelector} from "../../../../store/store";
-import Img from "../../../primitives/img/Img";
-import {thingApi2} from "../../../../store/api/thingApi2";
+import {thingApi} from "../../../../store/api/thingApi";
+import Img from "../../../img/Img";
 
 interface ThingEditorProps {
-    thingState: Thing2,
-    setThingState: (thing: Thing2) => void;
+    thingState: Thing,
+    setThingState: (thing: Thing) => void;
 }
 
 function ThingEditor(props: ThingEditorProps) {
@@ -21,7 +21,7 @@ function ThingEditor(props: ThingEditorProps) {
     const [changeThingMenuVisible, setChangeThingMenuVisible] = useState(false);
     const changeButtonRef = useRef<HTMLDivElement>(null);
 
-    const [updateThing] = thingApi2.useUpdateThing2Mutation();
+    const [updateThing] = thingApi.useUpdateThingMutation();
 
     function changeThing() {
         props.thingState.id
@@ -29,22 +29,22 @@ function ThingEditor(props: ThingEditorProps) {
             : props.setThingState({...props.thingState, pictureLink: undefined})
     }
 
-    function deleteThing(thingState: Thing2) {
+    function deleteThing(thingState: Thing) {
         updateThing({...thingState, removed: true})
         props.setThingState({
             profileTaskId: thingState.profileTaskId,
             archived: false,
             removed: false
-        } as Thing2)
+        } as Thing)
     }
 
-    function archiveThing(thingState: Thing2) {
+    function archiveThing(thingState: Thing) {
         updateThing({...thingState, archived: true})
         props.setThingState({
             profileTaskId: thingState.profileTaskId,
             archived: false,
             removed: false
-        } as Thing2)
+        } as Thing)
     }
 
     function renderFile() {
@@ -57,9 +57,7 @@ function ThingEditor(props: ThingEditorProps) {
     }
 
     function renderFileImg() {
-        return <div className={classes.FileImg}>
-            <Img url={props.thingState.pictureLink}/>
-        </div>;
+        return <Img className={classes.FileImg} src={props.thingState.pictureLink!}/>
     }
 
     function getFileName() {
@@ -99,7 +97,7 @@ function ThingEditor(props: ThingEditorProps) {
             className={classes.ChangeThingMenu}>
             <ContextMenu triggerRef={changeButtonRef} setShowContextMenu={setChangeThingMenuVisible}>
                 <SmallButton value={'delete'} onClick={_ => deleteThing(props.thingState)}/>
-                <SmallButton value={'archive'} onClick={_ => archiveThing(props.thingState)}/>
+                <SmallButton disabled={true} value={'archive'} onClick={_ => archiveThing(props.thingState)}/>
             </ContextMenu>
         </div>;
     }

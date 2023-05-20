@@ -1,11 +1,11 @@
 export interface Thing {
-    id?: number;
-    fileUrl?: string;
+    id?: number,
+    taskId?: number;
+    profileTaskId: number;
+    pictureLink?: string;
     description?: string;
-    archived?: boolean;
-    removed?: boolean;
-    profileId?: number;
-    profileTaskId?: number;
-    addedDate?: string;
-    taskOrdinalNumber?: number;
+    archived: boolean;
+    removed: boolean;
+    addDate?: string;
+    amountCollections?: number;
 }

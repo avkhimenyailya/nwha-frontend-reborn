@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import classes from './RecentlyAddedThings.module.css';
-import {RecentlyAddedThing} from '../../models/RecentlyAddedThing';
+import {RecentlyThing} from '../../models/RecentlyThing';
 import {Link} from 'react-router-dom';
+import Img from "../img/Img";
 
 interface RecentlyAddedThingsProps {
-    recentlyAddedThings: RecentlyAddedThing[];
+    recentlyThings: RecentlyThing[];
 }
 
-function RecentlyAddedThings({recentlyAddedThings}: RecentlyAddedThingsProps) {
+function RecentlyAddedThings({recentlyThings}: RecentlyAddedThingsProps) {
     const [imgVisible, setImgVisible] = useState(false);
     const [imgUrl, setImgUrl] = useState('');
     const [imgPosition, setImgPosition] = useState({x: 0, y: 0});
@@ -22,12 +23,9 @@ function RecentlyAddedThings({recentlyAddedThings}: RecentlyAddedThingsProps) {
             top: imgPosition.y + 20 + 'px',
             left: imgPosition.x + 20 + 'px'
         };
-        return imgVisible && <img
-            alt={'?'}
-            src={imgUrl}
-            style={style}
-            className={classes.Preview}
-        />;
+        return imgVisible && <div className={classes.Preview} style={style}>
+            <Img src={imgUrl}/>
+        </div>
     }
 
     function handleMove(event: React.MouseEvent<HTMLDivElement>) {
@@ -48,14 +46,14 @@ function RecentlyAddedThings({recentlyAddedThings}: RecentlyAddedThingsProps) {
             onMouseMove={handleMove}
             className={classes.RecentlyAddedThings}>
             {renderImg()}
-            {recentlyAddedThings.map((item, index) =>
+            {recentlyThings.map((item, index) =>
                 <Link
                     key={index}
                     to={`/thing/${item.thingId}`}>
                     <div
                         className={classes.Row}
-                        onMouseEnter={_ => showPreview(true, item.thingFileUrl)}
-                        onMouseLeave={_ => showPreview(false, item.thingFileUrl)}>
+                        onMouseEnter={_ => showPreview(true, item.pictureLink)}
+                        onMouseLeave={_ => showPreview(false, item.pictureLink)}>
                         <p className={classes.U}>
                             {getThingInfo(
                                 item.thingId,
@@ -63,7 +61,7 @@ function RecentlyAddedThings({recentlyAddedThings}: RecentlyAddedThingsProps) {
                             )}
                         </p>
                         <p className={classes.N}>@{item.username}</p>
-                        <p className={classes.T}>{item.addingTime}</p>
+                        <p className={classes.T}>{item.prettyTime}</p>
                     </div>
                 </Link>
             )}

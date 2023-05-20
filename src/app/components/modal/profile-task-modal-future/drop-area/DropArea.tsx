@@ -1,13 +1,13 @@
 import React, {useCallback} from 'react';
 import classes from './DropArea.module.css';
 import {useDropzone} from 'react-dropzone';
-import {Thing2} from "../../../../models/Thing2";
+import {Thing} from "../../../../models/Thing";
 import {useUploadPictureHook} from "./useUploadPictureHook";
 import FileLoadBar from "./file-loadbar/FileLoadBar";
 
 interface DropAreaProps {
-    thingState: Thing2,
-    setThingState: (thing: Thing2) => void;
+    thingState: Thing,
+    setThingState: (thing: Thing) => void;
 }
 
 function DropArea(props: DropAreaProps) {

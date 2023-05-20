@@ -1,10 +1,10 @@
 import axios from "axios";
 import {useAppSelector} from "../../../../store/store";
 import {useState} from "react";
-import {Thing2} from "../../../../models/Thing2";
+import {Thing} from "../../../../models/Thing";
 import {baseUrl} from "../../../../baseUrl";
 
-export function useUploadPictureHook(thingState: Thing2, setThingState: (thing: Thing2) => void) {
+export function useUploadPictureHook(thingState: Thing, setThingState: (thing: Thing) => void) {
     const accessToken = useAppSelector(state => state.authSlice.data?.accessToken);
     const [progress, setProgress] = useState<number>(0);
     const [isLoading, setLoading] = useState(false);

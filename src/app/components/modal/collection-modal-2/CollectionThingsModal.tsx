@@ -6,8 +6,8 @@ import { collectionThingsApi } from '../../../store/api/collectionThingsApi';
 import Button from '../../primitives/buttons/button /Button';
 import Input from '../../primitives/fields/input/Input';
 import { CollectionThings } from '../../../models/CollectionThings';
-import Img from '../../primitives/img/Img';
 import { ProfileTask } from '../../../models/ProfileTask';
+import Img from "../../img/Img";
 
 export interface CollectionThingsWrap {
     collectionThings: CollectionThings;
@@ -80,7 +80,7 @@ function CollectionThingsModal(props: CollectionThingsModalProps) {
             { ownerThingSuccess &&
                 <>
                     <div className={ classes.FileImg }>
-                        <Img url={ props.profileTask.thing?.fileUrl! }/>
+                        <Img src={props.profileTask.thing?.pictureLink!}/>
                     </div>
                     <div className={ classes.FileName }>
                         <p>{ props.profileTask.thing?.id }</p>

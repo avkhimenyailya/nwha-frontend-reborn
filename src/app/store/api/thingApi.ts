@@ -1,32 +1,30 @@
-import { api } from '../api';
-import { Thing } from '../../models/Thing';
-import { RecentlyAddedThing } from '../../models/RecentlyAddedThing';
+import {api} from '../api';
+import {Thing} from "../../models/Thing";
+import {RecentlyThing} from "../../models/RecentlyThing";
 
 export const thingApi = api.injectEndpoints({
     endpoints: build => ({
-        fetchArchivedThingByPrincipal: build.query<Thing[], void>({
-            providesTags: ['Thing'],
-            query: () => ({
-                url: `/profile/archivedThings`
-            })
-        }),
-        fetchRandomThing: build.query<Thing[], { limit: number; taskOrdinalNumber?: number }>({
-            query: ({ limit, taskOrdinalNumber }) => ({
-                url: `/thing/random`,
-                params: { limit, taskOrdinalNumber }
-            })
-        }),
         fetchThingById: build.query<Thing, number>({
             query: (id: number) => ({
-                url: `/thing/${ id }`
+                url: `/thing/${id}`
             })
         }),
-        fetchRecentlyAddedThings: build.query<RecentlyAddedThing[], void>({
+        fetchArchivedThingsByPrincipal: build.query<Thing[], void>({
             query: () => ({
-                url: '/thing/recently'
+                url: `/thing/archived`
             })
         }),
-        create: build.mutation<Thing, Thing | null>({
+        fetchRecentlyThings: build.query<RecentlyThing[], void>({
+            query: () => ({
+                url: `/thing/recently`
+            })
+        }),
+        fetchThingsByTaskId: build.query<Thing[], number>({
+            query: (taskId: number) => ({
+                url: `/thing/task/${taskId}`
+            })
+        }),
+        createThing: build.mutation<Thing, Thing | null>({
             invalidatesTags: ['ProfileTask'],
             query: (newThing: Thing) => ({
                 url: '/thing',
@@ -42,19 +40,5 @@ export const thingApi = api.injectEndpoints({
                 body: thing
             })
         }),
-        deleteThingById: build.mutation<void, number>({
-            invalidatesTags: ['ProfileTask'],
-            query: (id: number) => ({
-                url: `/thing/${ id }`,
-                method: 'DELETE'
-            })
-        }),
-        archiveThingById: build.mutation<void, number>({
-            invalidatesTags: ['Thing', 'ProfileTask'],
-            query: (id: number) => ({
-                url: `/thing/${ id }`,
-                method: 'put'
-            })
-        })
     })
 });
