@@ -1,6 +1,6 @@
 import classes from './App.module.css';
-import {Route, Routes} from 'react-router-dom';
-import {useEffect} from 'react';
+import {Route, Routes, useLocation} from 'react-router-dom';
+import {useEffect, useLayoutEffect} from 'react';
 import {useAppSelector} from './store/store';
 
 import LoginPage from './pages/auth/login/LoginPage';
@@ -40,6 +40,7 @@ function App() {
                 <Route path={'login'} element={<LoginPage/>}/>
                 <Route path={'register'} element={<RegisterPage/>}/>
                 <Route path={'invite/:invCode'} element={<InvPage/>}/>
+
                 <Route element={<Protected/>}>
                     <Route path={'/:username/*'} element={<ProfilePage/>}/>
                     <Route path={'/'} element={<MainPage/>}>

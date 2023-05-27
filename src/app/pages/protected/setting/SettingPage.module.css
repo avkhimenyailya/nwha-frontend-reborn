@@ -1,12 +1,9 @@
 .SettingPage {
-    margin-top: 6px;
 }
 
 .SettingContainer {
-    height: calc(100vh - (64px + 20px));
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     max-width: 528px;
 }
 

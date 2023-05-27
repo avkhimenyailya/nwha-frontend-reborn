@@ -1,13 +1,13 @@
 .ZeroTask {
     display: flex;
     justify-content: center;
+    margin-bottom: 100px;
 }
 
 .Content {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 200px;
     flex: 1;
 
     gap: 100px 0;

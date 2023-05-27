@@ -4,6 +4,8 @@ import AuthFormComponent from '../../components/auth-form/AuthForm.component';
 import classes from './AuthPage.module.css';
 import Loading from '../../components/loading/Loading';
 import {useAppSelector} from '../../store/store';
+import StringButton from "../../components/primitives/buttons/string-button/StringButton";
+import {useLocation, useNavigate} from "react-router-dom";
 
 interface AuthPageProps {
     submitValue: string;
@@ -23,6 +25,9 @@ function AuthPageComponent(props: AuthPageProps) {
         setLoading(status === 'loading');
     }, [status]);
 
+    const navigate = useNavigate();
+    const location = useLocation();
+
     function handleClick() {
         props.attemptAuthorization(usernameValue, passwordValue);
     }
@@ -40,6 +45,14 @@ function AuthPageComponent(props: AuthPageProps) {
                 usernamePlaceholder={props.usernamePlaceholder}
                 passwordPlaceholder={props.passwordPlaceholder}
             />
+            <div className={classes.GoTo}>
+                <p className={classes.Or}>{'or'}</p>
+                {
+                    location.pathname === '/login'
+                        ? <StringButton value={'register'} onClick={() => navigate('/register')}/>
+                        : <StringButton value={'login'} onClick={() => navigate('/login')}/>
+                }
+            </div>
         </div>;
     }
 

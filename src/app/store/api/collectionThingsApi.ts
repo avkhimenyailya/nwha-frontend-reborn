@@ -32,14 +32,14 @@ export const collectionThingsApi = api.injectEndpoints({
             })
         }),
         putThingInCollectionThings: build.mutation<CollectionThings, { collectionId: number, thingId: number }>({
-            invalidatesTags: ['CollectionThings'],
+            invalidatesTags: ['CollectionThings', 'Thing'],
             query: ({ collectionId, thingId }) => ({
                 method: 'put',
                 url: `/collectionThings/${ collectionId }/put/${ thingId }`
             })
         }),
         removeThingInCollectionThings: build.mutation<CollectionThings, { collectionId: number, thingId: number }>({
-            invalidatesTags: ['CollectionThings'],
+            invalidatesTags: ['CollectionThings', 'Thing'],
             query: ({ collectionId, thingId }) => ({
                 method: 'put',
                 url: `/collectionThings/${ collectionId }/rm/${ thingId }`

@@ -1,9 +1,9 @@
 .CollectionsPanel {
+    margin-bottom: 40px;
     display: grid;
     grid-template-areas:
     "I I I I"
     "L L L L";
-    margin-bottom: 200px;
 }
 
 .EmptyList {

@@ -1,0 +1,64 @@
+.RulesPage {
+  display: grid;
+  grid-template-areas:
+    ". . . . C C C C C C C C C . .";
+  grid-auto-columns: 88px;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.Content {
+  grid-area: C;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  max-width: 968px;
+  z-index: 2;
+  margin-bottom: 400px;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    margin-top: 36px;
+    margin-bottom: 65px;
+  }
+}
+
+.Paragraph {
+
+}
+
+.Header {
+  margin-bottom: 28px;
+}
+
+
+.Header * {
+  font-size: 28px;
+  line-height: 132%;
+}
+
+.Points {
+  flex-direction: column;
+  display: flex;
+  gap: 8px;
+}
+
+.Point {
+  display: flex;
+}
+
+.Number {
+  margin-right: 72px;
+
+  @media screen and (max-width: 768px) {
+    margin-right: 45px;
+  }
+}
+
+.PointContent {
+  max-width: 710px;
+}

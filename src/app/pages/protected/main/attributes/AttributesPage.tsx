@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import classes from './Attributes.module.css';
+import classes from './Attributes.module.scss';
 import Menu from '../../../../components/menu/Menu';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 

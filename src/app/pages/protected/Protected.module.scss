@@ -1,0 +1,27 @@
+.ProtectedPage {
+    min-height: 100%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .Header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+
+    }
+
+    .Content {
+        width: 100%;
+        padding: 0 16px;
+        flex: 1 1 auto;
+        max-width: 1440px;
+
+        &:nth-child(2) {
+            padding-top: 68px;
+            scroll-margin: 68px;
+        }
+    }
+}

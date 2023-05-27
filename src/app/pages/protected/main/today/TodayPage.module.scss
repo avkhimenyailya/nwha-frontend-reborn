@@ -1,0 +1,77 @@
+.today_page {
+  .thing_cell_mobile {
+    display: flex;
+
+    &_info {
+      flex: 1;
+      display: flex;
+      margin-left: 16px;
+      flex-direction: column;
+      justify-content: center;
+
+      &_bottom {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  .desktop {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: 1fr;
+    margin-bottom: 400px;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+
+    &_random_thing_of_day {
+      grid-column-start: 3;
+      grid-column-end: 6;
+
+      &_label {
+        top: 68px;
+        position: sticky;
+        margin-bottom: 6px;
+        color: var(--sub-color1);
+      }
+
+      & > :nth-child(2) {
+        top: 68 + 24 + 6px;
+        position: sticky;
+      }
+    }
+
+    &_list_recently {
+      grid-column-start: 7;
+      grid-column-end: 14;
+
+      &_label {
+        color: var(--sub-color1);
+      }
+    }
+  }
+
+  .mobile {
+    width: 100%;
+    margin-bottom: 40px;
+
+    &_list_recently {
+      gap: 12px;
+      display: flex;
+      flex-direction: column;
+
+      &_random_thing_of_day {
+        top: 58px;
+        height: 130px;
+        display: flex;
+        position: sticky;
+        align-items: center;
+        background: var(--bg-color);
+
+        & > * {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

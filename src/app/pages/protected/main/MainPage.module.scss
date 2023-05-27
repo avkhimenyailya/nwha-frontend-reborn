@@ -1,0 +1,28 @@
+.main_page {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+
+  .menu {
+    & * {
+      top: 68px;
+      position: sticky;
+
+      @media screen and (max-width: 768px) {
+        position: initial;
+      }
+    }
+  }
+
+  .content {
+    grid-column-end: span 14;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+

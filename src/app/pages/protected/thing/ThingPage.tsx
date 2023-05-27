@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import classes from './ThingPage.module.scss';
-import {Link, useParams} from "react-router-dom";
+import {Link, useLocation, useParams} from "react-router-dom";
 import {thingApi} from "../../../store/api/thingApi";
 import Loading from "../../../components/loading/Loading";
 import {usePrettyNumber} from "../../../hooks/usePrettyNumber";
@@ -19,6 +19,7 @@ import {Thing} from "../../../models/Thing";
 
 function ThingPage() {
     const {id} = useParams()
+    const principalProfileId = useAppSelector(state => state.authSlice.data?.profileId);
 
     const {
         data: thing,
@@ -73,16 +74,14 @@ function ThingPage() {
                 </p>
                 <CellList>
                     {thingByTaskOrdinalNumber!
-                        .filter(thing => thing.id !== Number(id))
+                        .filter(t => t.profileTaskId !== principalProfileId)
                         .map(t =>
-                        <Link to={`/thing/${t.id}`}>
                             <CellSkeleton
                                 key={t.id}
                                 thing={t}
                                 task={profileTask?.task}
                             />
-                        </Link>
-                    )}
+                        )}
                     {[...Array(25 - thingByTaskOrdinalNumber!.length)]
                         .map((value, index) => <CellSkeleton
                             key={index + 24}

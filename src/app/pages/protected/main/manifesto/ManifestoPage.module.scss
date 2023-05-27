@@ -2,12 +2,23 @@
     display: grid;
     grid-template-areas: ". . . . C C C C C C C C C C .";
     grid-auto-columns: 88px;
+    
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .Content {
     grid-area: C;
     display: flex;
-    margin-bottom: 400px;
+
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        margin-top: 36px;
+        margin-bottom: 65px;
+    }
 }
 
 .Column {
@@ -21,6 +32,11 @@
 
     grid-template-areas: "N T T T T";
     grid-auto-columns: 88px;
+
+    @media screen and (max-width: 768px) {
+        grid-template-areas: "N T T T T T";
+        grid-auto-columns: 61px;
+    }
 }
 
 .Number {

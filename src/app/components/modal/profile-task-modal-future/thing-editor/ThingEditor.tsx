@@ -97,7 +97,7 @@ function ThingEditor(props: ThingEditorProps) {
             className={classes.ChangeThingMenu}>
             <ContextMenu triggerRef={changeButtonRef} setShowContextMenu={setChangeThingMenuVisible}>
                 <SmallButton value={'delete'} onClick={_ => deleteThing(props.thingState)}/>
-                <SmallButton disabled={true} value={'archive'} onClick={_ => archiveThing(props.thingState)}/>
+                <SmallButton value={'archive'} onClick={_ => archiveThing(props.thingState)}/>
             </ContextMenu>
         </div>;
     }

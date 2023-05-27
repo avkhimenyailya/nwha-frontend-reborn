@@ -1,16 +1,22 @@
 import React from 'react';
-import classes from './Protected.module.css';
+import classes from './Protected.module.scss';
 import Header from '../../components/header/Header';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAppSelector } from '../../store/store';
+import {Navigate, Outlet} from 'react-router-dom';
+import Footer from "../../components/footer/Footer";
+import {useAuthHook} from "../../hooks/useAuthHook";
 
 function Protected() {
-    return !useAppSelector(state => state.authSlice.data?.accessToken)
-        ? <Navigate to={ '/login' }/>
-        : <div className={ classes.Protected }>
-            <Header/>
-            <Outlet/>
-        </div>;
+    const {isAuth} = useAuthHook()
+
+    return isAuth ?
+        <div className={classes.ProtectedPage}>
+            <Header className={classes.Header}/>
+            <div className={classes.Content}>
+                <Outlet/>
+            </div>
+            <Footer/>
+        </div> :
+        <Navigate to={'/login'}/>
 }
 
 export default Protected;

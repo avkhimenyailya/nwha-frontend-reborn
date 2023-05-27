@@ -1,0 +1,15 @@
+.archive_panel {
+
+  .archive_thing_by_task_list {
+    margin-bottom: 40px;
+
+    .label {
+      margin-bottom: 10px;
+
+      @media screen and (max-width: 768px) {
+        width: 177 + 177px;
+        margin-left: 2px;
+      }
+    }
+  }
+}

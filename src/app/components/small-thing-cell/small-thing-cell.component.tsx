@@ -14,7 +14,7 @@ function SmallThingCellComponent(props: SmallThingCellComponentProps) {
         <div className={classes.SmallThingCell + (props.hover ? ' ' + classes.SmallThingCellHover : '')}>
             {
                 props.thing &&
-                <Img src={props.thing.pictureLink!}/>
+                <Img className={classes.Img} src={props.thing.pictureLink!}/>
             }
         </div>
     );

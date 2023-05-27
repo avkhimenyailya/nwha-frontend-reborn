@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Frame from '../Frame';
-import { useAppSelector } from '../../../../../../store/store';
+import {useAppSelector} from '../../../../../../store/store';
 import Img from "../../../../../../components/img/Img";
 
 interface CpProps {
@@ -9,17 +9,31 @@ interface CpProps {
 
 function Cp(props: CpProps) {
     const theme = useAppSelector(state => state.themeSlice.theme);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        function handleResize() {
+            setIsMobile(window.innerWidth <= 768);
+        }
+
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     return (
         <Frame
             description={
                 <p>
-                    { 'The Conductor / Producer line indicates the role\narrangement in your relationship with things and\nthe nature of your relationship with your home' }
+                    {!isMobile ?
+                        'The Conductor / Producer line indicates the role\narrangement in your relationship with things and\nthe nature of your relationship with your home' :
+                        'The Conductor / Producer line indicates the role arrangement in your relationship with things and\nthe nature of your relationship with your home'}
                 </p>
             }
-            c1={ {
+            c1={{
                 title: 'Conductor (C)',
-                img: <Img src={ require(`./1-cp.${ theme }.png`) }/>,
+                img: <Img src={require(`./1-cp.${theme}.png`)}/>,
                 text: <p>
                     Your attitude towards things can be compared to a human relationship: you tend to come into close
                     contact with them, establishing not only an emotional connection but also a bodily one: things seem
@@ -29,10 +43,10 @@ function Cp(props: CpProps) {
                     charisma. Each thing has a role or ritual attached to it, each thing has a meaning that only you can
                     understand.
                 </p>
-            } }
-            c2={ {
+            }}
+            c2={{
                 title: 'Producer (P)',
-                img: <Img src={ require(`./2-cp.${ theme }.png`) }/>,
+                img: <Img src={require(`./2-cp.${theme}.png`)}/>,
                 text: <p>
                     You, not your things, are the centre of your home, while things are only subject to your needs and
                     desires. You don't get emotionally attached to things, you don't give them additional meanings
@@ -42,7 +56,7 @@ function Cp(props: CpProps) {
                     home lacks a clear structure: rooms and things are not assigned roles, everyday rituals are not
                     attached to place and time.
                 </p>
-            } }
+            }}
         />
     );
 }

@@ -16,6 +16,12 @@ export const thingApi = api.injectEndpoints({
                 url: `/thing/archived`
             })
         }),
+        fetchRandomThingOfDay: build.query<RecentlyThing, void>({
+            providesTags: ['Thing'],
+            query: () => ({
+                url: `/thing/randomThingOfDay`
+            })
+        }),
         fetchRecentlyThings: build.query<RecentlyThing[], void>({
             providesTags: ['Thing'],
             query: () => ({

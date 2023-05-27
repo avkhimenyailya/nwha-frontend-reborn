@@ -1,0 +1,64 @@
+.Frame {
+  display: grid;
+  grid-template-areas:
+    "D D D D D D D D D"
+    "C C C C C C C C C";
+  grid-auto-columns: 88px;
+  grid-gap: 32px;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    margin-top: 36px;
+    margin-bottom: 40px;
+  }
+}
+
+.Description {
+  grid-area: D;
+  height: 74px;
+
+  @media screen and (max-width: 768px) {
+    height: initial;
+  }
+}
+
+.Content {
+  grid-area: C;
+  display: flex;
+  gap: 88px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    width: min-content;
+    margin-top: 36px;
+    margin-bottom: 40px;
+  }
+}
+
+.Col {
+  grid-area: c1;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.Title {
+  font-size: 28px;
+  line-height: 132%;
+  /* identical to box height, or 37px */
+
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.Img {
+  display: flex;
+  width: 352px;
+  height: 240px;
+  margin-bottom: 32px;
+}
+
+.Text {
+  max-width: 351px;
+}

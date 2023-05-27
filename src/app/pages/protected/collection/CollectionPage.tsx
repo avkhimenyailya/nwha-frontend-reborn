@@ -1,20 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import classes from './CollectionPage.module.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import CellList from '../../../components/cell-list/CellList';
 import CellSkeleton from '../../../components/cell-skeleton-reborn/CellSkeleton';
-import { profileApi } from '../../../store/api/profileApi';
-import { useAppSelector } from '../../../store/store';
+import {profileApi} from '../../../store/api/profileApi';
+import {useAppSelector} from '../../../store/store';
 import Input from '../../../components/primitives/fields/input/Input';
-import { collectionThingsApi } from '../../../store/api/collectionThingsApi';
+import {collectionThingsApi} from '../../../store/api/collectionThingsApi';
+import ContextMenu from "../../../components/contex-menu/ContextMenu";
+import SmallButton from "../../../components/primitives/buttons/small-button/SmallButton";
 
 interface CollectionPageProps {
 
 }
 
 function CollectionPage(props: CollectionPageProps) {
-    const { id } = useParams();
-    const profileId = useAppSelector(state => state.authSlice.data?.profileId);
+    const {id} = useParams();
+    const principalProfileId = useAppSelector(state => state.authSlice.data?.profileId);
 
     const [collectionName, setCollectionName] = useState('');
     const [disableChangeName, setDisableChangeName] = useState(true);
@@ -28,14 +30,14 @@ function CollectionPage(props: CollectionPageProps) {
         isSuccess: collectionThingsByIdSuccess
     }] = collectionThingsApi.useLazyFetchCollectionThingsByIdQuery();
 
-
     const {
         data: ownerProfile,
         isSuccess: ownerProfileSuccess
-    } = profileApi.useFetchProfileByIdQuery(collectionThingsById?.profileId, { skip: !collectionThingsById });
+    } = profileApi.useFetchProfileByIdQuery(collectionThingsById?.profileId, {skip: !collectionThingsById});
 
     const [deleteCollectionThingsById] = collectionThingsApi.useDeleteCollectionThingsByIdMutation();
     const [updateNameCollectionThingsById] = collectionThingsApi.useUpdateCollectionThingNameByIdMutation();
+    const [removeThingInCollectionThings] = collectionThingsApi.useRemoveThingInCollectionThingsMutation();
 
     useEffect(() => {
         trigger(Number(id));
@@ -68,59 +70,66 @@ function CollectionPage(props: CollectionPageProps) {
     }
 
     return (
-        <div className={ classes.CollectionPage }>
-            { (collectionThingsByIdSuccess && ownerProfileSuccess) && <div className={ classes.Interface }>
-                <div className={ classes.Name }>
-                    <p>{ `@${ ownerProfile.username } /` }</p>
-                    <div style={ {} }>
+        <div className={classes.CollectionPage}>
+            {(collectionThingsByIdSuccess && ownerProfileSuccess) && <div className={classes.Interface}>
+                <div className={classes.Name}>
+                    <p>{`@${ownerProfile.username} /`}</p>
+                    <div style={{}}>
                         <Input
-                            ref={ inputNameRef }
-                            placeholder={ 'min 6 chars' }
-                            disabled={ disableChangeName }
-                            disableStyle={ true }
-                            value={ collectionName }
-                            setValue={ setCollectionName }
-                            onKeyDown={ event => {
+                            ref={inputNameRef}
+                            placeholder={'min 6 chars'}
+                            disabled={disableChangeName}
+                            disableStyle={true}
+                            value={collectionName}
+                            setValue={setCollectionName}
+                            onKeyDown={event => {
                                 if (event.key === 'Enter') {
                                     updateName(collectionThingsById!.id!);
                                 }
-                            } }
-                            onBlur={ _ => updateName(collectionThingsById!.id!) }
+                            }}
+                            onBlur={_ => updateName(collectionThingsById!.id!)}
                         />
                     </div>
                 </div>
-                { (ownerProfile.id === profileId) &&
-                    <p className={ classes.ChangeNameButton } onClick={ changeName }>
-                        { '[change name]' }
-                    </p> }
-                <p className={ classes.CountThings }>
-                    { `${ collectionThingsById!.things.length } things` }
+                {(ownerProfile.id === principalProfileId) &&
+                    <p className={classes.ChangeNameButton} onClick={changeName}>
+                        {'[change name]'}
+                    </p>}
+                <p className={classes.CountThings}>
+                    {`${collectionThingsById!.things.length} things`}
                 </p>
-                { (ownerProfile.id === profileId) && <p
-                    className={ classes.DeleteCollectionButton }
-                    onClick={ _ => {
+                {(ownerProfile.id === principalProfileId) && <p
+                    className={classes.DeleteCollectionButton}
+                    onClick={_ => {
                         const confirm: boolean = window.confirm('Вы уверены, что хотите удалить коллекцию?');
                         if (confirm) {
                             deleteCollectionThingsById(collectionThingsById!.id!);
-                            navigate(`/${ ownerProfile.username }/collections`);
+                            navigate(`/${ownerProfile.username}/collections`);
                         }
-                    } }
+                    }}
                 >
-                    { '[delete collection]' }
+                    {'[delete collection]'}
                 </p>
                 }
             </div>
             }
 
-            { (collectionThingsByIdSuccess && ownerProfileSuccess) && <div className={ classes.ThingList }>
+            {(collectionThingsByIdSuccess && ownerProfileSuccess) && <div className={classes.ThingList}>
                 <CellList>
-                    { collectionThingsById?.things?.map(t =>
-                        <CellSkeleton thing={ t } />) }
+                    {collectionThingsById?.things?.map(t =>
+                        <CellSkeleton thing={t} contextMenu={
+                            principalProfileId !== t.profileId && <ContextMenu>
+                            <SmallButton onClick={() => {
+                                removeThingInCollectionThings({
+                                    collectionId: collectionThingsById.id!,
+                                    thingId: t.id!
+                                })
+                            }} value={'delete'}/>
+                        </ContextMenu>}/>)}
                 </CellList>
-            </div> }
+            </div>}
         </div>
-    )
-        ;
+    );
 }
 
 export default CollectionPage;

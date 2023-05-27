@@ -15,6 +15,7 @@
         grid-template-areas:
         "T T T T";
         justify-content: center;
+        margin-bottom: 40px;
     }
 
     .CellList > :not(:nth-child(8n + 1)) {

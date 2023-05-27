@@ -1,0 +1,32 @@
+.AttributesPage {
+  display: grid;
+  grid-template-areas: ". M M . C C C C C C C C C . .";
+  grid-auto-columns: 88px;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.Menu {
+  grid-area: M;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 36px;
+  }
+}
+
+.Menu > * {
+  position: sticky;
+  top: 68px;
+
+  @media screen and (max-width: 768px) {
+    position: initial;
+  }
+}
+
+.Content {
+  grid-area: C;
+  z-index: 2;
+}

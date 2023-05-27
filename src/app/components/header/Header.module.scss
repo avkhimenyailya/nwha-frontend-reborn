@@ -1,0 +1,51 @@
+.Header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+
+  min-width: auto;
+  height: 58px;
+
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+
+  background-color: var(--bg-color);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.T {
+  background: none;
+}
+
+.Bar {
+  max-width: 1440px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 16px;
+}
+
+.LeftBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.LetterButton {
+  position: relative;
+}
+
+.ProfileMenu {
+  position: absolute;
+  right: 0;
+  top: 28px;
+  z-index: 9999
+}

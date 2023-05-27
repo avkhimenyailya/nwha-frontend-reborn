@@ -1,0 +1,48 @@
+.Footer {
+  width: 100%;
+  height: 58px;
+  display: flex;
+  justify-content: center;
+
+  .Bar {
+    width: 100%;
+    max-width: 1440px;
+
+    padding: 15px 16px;
+
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+      height: 58 * 2px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+      gap: 10px;
+      padding-bottom: 40px;
+    }
+  }
+
+  .Title {
+    grid-column: span 5;
+  }
+
+  .GitHubLink {
+
+  }
+
+  .InstagramLink {
+
+  }
+
+  .Version {
+    justify-self: end;
+    grid-column: span 9;
+  }
+}

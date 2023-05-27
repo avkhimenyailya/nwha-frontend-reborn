@@ -1,6 +1,17 @@
 .AuthPageComponent {
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
+    gap: 36px;
     height: 100vh;
+}
+
+.GoTo {
+    display: flex;
+}
+
+.Or {
+    color: var(--sub-color1);
+    margin-right: 4px;
 }
